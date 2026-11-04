@@ -269,3 +269,7 @@ The live Overview is a **read/write projection of the existing `weekweave.v2` br
 ### V2.3 acceptance
 
 In a week containing an 11h busy work shift and a 90m focus block with a 45m unfinished task: the selected day's dashboard must show 11h busy, 90m focus capacity, 45m committed and 45m unbooked. Marking the task Done must free 45m immediately without deleting its completion history. The Overview must display accurate values after refresh and switching between weeks; the Tasks and Planner views must continue to function.
+
+### Workday-aware Overview (v2.4)
+
+When the selected day contains a **Busy Work** shift and no Focus blocks, the Overview must show the actual shift start and end time, occupied hours, and a workday-oriented message rather than suggesting an unassigned Inbox task as an immediate priority. Off-hours are not automatically free task capacity. Where there is another Focus block later in the selected week, the Overview may offer a link to that next window. The existing weekly task metrics, timetable, and saved data remain unchanged. A day containing both Busy Work and Focus blocks retains the ordinary focus-capacity display.
