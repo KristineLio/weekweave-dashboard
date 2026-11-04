@@ -6,7 +6,7 @@ Create a completely **new** VibeFlow project named **Weekweave** for the SkyCast
 
 **One-line value:** Weekweave turns a meaningful goal into a realistic weekly block, an achievable task, and evidence of progress — without subscribing to a separate premium planner.
 
-**Visual direction:** Original, calm, editorial dashboard. Forest green `#294b48`, coral `#ed725f`, mist `#e5efe9`, warm off-white `#f8f8f5`, bright cards, small warm labels, elegant typography, substantial whitespace, accessible focus states. A unique aesthetic; do not copy Sunsama's layout, fonts, icons or logo. Reference the five local HTML/CSS prototype pages for the intended composition. **Use the current v3.0 app as the entry point:** clear capacity budget first, one priority second, Plan → Do → Learn workflow third, supporting habits/directions after. On phones, navigation labels must always be visible.
+**Visual direction:** Original, calm, editorial dashboard. Forest green `#294b48`, coral `#ed725f`, mist `#e5efe9`, warm off-white `#f8f8f5`, bright cards, small warm labels, elegant typography, substantial whitespace, accessible focus states. A unique aesthetic; do not copy Sunsama's layout, fonts, icons or logo. Reference the six local HTML/CSS prototype pages for the intended composition. **Use the current v3.1 app as the entry point:** clear capacity budget first, one priority second, Plan → Do → Learn workflow third, supporting habits/directions after. On phones, navigation labels must always be visible.
 
 ## Functional features to create first
 
@@ -65,3 +65,6 @@ The new GitHub `why.html` is a **reference**, not the entry URL. Rebuild the fol
 - First run: allow a judge to try the functional interaction immediately, optionally with clearly labeled removable sample data; do not make navigation, demo buttons or primary flows dead links.
 - Be explicit about limitations: browser-local storage; no Google/Outlook sync, team collaboration, or cross-device account.
 - The VibeFlow site's working app is the only URL eligible for `#builds`. Never submit the GitHub `why.html` page as if it meets the VibeFlow requirement.
+
+### Calendar parity (v3.1)
+Add Day, Week, Month views showing the same stored Planner and Tasks records. Busy blocks are shown as unavailable; task cards are nested within focus time. Calendar actions must open the same edit logic and preserve capacity/overlap protection. A read-only snapshot is not sufficient for parity, and external calendar API integrations are not included.

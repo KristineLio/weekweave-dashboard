@@ -66,3 +66,6 @@ Built fresh for the Cancel My Subscription hackathon. [Mention only features tha
 **Judging check:** Covers a need; core interactions work live; a stranger can use it without instructions; the Slack entry clearly states paid tool, price, working feature and live VibeFlow URL. No cosmetic-only 'Save' buttons.
 
 **Exclusions:** Never assert that Weekweave includes calendar integration, automatic notifications, team features, secure cloud storage, a full Sunsama replacement, or actual monthly savings.
+
+### Calendar demonstration
+Show a 09:00–20:00 work shift in the Week and Month views, then create or edit a focus block from Calendar; verify it appears in Planner and capacity is still guarded. This is an internal calendar, not Google Calendar integration.

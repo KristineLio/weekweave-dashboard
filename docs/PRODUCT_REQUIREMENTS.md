@@ -330,3 +330,6 @@ When the selected day contains a **Busy Work** shift and no Focus blocks, the Ov
 - Every primary landing-page CTA must lead to a real working app feature. Provide a testable 4-step walkthrough for judges and a privacy/local-storage disclosure.
 - Add a lightweight comparison link to each app page and a discreet context ribbon on the Overview. Preserve all existing application data and behaviors.
 - GitHub Pages is a supporting demo only. The event entry must be built as a **new, working VibeFlow build during November 4–7, 2026**. External HTML pages alone are not evidence of eligibility.
+
+## Calendar extension (v3.1)
+A sixth Calendar section provides Day / Week / Month views over the existing `weeks[week_YYYY-MM-DD]` blocks and tasks. It must not store a second independent event collection. Month browsing reads saved weeks without creating blank records. Busy shifts remain unavailable, completed tasks stay visible with released capacity, and event editing uses the original shared forms with overlap and capacity guards. No recurring events or external calendar syncing are claimed.

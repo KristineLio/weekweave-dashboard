@@ -103,3 +103,6 @@ Verified locally in Chromium with isolated browser storage. Production GitHub Pa
 4. With Decrease selected, use starting 5, current 4, target 0; confirm 20% progress. Bad bounds display an inline explanation, without overwriting saved progress.
 5. Use Edit directions & targets: all three sections appear, and Save all directions updates each.
 6. Refresh and ensure tasks, other directions, dated evidence, and reviews are preserved; also test mobile editor layout.
+
+## v3.1 — Connected Calendar
+Test Day/Week/Month navigation, cross-week Month display, editing a block and task from a different week, busy/focus separation, done history, non-mutating month browsing, invalid overlapping edits, persistence, and responsive mobile navigation.

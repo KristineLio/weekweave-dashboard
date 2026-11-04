@@ -17,3 +17,12 @@ Use a new/private browser window for each major validation. This is a *manual* t
 - [ ] Slack `#builds` post contains **new live VibeFlow URL**, "Unlock It", Sunsama, **$22/month**, and a one-sentence accurate description. Post before Sat Nov 7 11:59 PM PST.
 
 **Reference:** `docs/HACKATHON_SUBMISSION_PLAN.md` and the event's three-page official rules PDF, November 2026. The GitHub Pages Weekweave dashboard is a reference prototype, not automatically an eligible VibeFlow entry.
+
+## Calendar (v3.1)
+- [ ] Day, Week and Month read the same blocks and assigned tasks, including adjacent saved weeks.
+- [ ] Opening months with no stored data does not create or overwrite weeks.
+- [ ] Edit a block or task from Calendar; Planner and Tasks reflect the change.
+- [ ] Work shift 09:00–20:00 appears as Busy and adds zero focus capacity.
+- [ ] Completed tasks remain visible in the calendar, free minutes, and can be reopened only if capacity allows.
+- [ ] Editing a block that overlaps an existing block fails without data loss.
+- [ ] Calendar is usable at 320px, 390px, 768px and 1440px with horizontally scrollable week/month grids.

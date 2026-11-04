@@ -8,7 +8,15 @@
 
 **Hackathon introduction:** https://kristinelio.github.io/weekweave-dashboard/why.html
 
-## Working features (v3.0)
+## Calendar (v3.1)
+
+- Sixth navigation page with **Day, Week and Month** views. Reads the existing weekly blocks and tasks; no separate calendar database or syncing service.
+- Day and Week show a true time-based schedule. Month reads existing saved weeks without creating empty weeks just by browsing.
+- Busy time never becomes task capacity. Assigned tasks appear inside focus events; completed tasks remain visible and release minutes.
+- Select a time block or task to open the original editor. Capacity and overlap checks still apply. Use the plus buttons to add new blocks or focus tasks.
+- Calendar is an **internal Weekweave calendar**, not Google/Outlook sync; cross-device cloud sync and repeating rules remain outside MVP.
+
+## Working features (v3.1)
 
 - **Weekly planning:** navigate between Monday–Sunday weeks and create, edit, or delete time blocks. Enter both **start and end time** (e.g. 09:00–20:00 = 11h). Choose **Focus time** (available for tasks, up to 8h) or **Busy time** (work, classes, appointments; up to 23h 59m). Busy blocks cannot hold tasks and do not add task capacity. Same-day block overlap is rejected.
 - **Capacity protection:** unfinished tasks consume minutes in their assigned blocks; marking Done immediately releases their minutes and scheduled time slot without deleting their completion history. Reopening requires available capacity. If a task would exceed available capacity, it is rejected with an explanation; existing data stays intact.
@@ -39,12 +47,13 @@ The first visit contains editable starter examples so that you can test the prod
 index.html                     Daily command center and weekly overview
 planner.html                   Time blocks and capacity
 tasks.html                     Task workflow
+calendar.html                  Shared-data Day / Week / Month calendar
 compass.html                   KPI directions and progress
 review.html                    Saved weekly reflections
 why.html                       Hackathon story, transparent price comparison, trial steps
 assets/launch.css              Independent responsive landing-page design
 assets/styles.css              Design system and responsive styling
-assets/app-v3.0.js             Current browser app and local storage logic
+assets/app-v3.1.js             Current browser app and local storage logic
 assets/app.js                  Mirrored development source
 docs/PRODUCT_REQUIREMENTS.md  Product requirements
 docs/HACKATHON_SUBMISSION_PLAN.md  Hackathon positioning
@@ -54,7 +63,7 @@ tests/SMOKE_TESTS.md           Functional acceptance checklist
 
 ## Privacy and limitations
 
-All personal content is stored **only in the browser on the device where it was entered**. There is **no cloud sync**, account system, server storage, calendar integration, notification engine, or AI assistant. Clearing site storage or switching browsers/devices will remove access to the data unless you previously exported a backup. Avoid storing secrets or sensitive financial details.
+All personal content is stored **only in the browser on the device where it was entered**. There is **no cloud sync**, account system, server storage, **external** calendar integration, notification engine, or AI assistant. Clearing site storage or switching browsers/devices will remove access to the data unless you previously exported a backup. Avoid storing secrets or sensitive financial details.
 
 This release uses HTML, CSS, and **vanilla JavaScript**. The initial HTML/CSS-only concept could not have functioning storage or capacity enforcement; JavaScript was required for those behaviors. For a hackathon submission, **verify equivalent features actually work on the live VibeFlow version**; a GitHub Pages demo alone is not evidence of VibeFlow compatibility or eligibility.
 
