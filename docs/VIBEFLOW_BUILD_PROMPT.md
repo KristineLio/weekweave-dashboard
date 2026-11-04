@@ -6,7 +6,7 @@ Create a completely **new** VibeFlow project named **Weekweave** for the SkyCast
 
 **One-line value:** Weekweave turns a meaningful goal into a realistic weekly block, an achievable task, and evidence of progress — without subscribing to a separate premium planner.
 
-**Visual direction:** Original, calm, editorial dashboard. Forest green `#294b48`, coral `#ed725f`, mist `#e5efe9`, warm off-white `#f8f8f5`, bright cards, small warm labels, elegant typography, substantial whitespace, accessible focus states. A unique aesthetic; do not copy Sunsama's layout, fonts, icons or logo. Reference the five local HTML/CSS prototype pages for the intended composition. **Use the v1.1 Overview as the entry point:** clear capacity budget first, one priority second, Plan → Do → Learn workflow third, supporting habits/directions after. On phones, navigation labels must always be visible.
+**Visual direction:** Original, calm, editorial dashboard. Forest green `#294b48`, coral `#ed725f`, mist `#e5efe9`, warm off-white `#f8f8f5`, bright cards, small warm labels, elegant typography, substantial whitespace, accessible focus states. A unique aesthetic; do not copy Sunsama's layout, fonts, icons or logo. Reference the five local HTML/CSS prototype pages for the intended composition. **Use the current v3.0 app as the entry point:** clear capacity budget first, one priority second, Plan → Do → Learn workflow third, supporting habits/directions after. On phones, navigation labels must always be visible.
 
 ## Functional features to create first
 
@@ -50,3 +50,18 @@ Use real task, Busy-block, habit, and dated Compass evidence records to populate
 ## KPI Compass zero-target parity (v2.7)
 
 Support both **Increase** (e.g. courses passed, 2/9) and **Decrease** (e.g. courses left, 5 to 0) goals. Do not treat a zero target as unconfigured when the user explicitly selected Decrease. Store the starting value for a decrease goal and calculate `(start-current)/(start-target)`, clamped between 0–100%. When recording a course passed, reduce the remaining count by one and store a reversible signed progress event. Do not automatically change outcome progress when a task is marked Done. Existing saved browser data must survive upgrades.
+
+## Submission-first design polish (v3.0)
+
+The new GitHub `why.html` is a **reference**, not the entry URL. Rebuild the following as an original **new VibeFlow project**:
+
+- Title: **Weekweave — Your week, not another subscription.**
+- **Path B / Unlock It**, not a claim of actually cancelling a paid plan.
+- Paid tool comparison: **Sunsama, $22/user/month billed monthly** (https://help.sunsama.com/docs/billing/overview/).
+- Lead with one specific problem: personal tasks clash with real work shifts, class hours and finite attention.
+- Core product: Busy vs Focus planning, task capacity validation, clear Done/available-time updates, local persistence and weekly review.
+- Distinctive visual system: forest-green editorial hero, warm white cards, coral and mint accents, original layouts, generous spacing, labeled mobile navigation. Do **not** clone Sunsama branding.
+- Landing micro-copy: “A premium planner's essentials. $0/month. No account.” **Qualify** that this is *selected planning essentials*, not the paid tool's full feature set.
+- First run: allow a judge to try the functional interaction immediately, optionally with clearly labeled removable sample data; do not make navigation, demo buttons or primary flows dead links.
+- Be explicit about limitations: browser-local storage; no Google/Outlook sync, team collaboration, or cross-device account.
+- The VibeFlow site's working app is the only URL eligible for `#builds`. Never submit the GitHub `why.html` page as if it meets the VibeFlow requirement.

@@ -1,5 +1,4 @@
-/* WEEKWEAVE — built fresh for the 2026 SkyCastle hackathon.
-   HTML + CSS ONLY. No script, backend, storage or hidden functionality. */
+/* WEEKWEAVE: local-first HTML/CSS/vanilla JavaScript. Browser-only storage. */
 
 :root{--bg:#f8f8f5;--paper:#fff;--ink:#1d2832;--muted:#77828c;--line:#ebefee;--coral:#ed725f;--deep:#293a46;--teal:#258e7a;--purple:#7965c9;--shadow:0 8px 32px rgba(36,51,58,.035);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--ink);background:var(--bg);font-synthesis:none}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px}a{color:inherit;text-decoration:none}button,textarea,input{font:inherit}button,a,textarea,input{outline-offset:3px}a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--teal)}h1,h2,h3,h4,p{margin-top:0}h1,h2,h3,h4{font-family:'Manrope','Segoe UI',sans-serif;letter-spacing:-.047em}h1{font-size:clamp(32px,3.45vw,54px);line-height:1.11;margin-bottom:12px;font-weight:800}h1 em{font-family:Georgia,serif;font-weight:500;letter-spacing:-.045em;color:var(--coral)}h2{font-size:32px}h3{font-size:20px;line-height:1.25;font-weight:800;margin-bottom:0}p{color:var(--muted);line-height:1.68}small{font-size:12px}.skip{position:absolute;top:-100px;left:15px;padding:12px;background:#fff;z-index:50}.skip:focus{top:15px}
@@ -163,3 +162,14 @@ button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.58}
 .compass-save-confirmation{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0 16px;border:1px solid #cce6d2;background:#eff9f2;color:#376950;border-radius:12px;padding:13px 18px;font-size:11px}
 .compass-save-confirmation strong{font-weight:850}.compass-save-confirmation span{color:#587e66}
 @media(max-width:650px){#goals-form .goals-sticky-actions .button{flex:1;min-width:0}}
+
+/* v3.0 — Hackathon positioning links. Reuse the existing app visual system. */
+.top-why-link{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;color:#3c8068;border-radius:9px;padding:10px 12px;background:#edf5ef;border:1px solid #dfece4;white-space:nowrap}
+.top-why-link:hover{background:#dfeee4;color:#2d664f}
+.side-note-link{display:block;transition:background .15s,transform .15s}.side-note-link:hover{background:#eaf0e6;transform:translateY(-2px)}
+.side-note-link p span{font-weight:800;color:#3b8465}
+.launch-ribbon{display:flex;align-items:center;gap:16px;flex-wrap:wrap;background:#eaf2ed;border:1px solid #d6e7db;border-radius:12px;margin:0 0 19px;padding:13px 18px;font-size:12px;color:#547465;line-height:1.5}
+.launch-ribbon-kicker{font-size:9px;color:#3e7762;font-weight:900;letter-spacing:.11em;white-space:nowrap}
+.launch-ribbon>a{margin-left:auto;font-size:11px;color:#356f58;font-weight:850;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+@media(max-width:900px){.top-why-link{font-size:10px;padding:8px 10px}.launch-ribbon{gap:7px 15px}}
+@media(max-width:600px){.top-why-link{font-size:10px;white-space:normal;line-height:1.1;max-width:106px}.launch-ribbon{display:block;padding:12px 14px}.launch-ribbon span,.launch-ribbon>a{display:block;margin:4px 0}.launch-ribbon-kicker{white-space:normal}}

@@ -4,9 +4,11 @@
 
 > Plan your time. Protect your priorities. Prove your progress.
 
-**Live site:** https://kristinelio.github.io/weekweave-dashboard/
+**Working dashboard:** https://kristinelio.github.io/weekweave-dashboard/
 
-## Working features (v2.7)
+**Hackathon introduction:** https://kristinelio.github.io/weekweave-dashboard/why.html
+
+## Working features (v3.0)
 
 - **Weekly planning:** navigate between Monday–Sunday weeks and create, edit, or delete time blocks. Enter both **start and end time** (e.g. 09:00–20:00 = 11h). Choose **Focus time** (available for tasks, up to 8h) or **Busy time** (work, classes, appointments; up to 23h 59m). Busy blocks cannot hold tasks and do not add task capacity. Same-day block overlap is rejected.
 - **Capacity protection:** unfinished tasks consume minutes in their assigned blocks; marking Done immediately releases their minutes and scheduled time slot without deleting their completion history. Reopening requires available capacity. If a task would exceed available capacity, it is rejected with an explanation; existing data stays intact.
@@ -39,8 +41,10 @@ planner.html                   Time blocks and capacity
 tasks.html                     Task workflow
 compass.html                   KPI directions and progress
 review.html                    Saved weekly reflections
+why.html                       Hackathon story, transparent price comparison, trial steps
+assets/launch.css              Independent responsive landing-page design
 assets/styles.css              Design system and responsive styling
-assets/app-v2.7.js             Current browser app and local storage logic
+assets/app-v3.0.js             Current browser app and local storage logic
 assets/app.js                  Mirrored development source
 docs/PRODUCT_REQUIREMENTS.md  Product requirements
 docs/HACKATHON_SUBMISSION_PLAN.md  Hackathon positioning
@@ -90,3 +94,11 @@ Neither path alters progress evidence or unrelated direction settings.
 - Baseline/starting value is only shown for **Decrease** outcomes; it is hidden when **Increase** is selected.
 - A visible confirmation appears on Compass after a successful save.
 - Existing saved data remains under `weekweave.v2` and is not reset by this release.
+
+## v3.0 — Cancel My Subscription edition
+
+Weekweave is positioned as **Path B / Unlock It** for Sunsama-style planning essentials, rather than a claim that its creator actively cancelled a paid plan. Sunsama's published monthly billing is **US$22/user/month** (official source: https://help.sunsama.com/docs/billing/overview/). At $22 monthly for twelve months, comparable spend would be $264 per year; **this is not a claim of money actually saved**.
+
+A new, responsive [`why.html`](why.html) explains the product's concrete need, includes a static illustrative timetable, provides a working demo walkthrough and openly lists missing features (cloud sync, integrations, collaboration). All five existing app pages link to this introduction; the Overview includes a lightweight context strip. The underlying Planner/Tasks/Compass/Review data model and local-storage key are unchanged.
+
+**Important contest condition:** The GitHub Pages dashboard and `why.html` are references, not the final official hackathon entry. Only submit a **new build created in VibeFlow during November 4–7, 2026**, with real working core interactions. The `#builds` post must link the VibeFlow URL, state the paid service and monthly price, and describe actual working behavior. See `docs/VIBEFLOW_BUILD_PROMPT.md`, `docs/HACKATHON_SUBMISSION_PLAN.md`, `docs/SLACK_SUBMISSION_DRAFT.md` and `tests/HACKATHON_ACCEPTANCE.md`.

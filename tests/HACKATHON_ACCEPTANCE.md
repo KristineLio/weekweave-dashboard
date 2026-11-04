@@ -1,0 +1,19 @@
+# Weekweave hackathon acceptance tests — stranger-friendly, live VibeFlow build
+
+Use a new/private browser window for each major validation. This is a *manual* testing script; do not mark tests passed before actually performing them on the live VibeFlow URL.
+
+- [ ] The VibeFlow link opens without requiring a SkyCastle editor session or a login (if public demo is intended).
+- [ ] The first page explains the actual problem and has a clear working call to action.
+- [ ] New user can create a **Busy work shift 09:00–20:00**; it occupies 11 hours, adds zero task capacity and is visible in the planner.
+- [ ] User can create a **Focus block 13:00–15:00** on a *different day*; 120 minutes are available. Busy/Focus overlap on the same day is rejected.
+- [ ] User can create a 90-minute task, assign it to the 120-minute block and see 30 minutes remaining.
+- [ ] A second 40-minute task cannot be assigned to that block and shows a specific error.
+- [ ] Completing the 90-minute task releases its 90 minutes without erasing completion evidence.
+- [ ] Reopening a completed task cannot silently overbook an already-filled block.
+- [ ] Weekly reflection saves and reloads on refresh; each week stays separate.
+- [ ] If implemented: KPI evidence changes a measurable outcome, rather than task completion falsely claiming a goal was achieved.
+- [ ] Works on 390px phone screen (navigation, modal save buttons, readable schedule; no horizontal overflow).
+- [ ] State actually persists or is clearly disclosed as unsupported. The release contains no misleading fake totals or decorative-only controls.
+- [ ] Slack `#builds` post contains **new live VibeFlow URL**, "Unlock It", Sunsama, **$22/month**, and a one-sentence accurate description. Post before Sat Nov 7 11:59 PM PST.
+
+**Reference:** `docs/HACKATHON_SUBMISSION_PLAN.md` and the event's three-page official rules PDF, November 2026. The GitHub Pages Weekweave dashboard is a reference prototype, not automatically an eligible VibeFlow entry.

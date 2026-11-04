@@ -320,3 +320,13 @@ When the selected day contains a **Busy Work** shift and no Focus blocks, the Ov
 - Increase goals do not display the decrease-only starting value field. Decrease goals display and validate it.
 - A Save action remains accessible without scrolling to the bottom of a long form. Invalid goal values display the reason inside the dialog and do not close it or change saved data.
 - After a successful save, the updated card and a visible confirmation appear. Existing local `weekweave.v2` data and the Review flow remain intact.
+
+## v3.0 — Public positioning and first-time judge experience
+
+- Create a separate public comparison page with original Weekweave branding and a working, prominent CTA to the functional app. The existing dashboard remains the default `index.html` entry so existing user bookmarks are not disrupted.
+- Path B / **Unlock It**: explicitly name the paid plan compared (**Sunsama's $22/month monthly billing**), cite its first-party pricing page, and avoid falsely claiming the maker cancelled an existing subscription.
+- Explain the concrete problem, the end-to-end action loop, and the key differentiator (Busy hours are unavailable; Focus hours enforce task capacity; completion releases time).
+- Transparently list features *not* included: cloud sync, team collaboration, and external calendar integrations. Avoid imitating competitor logos or UI.
+- Every primary landing-page CTA must lead to a real working app feature. Provide a testable 4-step walkthrough for judges and a privacy/local-storage disclosure.
+- Add a lightweight comparison link to each app page and a discreet context ribbon on the Overview. Preserve all existing application data and behaviors.
+- GitHub Pages is a supporting demo only. The event entry must be built as a **new, working VibeFlow build during November 4–7, 2026**. External HTML pages alone are not evidence of eligibility.
