@@ -57,3 +57,7 @@ This release uses HTML, CSS, and **vanilla JavaScript**. The initial HTML/CSS-on
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+## v2.4 — Workday-aware Overview
+
+Days with a Busy **Work** shift and no Focus blocks now show a workday-first summary, with actual start/end times, shift duration, a reminder that off-hours need not be filled with tasks, and the next scheduled focus window if there is one later in the week. Inbox tasks are not suggested as mandatory workday priorities. Mixed work + focus days still use the normal focus-planning Overview. This is a display-only change; existing task/block data and browser storage are unchanged.
