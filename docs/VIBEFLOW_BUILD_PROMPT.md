@@ -42,3 +42,7 @@ Compute duration from the entered hours: a 09:00–20:00 work shift lasts 11h (6
 ## KPI Compass parity requirement (v2.5)
 
 The functional build should support editing a direction's measurable target/current/unit/due date, and recording date-stamped progress evidence. Task completion is **not** automatically a goal milestone. Preserve legacy user data, distinguish task counts from genuine outcomes, and show overdue/stale-evidence warnings without inventing achievements. If VibeFlow cannot persist outcome evidence, clearly explain that limitation rather than presenting fake working controls.
+
+## Weekly Review parity requirement (v2.6)
+
+Use real task, Busy-block, habit, and dated Compass evidence records to populate the selected week. The four review notes and an optional energy rating must save and reload per week. If supported in VibeFlow, let a user explicitly turn a saved next-week anchor into an *unscheduled* Inbox task. Guard against accidental duplicates and preserve previous weeks. Do not portray cumulative KPI targets as weekly achievements or mark unanswered days as failed habits. If VibeFlow cannot support local persistence, do not replace these controls with a static mockup and claim they work.
