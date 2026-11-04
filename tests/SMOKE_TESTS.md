@@ -39,3 +39,11 @@ Automated browser-based tests of completion releasing capacity and scheduled slo
 26. **UX and accessibility:** Seven day buttons have `aria-pressed`; checkboxes have labels, no broken controls. Verify 320, 375, 390, 650, 768, 1024 and 1440px viewports without document-level horizontal overflow. Check no JavaScript errors on all five pages.
 
 The v2.3 Overview tests were performed using a headless Chromium render with browser-local storage simulated in a restricted environment. GitHub Pages requires a separate live smoke check after deployment.
+
+## v2.4 — Workday-aware Overview
+
+1. Create a Saturday **Busy / Work** block for 09:00–20:00 and leave Saturday without Focus blocks. In Overview, choose Saturday. The headline must acknowledge the workday, the shift card must display 09:00–20:00 and 11 hours, and no Inbox task may appear as Saturday's priority.
+2. Verify the Saturday mini-day label shows **Work shift** and the lower timetable still shows the shift, while the weekly Busy metric includes its 11 hours and Focus capacity does not.
+3. Create a later-week Focus block after the selected workday. The Overview's optional Next focus window must show its day/time and navigate to that day on click.
+4. Create a Focus block after the work shift on the same day. The normal focus-capacity dashboard must return, and busy hours must remain excluded from task capacity.
+5. Check 320, 375, 390, 650, 768, 1024, and 1440 px widths, and confirm that previous saved data and task-completion behavior remain unchanged.
