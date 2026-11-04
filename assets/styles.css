@@ -60,3 +60,15 @@ button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.58}
 
 /* Completed work no longer occupies block capacity; keep the historical count visible. */
 .block-complete-note{display:block;font-size:11px;line-height:1.45;font-weight:700;color:#508875;margin-top:5px}
+
+/* v2.2: explicit 09:00–20:00 busy time, separate from task capacity */
+.block-card.busy-block { background: #e9edf1; border:1px solid #c8d2da; min-height:164px; }
+.block-card.busy-block strong { color:#34444d; margin:9px 0 7px; }
+.block-card.busy-block .busy-chip { display:inline-flex; align-self:start; width:max-content; background:#d5dfe5; color:#3c5260; font-size:9px; font-weight:800; padding:4px 7px; border-radius:5px; letter-spacing:.06em; min-height:0; }
+.block-card.busy-block .busy-description { margin-top:auto; color:#5e7885; font-weight:700; font-size:10px; }
+.busy-legend {color:#627b87}
+.block-time-summary { border-radius:10px; padding:12px 14px; background:#eef6f0; color:#2b5548; font-size:13px; font-weight:750; }
+.block-time-summary.time-error {background:#fff1eb;color:#b14a32;}
+.form-helper { font-size:12px;line-height:1.5;color:#6d8179;margin:8px 0 10px; }
+/* A fourth metric should sit comfortably alongside the others. */
+@media (min-width:1100px){.stats-grid.mini-stats{grid-template-columns:repeat(4,minmax(0,1fr));}}
