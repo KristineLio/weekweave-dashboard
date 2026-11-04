@@ -6,9 +6,9 @@
 
 **Live site:** https://kristinelio.github.io/weekweave-dashboard/
 
-## Working features (v2.0)
+## Working features (v2.2)
 
-- **Weekly planning:** navigate between Monday–Sunday weeks and create, edit, or delete time blocks.
+- **Weekly planning:** navigate between Monday–Sunday weeks and create, edit, or delete time blocks. Enter both **start and end time** (e.g. 09:00–20:00 = 11h). Choose **Focus time** (available for tasks, up to 8h) or **Busy time** (work, classes, appointments; up to 23h 59m). Busy blocks cannot hold tasks and do not add task capacity. Same-day block overlap is rejected.
 - **Capacity protection:** unfinished tasks consume minutes in their assigned blocks; marking Done immediately releases their minutes and scheduled time slot without deleting their completion history. Reopening requires available capacity. If a task would exceed available capacity, it is rejected with an explanation; existing data stays intact.
 - **Scheduling guard:** optional start times must fit inside assigned blocks and cannot overlap with another unfinished scheduled task in the same block. Completed tasks do not block new scheduling.
 - **Task management:** create, edit, assign, schedule, finish, unfinish, and delete tasks. The board shows Inbox → Planned → Scheduled → Done based on each task's actual data.
@@ -40,7 +40,8 @@ planner.html                   Time blocks and capacity
 compass.html                   KPI directions and progress
 review.html                    Saved weekly reflections
 assets/styles.css              Design system and responsive styling
-assets/app.js                  Vanilla JavaScript business logic + local storage
+assets/app-v2.2.js             Current browser app and local storage logic
+assets/app.js                  Mirrored development source
  docs/PRODUCT_REQUIREMENTS.md  Product requirements
  docs/HACKATHON_SUBMISSION_PLAN.md  Hackathon positioning
  docs/VIBEFLOW_BUILD_PROMPT.md  VibeFlow implementation notes
