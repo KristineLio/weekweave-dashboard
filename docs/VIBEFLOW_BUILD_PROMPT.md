@@ -4,7 +4,7 @@ Create a completely **new** VibeFlow project named **Weekweave** for the SkyCast
 
 **One-line value:** Weekweave turns a meaningful goal into a realistic weekly block, an achievable task, and evidence of progress — without subscribing to a separate premium planner.
 
-**Visual direction:** Original, calm, editorial dashboard. Forest green `#294b48`, coral `#ed725f`, mist `#e5efe9`, warm off-white `#f8f8f5`, bright cards, small warm labels, elegant typography, substantial whitespace, accessible focus states. A unique aesthetic; do not copy Sunsama's layout, fonts, icons or logo. Reference the five local HTML/CSS prototype pages for the intended composition.
+**Visual direction:** Original, calm, editorial dashboard. Forest green `#294b48`, coral `#ed725f`, mist `#e5efe9`, warm off-white `#f8f8f5`, bright cards, small warm labels, elegant typography, substantial whitespace, accessible focus states. A unique aesthetic; do not copy Sunsama's layout, fonts, icons or logo. Reference the five local HTML/CSS prototype pages for the intended composition. **Use the v1.1 Overview as the entry point:** clear capacity budget first, one priority second, Plan → Do → Learn workflow third, supporting habits/directions after. On phones, navigation labels must always be visible.
 
 ## Functional features to create first
 
@@ -23,7 +23,7 @@ Use platform-native state, actions and persistence where available. If a platfor
 - Support desktop, tablet and phone; readable cards, no horizontal viewport overflow.
 - All action labels must describe real actions. Forms need proper labels and error messages.
 - Make it easy for a first-time visitor to demonstrate: **add task → put into block → see remaining capacity → try invalid assignment → mark done → tick habit → save review → refresh and verify persistence**.
-- Include a tiny optional sample week only if the user can clear it; clearly mark samples.
+- Include a tiny optional sample week only if the user can clear it; clearly mark samples. When real data is available, replace every “SAMPLE WEEK” label with the actual current, Monday-starting date range and derive all dashboard metrics from saved state; do not fake today or freshness.
 - Test browser refresh, mobile navigation, editable task durations, and editing a block below its assigned total.
 - Keep feature scope focused on this single coherent workflow. KPI Compass can be an informative second screen; finance charts, AI, advanced statistics and external integrations are stretch goals, not blockers.
 
