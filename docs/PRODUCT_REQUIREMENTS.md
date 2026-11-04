@@ -1,3 +1,5 @@
+> **Implementation status — November 4, 2026:** The original HTML/CSS-only mockup has been upgraded to a working client-side v2.0 MVP using vanilla JavaScript and browser-local storage. Core task CRUD, time-block capacity enforcement, non-overlapping schedules, weekly navigation, habits, compass evidence, reviews, and JSON backups are implemented in the GitHub Pages codebase. Cloud sync, notifications, advanced finance/statistics, and calendar integration remain out of scope. The VibeFlow hackathon build still needs independent live verification.
+
 # Product Requirements Document
 
 **Product:** Weekweave — Personal Productivity Dashboard  
