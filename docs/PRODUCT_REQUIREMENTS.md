@@ -115,12 +115,14 @@ Multi-user permissions, external calendar integration, billing, account setup, n
 - Marking Done retains the task as completion evidence, while releasing its reserved minutes and scheduled time. Reopening a completed task must pass the same block-capacity and overlap checks as a new active task. The MVP currently records completion as a boolean, not a completion timestamp.
 - Avoid double-counting the same task across planning and scheduled views.
 
-### 6.4 KPI Compass
+### 6.4 KPI Compass (implemented v2.5)
 
-- Track up to four active directions.
-- Each direction may contain outcomes, status/stage, last-touched timestamp and progress evidence.
-- Momentum and staleness are derived from actual activity, not manually embellished.
-- The first hackathon build can show a minimal version, with editing added after P0 planning is stable.
+- Three fixed life areas for the hackathon MVP (Study, Build, Personal); each has a customizable direction and desired outcome. The full-product concept allows up to four active directions, but v2.5 implements three to reduce complexity.
+- Each direction can specify a measurable outcome name, current value, numeric target, unit, due date, and optional paused state. Status is derived from the actual values: unconfigured, not started, in progress, reached, or paused.
+- Evidence entries include date, note, optional positive numeric increment, optional energy score (1–5), and friction. Entries are persisted in browser storage; deleting one reverses its stored increment (the current value can also be manually corrected).
+- The health check shows the last evidence and flags incomplete active outcomes when the target date has passed or no new evidence has been recorded for 14+ days. A direction with no evidence is shown as not yet logged, not falsely labeled stale.
+- Task completion counts remain separate weekly execution evidence, and **must not automatically change outcome targets or values**. This prevents misleading goal-success claims.
+- Existing v2 browser storage and JSON backups are upgraded without wiping tasks, time blocks, reviews, or direction titles; older goals begin with no fabricated numeric outcomes.
 
 ### 6.5 Weekly review
 
@@ -273,3 +275,12 @@ In a week containing an 11h busy work shift and a 90m focus block with a 45m unf
 ### Workday-aware Overview (v2.4)
 
 When the selected day contains a **Busy Work** shift and no Focus blocks, the Overview must show the actual shift start and end time, occupied hours, and a workday-oriented message rather than suggesting an unassigned Inbox task as an immediate priority. Off-hours are not automatically free task capacity. Where there is another Focus block later in the selected week, the Overview may offer a link to that next window. The existing weekly task metrics, timetable, and saved data remain unchanged. A day containing both Busy Work and Focus blocks retains the ordinary focus-capacity display.
+
+### KPI Compass v2.5 acceptance (November 4, 2026)
+
+1. Configure a measurable Study direction with target = 9 courses, current = 2 courses and future due date. The UI displays 2/9 and 22%, not a task-completion percentage.
+2. Log dated evidence (a note, numeric increment of +1, and optional energy/friction); the result becomes 3/9, and the evidence appears after refresh.
+3. Delete that evidence: the value returns to 2/9, without affecting task states or planner capacity.
+4. Keep a direction active with its last evidence 14+ days ago: show a stale-evidence notice; show overdue when its date has passed. Paused/completed outcomes are exempt.
+5. Edit directions on existing `weekweave.v2` data or import a legacy JSON backup: retain custom titles, tasks, blocks, review history, and original measurements; no invented achievements.
+6. Check responsive layout at 320px–1440px and verify task, time-block and Overview controls remain accessible.
