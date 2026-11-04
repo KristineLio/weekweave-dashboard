@@ -6,12 +6,12 @@ A fresh, independent **HTML + CSS-only** visual prototype for a capacity-aware p
 
 ## What is inside
 
-- `index.html` — calm weekly overview with illustrative metrics and native task checkboxes.
-- `planner.html` — a seven-day timetable, task allocations and capacity-explanation example.
+- `index.html` — action-first overview with sample capacity, a focus task, and a three-step flow.
+- `planner.html` — a seven-day example with minute-based capacity, planning guidance, and a browser-native rule explainer.
 - `tasks.html` — Inbox → Planned → Scheduled → Done workflow concept.
 - `compass.html` — active directions, current outcomes, evidence and health check.
 - `review.html` — editable weekly reflection prompts (not saved).
-- `assets/styles.css` — original responsive design system.
+- `assets/styles.css` — original responsive design system with labeled, fixed mobile navigation.
 - `docs/PRODUCT_REQUIREMENTS.md` — complete PRD and acceptance tests.
 - `docs/VIBEFLOW_BUILD_PROMPT.md` — implementation prompt for a brand-new working VibeFlow project.
 
@@ -41,20 +41,20 @@ The hackathon rules explicitly reject screens that only look functional. Rebuild
 
 **Core differentiator:** Prevent overplanning by linking each task to a real time-capacity block, then connect the result to weekly evidence and reflection.
 
-## Publishing to a brand-new GitHub repository
+## GitHub Pages preview
 
-If you create an empty repository named `weekweave-dashboard` on GitHub, run these commands in the extracted folder:
+This source repository is `https://github.com/KristineLio/weekweave-dashboard`. To make it viewable as a static website, enable **Settings → Pages → Deploy from a branch → main → /(root)**. GitHub Pages activation cannot be accomplished just by uploading source files.
 
-```bash
-git init
-git add .
-git commit -m "Build fresh Weekweave HTML/CSS prototype and product requirements"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/weekweave-dashboard.git
-git push -u origin main
-```
+After Pages is enabled, preview at `https://kristinelio.github.io/weekweave-dashboard/`.
 
-Alternatively, on GitHub create a new empty repo and upload the files using **Add file → Upload files**. Include the `assets` and `docs` directories.
+## UX review changelog — v1.1
+
+- Reworked the Overview to emphasize **available hours, one priority, and the Plan → Do → Learn loop** instead of an invented momentum score.
+- Clarified the 120-minute block-capacity example and included a readable overflow explanation.
+- Replaced fixed, apparently current week dates with a **clearly marked sample weekly template**.
+- Exposed the preview / no-save limitation on every page, including the weekly review.
+- Added labeled bottom navigation for narrow mobile screens, with keyboard focus states maintained.
+- Kept every page **HTML and CSS only**. Functional creation, persistence, and capacity validation are separate VibeFlow acceptance criteria.
 
 ## License
 
