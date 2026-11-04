@@ -124,12 +124,14 @@ Multi-user permissions, external calendar integration, billing, account setup, n
 - Task completion counts remain separate weekly execution evidence, and **must not automatically change outcome targets or values**. This prevents misleading goal-success claims.
 - Existing v2 browser storage and JSON backups are upgraded without wiping tasks, time blocks, reviews, or direction titles; older goals begin with no fabricated numeric outcomes.
 
-### 6.5 Weekly review
+### 6.5 Weekly review (implemented v2.6)
 
-- Four prompts: wins, friction, lessons/adjustment, next week's anchor.
-- One review per week, editable after save.
-- Review never resets because a user changes pages.
-- Link the chosen priority back to the new week without automatically scheduling it.
+- Derive a weekly snapshot from the selected week's actual task state (finished/unfinished), duration of completed tasks, Busy commitments, and habit check-ins. Do not equate completed tasks with achievement of a KPI outcome.
+- Show only KPI Compass evidence entries whose dates fall inside the selected Monday–Sunday week. Cumulative goal current/target values are explicitly labeled as totals across weeks.
+- Four editable reflection prompts: wins, friction, one realistic adjustment, next week's anchor. Optional weekly energy/sustainability self-rating from 1 to 5.
+- Persist the review only after an explicit Save. Reopening a saved week restores its entries; switching weeks changes only that week's review, without overwriting other weeks. Warn when leaving with unsaved edits.
+- When a saved anchor exists, allow an explicit **Add to next week's Inbox** action with title, duration (5–480 minutes) and category. Create a new unscheduled task in the next week, never a Busy block or automatic time reservation. Link the created task to the originating review, preventing accidental duplicate carry-forward.
+- Import older `weekweave.v2` JSON backups and preserve existing review fields without requiring the new energy or carry-forward metadata.
 
 ## 7. Primary user flows
 
@@ -284,3 +286,12 @@ When the selected day contains a **Busy Work** shift and no Focus blocks, the Ov
 4. Keep a direction active with its last evidence 14+ days ago: show a stale-evidence notice; show overdue when its date has passed. Paused/completed outcomes are exempt.
 5. Edit directions on existing `weekweave.v2` data or import a legacy JSON backup: retain custom titles, tasks, blocks, review history, and original measurements; no invented achievements.
 6. Check responsive layout at 320px–1440px and verify task, time-block and Overview controls remain accessible.
+
+### Weekly Review v2.6 acceptance (November 4, 2026)
+
+1. A task marked Done appears under completed work, and its duration is counted as finished-task time; assigned capacity is still released.
+2. A Busy Work block appears as unavailable time rather than task capacity.
+3. Habits count only actual checked boxes, not inferred streaks; selected-week evidence is filtered by date while cumulative outcome totals remain separate.
+4. Save the four review fields and optional energy (1–5), reopen the week, and confirm all values remain. Other week reviews are unchanged.
+5. Saving a next-week anchor can create an unassigned task in the next week's Inbox. Never duplicate that task through repeated clicks and never book capacity silently.
+6. A user editing a review sees an unsaved warning on week navigation. Existing Planner, Tasks, Overview, Compass, import/export, and localStorage keys are unchanged.
