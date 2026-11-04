@@ -64,7 +64,7 @@ Students, early-career professionals and independent builders often manage tasks
 | FR-02 | Tasks | Create a task with title, estimated minutes, and optional direction. | New task appears in Inbox and remains after refresh. |
 | FR-03 | Task workflow | Move task through Inbox → Planned → Scheduled → Done. | Each state transition is reflected consistently in task list and metrics. |
 | FR-04 | Capacity protection | Assign a task to a block only if remaining minutes are sufficient. | Overflow is rejected with a helpful message; no double counting. |
-| FR-05 | Task completion | Mark and unmark task completion. | Done state and weekly completion metrics update and persist. |
+| FR-05 | Task completion | Mark and unmark task completion while freeing time safely. | Done tasks release capacity and scheduled time slots, remain in completion history, and can only reopen if capacity and scheduling allow. |
 | FR-06 | Habits | Track a small catalog of daily habits during the week. | Toggling a date/habit updates that week's completion immediately and persists. |
 | FR-07 | Weekly review | Capture wins, friction, one lesson and next week's anchor. | Review is saved to the correct week and can be reopened. |
 | FR-08 | Overview | Surface this week's top priorities, available capacity, actionable tasks, habit status and direction. | All displayed counts reflect the same underlying data. |
@@ -102,7 +102,7 @@ Multi-user permissions, external calendar integration, billing, account setup, n
 
 - A time block has `date`, `start`, `end`, `capacity_minutes`, `allocated_minutes` and optional label.
 - A task may belong to a block but not yet have a precise start time.
-- The backend must enforce `sum(active task durations in block) <= capacity_minutes` at the time of assignment.
+- The client-side planner must enforce `sum(unfinished task durations in block) <= capacity_minutes` at the time of assignment.
 - Changing task duration or switching blocks revalidates capacity before committing.
 - Empty space is intentionally visible as useful free capacity.
 
@@ -112,7 +112,7 @@ Multi-user permissions, external calendar integration, billing, account setup, n
 - Optional: direction, block, scheduled start, description.
 - Default state: Inbox.
 - Block assignment implies Planned unless a specific time is scheduled.
-- Marking Done adds a completion timestamp and removes its duration from *future active capacity* according to the chosen block accounting rule; historic completion evidence remains.
+- Marking Done retains the task as completion evidence, while releasing its reserved minutes and scheduled time. Reopening a completed task must pass the same block-capacity and overlap checks as a new active task. The MVP currently records completion as a boolean, not a completion timestamp.
 - Avoid double-counting the same task across planning and scheduled views.
 
 ### 6.4 KPI Compass
