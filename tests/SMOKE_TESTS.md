@@ -60,3 +60,16 @@ The v2.3 Overview tests were performed using a headless Chromium render with bro
 8. Test 320, 375, 390, 650, 768, 1024 and 1440px widths for horizontal overflow and mobile navigation.
 
 Local Chromium tests were completed with an isolated browser storage fixture and inline assets, because the sandbox restricts navigation to local development servers. Verify hosted GitHub Pages separately after deployment.
+
+## v2.6 — Evidence-led Weekly Review
+
+1. Open Review with the starter week. Verify completed/total tasks, finished task minutes, Busy minutes, and habit check-in counts match saved data.
+2. Add dated Compass evidence in the selected week: confirm it appears under weekly evidence. Evidence from a different week must not appear in the current week's log; cumulative goal totals remain clearly labeled.
+3. Enter wins, friction, adjustment, a next-week anchor and energy 3/5. Check that edits show an unsaved indicator. Save and reopen: all values must persist.
+4. Click Add to next week's Inbox, choose a title, valid 5–480-minute duration, and category. Verify the next week contains exactly one new Inbox task with no time block/scheduled time; original week remains selected.
+5. Refresh or revisit Review. The carry-forward action must be replaced by a link to the already-created task, not create a duplicate.
+6. Switch weeks and confirm each week's review is separate; navigating away with unsaved edits warns first.
+7. Import a valid v2.5 backup without `energy`, `carriedTaskId`, or `carriedWeek`: it should render without wiping older review fields.
+8. Test Overview, Planner, Tasks, Compass, and Review at 320, 390, 768 and 1440 px for horizontal overflow and JS exceptions.
+
+Verified using an isolated browser-rendering test harness on 2026-11-04: form persistence, next-week carry-forward, duplicate protection, evidence date selection, historical week isolation, and responsive layouts. A separate live GitHub Pages check is required after deployment.
