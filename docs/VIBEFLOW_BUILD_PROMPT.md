@@ -1,3 +1,5 @@
+> **Updated v2.0:** The GitHub Pages version now implements the core product using HTML, CSS, and vanilla JavaScript (`assets/app.js`). If VibeFlow cannot run JavaScript or persist state, this prompt alone cannot produce a qualifying working submission. Port the actual behavior through capabilities supported by VibeFlow, test it in its live URL, and only then submit.
+
 # VibeFlow build brief — paste into a NEW VibeFlow project
 
 Create a completely **new** VibeFlow project named **Weekweave** for the SkyCastle “Cancel My Subscription” hackathon, November 4–7, 2026. Do **not** import or submit the maker's earlier Streamlit application or other pre-existing project.
