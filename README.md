@@ -1,61 +1,58 @@
 # Weekweave — plan the week you actually have
 
-A fresh, independent **HTML + CSS-only** visual prototype for a capacity-aware personal productivity workspace, created on **November 4, 2026** for the SkyCastle *Cancel My Subscription* hackathon.
+**Weekweave** is an original, lightweight personal productivity web app built for the SkyCastle *Cancel My Subscription* hackathon (November 2026).
 
 > Plan your time. Protect your priorities. Prove your progress.
 
-## What is inside
+**Live site:** https://kristinelio.github.io/weekweave-dashboard/
 
-- `index.html` — action-first overview with sample capacity, a focus task, and a three-step flow.
-- `planner.html` — a seven-day example with minute-based capacity, planning guidance, and a browser-native rule explainer.
-- `tasks.html` — Inbox → Planned → Scheduled → Done workflow concept.
-- `compass.html` — active directions, current outcomes, evidence and health check.
-- `review.html` — editable weekly reflection prompts (not saved).
-- `assets/styles.css` — original responsive design system with labeled, fixed mobile navigation.
-- `docs/PRODUCT_REQUIREMENTS.md` — complete PRD and acceptance tests.
-- `docs/VIBEFLOW_BUILD_PROMPT.md` — implementation prompt for a brand-new working VibeFlow project.
+## Working features (v2.0)
 
-## Preview locally
+- **Weekly planning:** navigate between Monday–Sunday weeks and create, edit, or delete time blocks.
+- **Capacity protection:** tasks consume minutes in their assigned blocks. If a task would exceed available capacity, it is rejected with an explanation; existing data stays intact.
+- **Scheduling guard:** optional start times must fit inside assigned blocks and cannot overlap with another scheduled task in the same block.
+- **Task management:** create, edit, assign, schedule, finish, unfinish, and delete tasks. The board shows Inbox → Planned → Scheduled → Done based on each task's actual data.
+- **Shared overview:** remaining time, task counts, completion progress, next action, and habits update from the same data as the planner and task board.
+- **Daily habits:** check off three starter habits by weekday; marks persist for the selected week.
+- **KPI Compass:** edit three directions and see task-completion evidence by category.
+- **Weekly review:** write wins, friction, a small adjustment, and a next-week anchor. Reviews are saved per week.
+- **Browser persistence:** everything saves automatically using `localStorage`; export or import a JSON backup. No account required.
+- **Responsive design:** desktop, tablet, and phone navigation; accessible native form controls and dialogs.
 
-Open `index.html` in a browser. All pages use relative paths and **no JavaScript**. External frameworks, bundlers and backend servers are not needed.
+## Getting started
 
-Optional local server:
+Open the [live Weekweave site](https://kristinelio.github.io/weekweave-dashboard/) or run a local static server from the repository folder:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then browse to `http://localhost:8000`.
+Then open `http://localhost:8000/`. No build step, package manager, API, or backend is needed.
 
-## Important: scope and honesty
+The first visit contains editable starter examples so that you can test the product immediately. Choose **Tasks → Add task** to capture work, **Planner → Time block** to create capacity, and **Review** to reflect on a selected week. The **Reset example** action clears this browser's data, so export a backup before using it.
 
-This is **a design prototype, not yet a qualifying hackathon entry**. The HTML pages show sample data. Native checkboxes and textareas respond in the browser, but **they do not persist**. Task creation, capacity enforcement, habit state, data storage, analytics and task/calendar synchronization are specified in the PRD but not implemented here.
+## Project structure
 
-The hackathon rules explicitly reject screens that only look functional. Rebuild the P0 workflows in a **new VibeFlow project created during the event**, test core features, and submit its actual live URL. This prototype must not be passed off as a finished working app or an existing Streamlit project.
+```text
+index.html                     Weekly overview
+planner.html                   Time blocks and capacity
+ tasks.html                    Task workflow
+compass.html                   KPI directions and progress
+review.html                    Saved weekly reflections
+assets/styles.css              Design system and responsive styling
+assets/app.js                  Vanilla JavaScript business logic + local storage
+ docs/PRODUCT_REQUIREMENTS.md  Product requirements
+ docs/HACKATHON_SUBMISSION_PLAN.md  Hackathon positioning
+ docs/VIBEFLOW_BUILD_PROMPT.md  VibeFlow implementation notes
+ tests/SMOKE_TESTS.md           Functional acceptance checklist
+```
 
-## Competitive positioning
+## Privacy and limitations
 
-**Path:** Unlock It — a personal alternative to a paid planning tool you want but have not bought.
+All personal content is stored **only in the browser on the device where it was entered**. There is **no cloud sync**, account system, server storage, calendar integration, notification engine, or AI assistant. Clearing site storage or switching browsers/devices will remove access to the data unless you previously exported a backup. Avoid storing secrets or sensitive financial details.
 
-**Suggested subscription comparison:** Sunsama Pro, **$22/user/month when billed monthly** according to [its billing documentation](https://help.sunsama.com/docs/billing/overview/). Weekweave has an original design; it is not affiliated with Sunsama and should not mimic Sunsama's name or look.
-
-**Core differentiator:** Prevent overplanning by linking each task to a real time-capacity block, then connect the result to weekly evidence and reflection.
-
-## GitHub Pages preview
-
-This source repository is `https://github.com/KristineLio/weekweave-dashboard`. To make it viewable as a static website, enable **Settings → Pages → Deploy from a branch → main → /(root)**. GitHub Pages activation cannot be accomplished just by uploading source files.
-
-After Pages is enabled, preview at `https://kristinelio.github.io/weekweave-dashboard/`.
-
-## UX review changelog — v1.1
-
-- Reworked the Overview to emphasize **available hours, one priority, and the Plan → Do → Learn loop** instead of an invented momentum score.
-- Clarified the 120-minute block-capacity example and included a readable overflow explanation.
-- Replaced fixed, apparently current week dates with a **clearly marked sample weekly template**.
-- Exposed the preview / no-save limitation on every page, including the weekly review.
-- Added labeled bottom navigation for narrow mobile screens, with keyboard focus states maintained.
-- Kept every page **HTML and CSS only**. Functional creation, persistence, and capacity validation are separate VibeFlow acceptance criteria.
+This release uses HTML, CSS, and **vanilla JavaScript**. The initial HTML/CSS-only concept could not have functioning storage or capacity enforcement; JavaScript was required for those behaviors. For a hackathon submission, **verify equivalent features actually work on the live VibeFlow version**; a GitHub Pages demo alone is not evidence of VibeFlow compatibility or eligibility.
 
 ## License
 
-MIT License — see [`LICENSE`](LICENSE).
+MIT — see [LICENSE](LICENSE).
