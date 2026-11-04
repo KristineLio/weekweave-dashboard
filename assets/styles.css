@@ -108,3 +108,44 @@ button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.58}
 .workday-guidance>div>div{display:flex;flex-direction:column;gap:5px;min-width:0}.workday-guidance strong{font-size:12px;color:#314940}.workday-guidance small{font-size:11px;color:#81978b;line-height:1.5;overflow-wrap:anywhere}
 .workday-priority .today-separator{margin:8px 0 16px}.workday-actions{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:auto}.workday-actions .text-link{padding:0}.workday-priority .workday-actions .mini-button{font-size:11px;text-decoration:none}
 @media(max-width:650px){.workday-shift{padding:11px 12px}.workday-shift strong{font-size:17px}.workday-shift>b{font-size:11px}.workday-hero .workday-reassurance{font-size:11px}.workday-guidance>div{padding:12px}}
+
+/* v2.5 — KPI Compass: outcome progress is independent from task completion. */
+.compass-hero-v25{margin-top:18px;gap:24px}.compass-hero-v25 .mini-button{display:inline-flex;margin-top:20px;background:#fff;border-color:#cdded3;color:#326757}
+.compass-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:17px}
+.compass-summary>div{background:#fff;border:1px solid #e8ede9;border-radius:15px;padding:16px 20px;box-shadow:0 8px 25px rgba(42,68,59,.025);display:flex;flex-direction:column;gap:5px}
+.compass-summary span{font-size:9px;font-weight:850;color:#a68f7e;letter-spacing:.12em}
+.compass-summary strong{font-size:26px;line-height:1.2;color:#2d4240;letter-spacing:-.05em}
+.compass-summary small{font-size:10px;color:#84948c}
+.outcome-cards{align-items:stretch}
+.outcome-card{gap:0;min-width:0}
+.outcome-card .direction-card-top{margin-bottom:14px}
+.outcome-card h3{min-height:0}
+.outcome-card>p{margin:6px 0 18px;min-height:42px}
+.outcome-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;font-size:9px;font-weight:800;color:#879991;border-top:1px solid #eef2ed;padding:16px 0 8px}
+.outcome-meta>span{max-width:100%;overflow-wrap:anywhere;letter-spacing:.08em;text-transform:uppercase}
+.outcome-meta>strong{font-size:10px;letter-spacing:normal;color:#3f7765;background:#eaf4ed;border-radius:7px;padding:5px 7px}
+.outcome-measure{margin:8px 0 16px}
+.outcome-measure>strong{display:block;font-size:21px;letter-spacing:-.03em;line-height:1.3;overflow-wrap:anywhere}
+.outcome-measure .direction-meter{height:8px;background:#e7eee9;border-radius:15px;margin:12px 0 7px;overflow:hidden}
+.outcome-measure .direction-meter span{display:block;height:100%;background:#7ca994;border-radius:15px}
+.outcome-measure small{font-size:10px;color:#889d90}
+.outcome-warning{font-size:11px!important;min-height:0!important;color:#986034!important;background:#fff3e9;border-radius:8px;padding:9px 10px;margin:0 0 14px!important}
+.outcome-proof{margin-top:auto;border:1px solid #ecf0ed;border-radius:11px;background:#f8faf8;padding:11px 13px;display:flex;flex-direction:column;gap:6px;min-height:69px}
+.outcome-proof b{font-size:10px;color:#4e7967}
+.outcome-proof span{font-size:11px;color:#677c70;line-height:1.5;overflow-wrap:anywhere}
+.outcome-foot{margin-top:16px;display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:10px}
+.outcome-foot>span{font-size:11px;color:#73867b}.outcome-foot>span small{display:block;font-size:9px;color:#9caaa2}
+.outcome-foot>div{display:flex;gap:6px}.outcome-foot .mini-button{padding:8px 10px;font-size:10px}
+.compass-detail-grid{align-items:start}.compass-log{max-height:500px;overflow-y:auto}
+.compass-log-entry{padding:15px 0;display:grid;gap:7px;border-bottom:1px solid #e9efeb}.compass-log-entry:last-child{border-bottom:0}
+.compass-log-entry>div{display:flex;gap:12px;align-items:center}.compass-log-entry .log-area{font-size:9px;letter-spacing:.11em;font-weight:850;color:#af8e76}
+.compass-log-entry time{font-size:10px;color:#8e9e93}.compass-log-entry>strong{font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+.compass-log-entry>small{font-size:10px;color:#84978e;line-height:1.5}.log-delete{justify-self:end;font-size:10px;color:#ad6662;background:transparent;border:0;padding:4px 0;cursor:pointer}
+.compass-health-list{margin:18px 0;padding:12px 15px;border-radius:12px;background:#f5f8f4}
+.compass-health-list>div{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#5f776a;padding:11px 0;border-bottom:1px solid #e3ebe3}
+.compass-health-list>div:last-child{border:0}.compass-health-list strong{color:#314d43;font-weight:800}
+#goals-form{gap:13px}.app-dialog textarea{border:1px solid #dce7e1;border-radius:10px;resize:vertical;min-height:92px;padding:11px 12px;color:#263c36;font:inherit;font-size:13px;width:100%;background:#fff}
+.app-dialog .goal-fieldset label.check-row{margin-top:2px}.goal-fieldset .form-grid label{min-width:0}
+@media(max-width:1050px){.outcome-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.compass-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.compass-summary>div{padding:12px 9px}.compass-summary span{font-size:8px;letter-spacing:0}.compass-summary strong{font-size:22px}.compass-summary small{font-size:9px}.outcome-cards{grid-template-columns:1fr}.outcome-card>p{min-height:0}.compass-hero-v25{padding:25px 23px}.compass-hero-v25 h2{font-size:25px}}
+@media(max-width:390px){.compass-summary{grid-template-columns:1fr 1fr}.compass-summary>div:last-child{grid-column:1/-1}.app-dialog .form-grid{grid-template-columns:1fr}}
