@@ -47,3 +47,16 @@ The v2.3 Overview tests were performed using a headless Chromium render with bro
 3. Create a later-week Focus block after the selected workday. The Overview's optional Next focus window must show its day/time and navigate to that day on click.
 4. Create a Focus block after the work shift on the same day. The normal focus-capacity dashboard must return, and busy hours must remain excluded from task capacity.
 5. Check 320, 375, 390, 650, 768, 1024, and 1440 px widths, and confirm that previous saved data and task-completion behavior remain unchanged.
+
+## v2.5 — Outcome-based KPI Compass
+
+1. Open Compass with an existing v2.4 local-storage workspace. Existing direction titles, tasks and Planner blocks must survive intact. Unconfigured target fields start at zero, not fabricated progress.
+2. Edit Study outcome: `Courses passed`, current 2, target 9, unit `courses`. Compass must display `2 / 9 courses` and 22%; weekly completed-task counts remain separate.
+3. Record evidence with a note, today's date, optional increment +1, energy 4/5 and friction. Compass must show 3/9, a dated evidence entry and a count of 1. Refresh, switch weeks, and confirm the saved outcome remains.
+4. Remove the evidence entry; the goal must revert to 2/9, without deleting or changing any task.
+5. Leave the progress note blank or enter a future date/negative increment. The form must reject invalid evidence and keep the original value.
+6. Set an incomplete outcome with an expired due date: the health check must flag it. An evidence entry older than 14 days must show a stale warning. Paused or achieved outcomes must not warn.
+7. Re-open the Planner, Tasks, Overview and Review: check JavaScript console for errors and repeat task capacity and saved week smoke tests.
+8. Test 320, 375, 390, 650, 768, 1024 and 1440px widths for horizontal overflow and mobile navigation.
+
+Local Chromium tests were completed with an isolated browser storage fixture and inline assets, because the sandbox restricts navigation to local development servers. Verify hosted GitHub Pages separately after deployment.
