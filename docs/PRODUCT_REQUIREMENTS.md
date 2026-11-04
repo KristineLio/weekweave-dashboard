@@ -251,3 +251,21 @@ The prior dashboard's architectural ideas inform the new product specification; 
 - Busy time appears in the weekly calendar and busy-time metric, but is excluded from task capacity and is not eligible for task assignments.
 - Blocks must not overlap on the same day, regardless of type. Updating a Focus block to Busy is blocked while tasks remain associated with that block, including completed tasks, to protect history.
 - The current release supports same-day blocks only. Overnight shifts and repeating weekly schedules are out of scope.
+
+
+## V2.3 implementation update — Overview command center (November 4, 2026)
+
+The live Overview is a **read/write projection of the existing `weekweave.v2` browser state**. No data migration is required and existing Planner/Tasks functionality remains intact.
+
+- Seven-day selector defaults to the current day within the active week; a non-current week opens on Monday.
+- Selected-day timetable merges busy and focus blocks; busy time is unavailable and excluded from task capacity.
+- Daily unbooked focus minutes = sum of focus block durations − unfinished assigned task minutes in those blocks. Done tasks are shown historically but free their capacity.
+- Priority recommendation order: first unfinished selected-day task (scheduled time or block start order), then an unfinished Inbox task, then the nearest upcoming unfinished task in the selected week. No independent priority database.
+- Weekly metrics show focus capacity, busy/unavailable minutes, task completion and active commitments; all are derived from stored tasks and blocks.
+- Compass direction cards show completed task count / total tasks **by category**; this is evidence of activity, not an assertion that long-term goals are completed.
+- Habits and Weekly Review continue using the original week-specific state and unchanged storage key.
+- No cloud sync, external calendar, recurring work shifts, financial tracking or AI-generated suggestions are claimed.
+
+### V2.3 acceptance
+
+In a week containing an 11h busy work shift and a 90m focus block with a 45m unfinished task: the selected day's dashboard must show 11h busy, 90m focus capacity, 45m committed and 45m unbooked. Marking the task Done must free 45m immediately without deleting its completion history. The Overview must display accurate values after refresh and switching between weeks; the Tasks and Planner views must continue to function.
