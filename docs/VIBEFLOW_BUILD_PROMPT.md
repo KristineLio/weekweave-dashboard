@@ -32,3 +32,9 @@ Use platform-native state, actions and persistence where available. If a platfor
 ## Submission condition
 
 Do **not** submit the CSS-only prototype. First verify that the new VibeFlow project's live URL works for another visitor and its main interactions persist. Post in SkyCastle `#builds` before November 7, 11:59 PM PST with the live URL, **Unlock It — Sunsama Pro ($22/month)** (if this remains the chosen comparison), and one accurate sentence about the working features.
+
+
+## v2.2 — Schedule busy work shifts
+
+Add a Time Block modal with **Block name, Type (Busy / Focus), Day, Area, Start time, End time**.
+Compute duration from the entered hours: a 09:00–20:00 work shift lasts 11h (660 minutes). Busy time appears on the planner, is excluded from free task capacity, and cannot accept tasks. Focus time is available for tasks and enforces capacity. Do not allow overlapping Busy/Focus blocks on the same day. Keep Done-task history while releasing active capacity. Overnight shifts and recurring schedules are not yet included.
