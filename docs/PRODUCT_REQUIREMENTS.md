@@ -115,11 +115,11 @@ Multi-user permissions, external calendar integration, billing, account setup, n
 - Marking Done retains the task as completion evidence, while releasing its reserved minutes and scheduled time. Reopening a completed task must pass the same block-capacity and overlap checks as a new active task. The MVP currently records completion as a boolean, not a completion timestamp.
 - Avoid double-counting the same task across planning and scheduled views.
 
-### 6.4 KPI Compass (implemented v2.5)
+### 6.4 KPI Compass (implemented v2.7)
 
 - Three fixed life areas for the hackathon MVP (Study, Build, Personal); each has a customizable direction and desired outcome. The full-product concept allows up to four active directions, but v2.5 implements three to reduce complexity.
-- Each direction can specify a measurable outcome name, current value, numeric target, unit, due date, and optional paused state. Status is derived from the actual values: unconfigured, not started, in progress, reached, or paused.
-- Evidence entries include date, note, optional positive numeric increment, optional energy score (1–5), and friction. Entries are persisted in browser storage; deleting one reverses its stored increment (the current value can also be manually corrected).
+- Each direction can specify a measurable outcome name, measurement mode (not tracked, increasing, decreasing), starting value for decreasing metrics, current value, numeric target (including zero), unit, due date, and optional paused state. Status is derived from the actual values: unconfigured, not started, in progress, reached, or paused.
+- Evidence entries include date, note, optional units gained or reduced, optional energy score (1–5), and friction. Entries are persisted in browser storage with a signed internal delta; deleting one reverses its original change (the current value can also be manually corrected).
 - The health check shows the last evidence and flags incomplete active outcomes when the target date has passed or no new evidence has been recorded for 14+ days. A direction with no evidence is shown as not yet logged, not falsely labeled stale.
 - Task completion counts remain separate weekly execution evidence, and **must not automatically change outcome targets or values**. This prevents misleading goal-success claims.
 - Existing v2 browser storage and JSON backups are upgraded without wiping tasks, time blocks, reviews, or direction titles; older goals begin with no fabricated numeric outcomes.
@@ -295,3 +295,13 @@ When the selected day contains a **Busy Work** shift and no Focus blocks, the Ov
 4. Save the four review fields and optional energy (1–5), reopen the week, and confirm all values remain. Other week reviews are unchanged.
 5. Saving a next-week anchor can create an unassigned task in the next week's Inbox. Never duplicate that task through repeated clicks and never book capacity silently.
 6. A user editing a review sees an unsaved warning on week navigation. Existing Planner, Tasks, Overview, Compass, import/export, and localStorage keys are unchanged.
+
+### KPI Compass v2.7 acceptance — zero-target bug fix (November 4, 2026)
+
+1. The user saves a Study direction with measure "courses left", current 5, target 0, and unit "courses". The Compass shows "5 courses left → 0 goal", not "No numeric target set".
+2. If baseline/starting value is 5, progress starts at 0%. Recording one passed course as a reduction of 1 produces current 4, target 0, and 20% achieved. Reloading retains the result.
+3. Removing that evidence reverses the stored signed delta and returns the count to 5. The same reversal must work if the user changes the measurement direction later.
+4. Increasing goals such as 2/8 courses passed still show 25%, while unconfigured directions continue to show "Set a measure".
+5. Existing stored goals with target 0, current >0, and a clearly named remaining-count metric (e.g. "courses left") migrate to decreasing mode without resetting tasks, evidence, or dates. Other zero targets remain unconfigured.
+6. The weekly review displays a decreasing goal as current → target, while completed-task counts remain a separate measure.
+7. Test Compass form submission, evidence entry and removal, persistence, and responsiveness on all five pages at 320, 390, 768, and 1440 px.

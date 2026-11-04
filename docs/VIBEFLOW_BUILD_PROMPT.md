@@ -46,3 +46,7 @@ The functional build should support editing a direction's measurable target/curr
 ## Weekly Review parity requirement (v2.6)
 
 Use real task, Busy-block, habit, and dated Compass evidence records to populate the selected week. The four review notes and an optional energy rating must save and reload per week. If supported in VibeFlow, let a user explicitly turn a saved next-week anchor into an *unscheduled* Inbox task. Guard against accidental duplicates and preserve previous weeks. Do not portray cumulative KPI targets as weekly achievements or mark unanswered days as failed habits. If VibeFlow cannot support local persistence, do not replace these controls with a static mockup and claim they work.
+
+## KPI Compass zero-target parity (v2.7)
+
+Support both **Increase** (e.g. courses passed, 2/9) and **Decrease** (e.g. courses left, 5 to 0) goals. Do not treat a zero target as unconfigured when the user explicitly selected Decrease. Store the starting value for a decrease goal and calculate `(start-current)/(start-target)`, clamped between 0–100%. When recording a course passed, reduce the remaining count by one and store a reversible signed progress event. Do not automatically change outcome progress when a task is marked Done. Existing saved browser data must survive upgrades.

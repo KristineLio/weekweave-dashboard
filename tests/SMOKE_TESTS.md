@@ -73,3 +73,14 @@ Local Chromium tests were completed with an isolated browser storage fixture and
 8. Test Overview, Planner, Tasks, Compass, and Review at 320, 390, 768 and 1440 px for horizontal overflow and JS exceptions.
 
 Verified using an isolated browser-rendering test harness on 2026-11-04: form persistence, next-week carry-forward, duplicate protection, evidence date selection, historical week isolation, and responsive layouts. A separate live GitHub Pages check is required after deployment.
+
+## v2.7 — Zero-target decreasing outcomes
+
+1. Set Study direction "get degree", metric "courses left", current 5, target 0, starting 5, mode Decrease. Confirm it saves and displays `5 courses left → 0 goal` and 0% progress.
+2. Record dated evidence "Passed NETB208", units reduced 1. Confirm it changes the result to `4 courses left → 0 goal` and 20%, including after refresh.
+3. Remove the entry; confirm remaining courses returns to 5 and progress resets to 0%.
+4. Simulate legacy saved data with current 5, target 0 and metric "courses left", without the new mode/baseline fields. Reload: it should automatically recognize this as a decreasing goal without losing existing notes.
+5. Confirm positive targets (e.g. current 2, target 8, Increase) still display 25%, and unconfigured goals still say "Set a measure".
+6. Weekly Review must display `5 → 0 courses`, not "Target not configured". Verify no errors or overflow across all five pages on 320, 390, 768, and 1440px screens.
+
+Verified locally in Chromium with isolated browser storage. Production GitHub Pages requires its own verification after the release is deployed.

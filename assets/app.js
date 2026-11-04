@@ -62,11 +62,20 @@
         unit:typeof prior.unit==='string'?prior.unit.slice(0,30):'',
         target:Number.isFinite(Number(prior.target))?Math.max(0,Math.min(100000,Number(prior.target))):0,
         current:Number.isFinite(Number(prior.current))?Math.max(0,Math.min(100000,Number(prior.current))):0,
+        // Legacy target=0 was interpreted as unset. Recover clearly worded
+        // remaining-count goals (e.g. 5 courses left -> 0) without touching
+        // unrelated zero-target goals or resetting their evidence.
+        mode:['none','increase','decrease'].includes(prior.mode)?prior.mode:
+          (Number(prior.target)>0?'increase':Number(prior.current)>0 &&
+          /\b(left|remaining|remain|outstanding|unfinished|to go)\b/i.test(String(prior.metric||''))?'decrease':'none'),
+        baseline:Number.isFinite(Number(prior.baseline)) && prior.baseline!==null
+          ? Math.max(0,Math.min(100000,Number(prior.baseline)))
+          : Math.max(0,Math.min(100000,Number(prior.current)||0)),
         dueDate:typeof prior.dueDate==='string' && /^\d{4}-\d{2}-\d{2}$/.test(prior.dueDate)?prior.dueDate:'',
         paused:prior.paused===true,
         evidence:Array.isArray(prior.evidence)?prior.evidence.filter(e=>e && typeof e.note==='string' && typeof e.date==='string').slice(-200).map(e=>({
           id:String(e.id||uid()),date:e.date,note:e.note.slice(0,600),
-          delta:Number.isFinite(Number(e.delta))?Math.max(0,Math.min(100000,Number(e.delta))):0,
+          delta:Number.isFinite(Number(e.delta))?Math.max(-100000,Math.min(100000,Number(e.delta))):0,
           energy:e.energy===''?'':(['1','2','3','4','5'].includes(String(e.energy))?String(e.energy):''),
           friction:String(e.friction||'').slice(0,300)
         })):[]};
@@ -178,23 +187,33 @@
   const boardLabels={inbox:'Captured ideas',planned:'Assigned to a block',scheduled:'Placed at a time',done:'Completed work'};
   function taskCard(task){const block=blockById(task.blockId);return `<article class="board-task ${task.done?'done-task':''}"><span class="task-label ${task.category==='Study'?'peach-label':task.category==='Build'?'purple-label':'green-label'}">${safe(task.category).toUpperCase()}</span><strong>${safe(task.title)}</strong><small>${task.duration} min · ${block?safe(DAYS[block.day].slice(0,3)+' '+block.start):'No block'}${task.scheduledTime?' · '+safe(task.scheduledTime):''}${task.done?' · Time released':''}</small><div class="task-card-actions"><label class="quick-done"><input type="checkbox" data-toggle-task="${safe(task.id)}" ${task.done?'checked':''}> Done</label><button type="button" class="mini-button" data-action="edit-task" data-id="${safe(task.id)}">Edit ↗</button></div></article>`;}
   function renderTasks(){return heading('02 / EXECUTE WITH INTENTION','Give every task <em>a place.</em>','Capture → assign → schedule → complete. Every change immediately updates your planner.',`<button class="button button-dark" data-action="add-task">+ Add task</button>`)+weekNav()+savedInfo()+`<div class="stats-grid compact-stats">${[['INBOX',count('inbox')],['PLANNED',count('planned')],['SCHEDULED',count('scheduled')],['DONE',count('done')]].map(([label,val])=>`<div class="stat-card"><div class="stat-top"><span>${label}</span></div><div class="stat-value">${val}</div></div>`).join('')}</div><div class="board">${['inbox','planned','scheduled','done'].map(st=>`<section class="board-column"><div class="board-heading"><span class="board-dot ${st==='planned'?'peach':st==='scheduled'?'purple-dot':st==='done'?'mint-dot':''}"></span><h3>${st.charAt(0).toUpperCase()+st.slice(1)}</h3><span class="board-count">${count(st)}</span></div><p>${boardLabels[st]}</p>${week().tasks.filter(t=>statusFor(t)===st).map(taskCard).join('')||'<div class="empty-column">No tasks here yet.</div>'}${st==='inbox'?'<button class="board-add" data-action="add-task">+ Capture a task</button>':''}</section>`).join('')}</div><section class="panel next-step-panel"><div class="panel-heading"><div><div class="panel-kicker">CAPACITY PROTECTION</div><h3>Your time is finite. Your tasks should respect it.</h3></div><a class="text-link" href="planner.html">See weekly capacity ↗</a></div><p class="panel-description">Only unfinished tasks occupy capacity. Mark Done to free those minutes for new work. If you reopen a task, Weekweave verifies that its block still has room.</p></section>${toolRow()}`;}
-  const goalPct = g => g.target>0 ? Math.min(100,Math.round(g.current/g.target*100)) : 0;
-  const goalLabel = g => g.paused?'Paused':g.target<=0?'Set a measure':g.current>=g.target?'Outcome reached':g.current>0?'In progress':'Not started';
+  const isTracked = g => g.mode==='increase' && g.target>0 || g.mode==='decrease';
+  const reachedGoal = g => isTracked(g) && (g.mode==='increase'?g.current>=g.target:g.current<=g.target);
+  const goalPct = g => {
+    if(!isTracked(g))return 0;
+    if(g.mode==='increase')return Math.min(100,Math.max(0,Math.round(100*g.current/g.target)));
+    const baseline=Math.max(g.baseline,g.current,g.target),span=baseline-g.target;
+    return span>0?Math.min(100,Math.max(0,Math.round(100*(baseline-g.current)/span))):(g.current<=g.target?100:0);
+  };
+  const goalLabel = g => g.paused?'Paused':!isTracked(g)?'Set a measure':reachedGoal(g)?'Outcome reached':
+    g.mode==='decrease'?'Reducing remaining work':g.current>0?'In progress':'Not started';
   const evidenceLatest = g => [...(g.evidence||[])].sort((a,b)=>b.date.localeCompare(a.date))[0] || null;
   const evidenceAge = g => {const last=evidenceLatest(g);if(!last)return null;const days=Math.floor((localDate(todayKey)-localDate(last.date))/86400000);return Math.max(0,days);};
   const goalAttention = g => {
-    if(g.paused || g.target>0 && g.current>=g.target)return '';
+    if(g.paused || !isTracked(g) || reachedGoal(g))return '';
     if(g.dueDate && g.dueDate<todayKey)return 'Due date passed';
     const age=evidenceAge(g);
     return age!==null && age>=14?'No evidence for 14+ days':'';
   };
-  const outcomeSummary = g => g.target>0
-    ? `${Number(g.current).toLocaleString()} / ${Number(g.target).toLocaleString()}${g.unit?' '+safe(g.unit):''}`
-    : 'No numeric target set';
+  const outcomeSummary = g => {
+    if(!isTracked(g))return g.metric && g.current>0?`${Number(g.current).toLocaleString()} ${safe(g.unit||'units')} · target not configured`:'No numeric target set';
+    if(g.mode==='decrease')return `${Number(g.current).toLocaleString()}${g.unit?' '+safe(g.unit):''} left → ${Number(g.target).toLocaleString()} goal`;
+    return `${Number(g.current).toLocaleString()} / ${Number(g.target).toLocaleString()}${g.unit?' '+safe(g.unit):''}`;
+  };
   function renderCompass(){
     const w=week(),goals=state.goals;
     const allEvidence=goals.flatMap(g=>(g.evidence||[]).map(e=>({...e,goalId:g.id,category:g.category,title:g.title}))).sort((a,b)=>b.date.localeCompare(a.date));
-    const configured=goals.filter(g=>g.target>0).length;
+    const configured=goals.filter(isTracked).length;
     const atRisk=goals.filter(g=>goalAttention(g)).length;
     const completedTasks=w.tasks.filter(t=>t.done);
     return heading('03 / STAY ON COURSE','Build evidence of <em>real progress.</em>',
@@ -209,13 +228,13 @@
         return `<article class="direction-card outcome-card"><div class="direction-card-top"><span class="direction-symbol ${g.category==='Study'?'peach':g.category==='Build'?'purple':'green'}">${g.category==='Study'?'◇':g.category==='Build'?'◈':'✳'}</span><span class="direction-tag">${safe(g.category.toUpperCase())}</span></div>
         <h3>${safe(g.title)}</h3><p>${safe(g.outcome)}</p>
         <div class="outcome-meta"><span>${g.metric?safe(g.metric):'MEASURABLE OUTCOME'}</span><strong>${safe(goalLabel(g))}</strong></div>
-        <div class="outcome-measure"><strong>${outcomeSummary(g)}</strong><div class="direction-meter" role="progressbar" aria-label="${safe(g.category)} outcome progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><span style="width:${pct}%"></span></div><small>${g.target>0?`${pct}% of target reached`:'Set a target to track actual progress'}${g.dueDate?` · Due ${safe(prettyDay(g.dueDate))}`:''}</small></div>
+        <div class="outcome-measure"><strong>${outcomeSummary(g)}</strong><div class="direction-meter" role="progressbar" aria-label="${safe(g.category)} outcome progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><span style="width:${pct}%"></span></div><small>${isTracked(g)?`${pct}% of target reached${g.mode==='decrease'?` · starting at ${Number(g.baseline).toLocaleString()}`:''}`:'Set a target to track actual progress'}${g.dueDate?` · Due ${safe(prettyDay(g.dueDate))}`:''}</small></div>
         ${alert?`<p class="outcome-warning" role="status">⚑ ${safe(alert)}</p>`:''}
         <div class="outcome-proof"><b>Latest evidence</b><span>${last?`${safe(prettyDay(last.date))} · ${safe(last.note)}`:'No progress evidence recorded yet'}</span></div>
         <div class="outcome-foot"><span>${done}/${tasks.length} tasks completed this week <small>(separate measure)</small></span><div><button type="button" class="mini-button" data-action="edit-goals">Edit</button><button type="button" class="mini-button" data-action="log-evidence" data-id="${safe(g.id)}">+ Evidence</button></div></div></article>`;
       }).join('')}</div>`
       +`<div class="two-column lower compass-detail-grid"><section class="panel"><div class="panel-heading"><div><div class="panel-kicker">YOUR PROGRESS LOG</div><h3>Evidence of change</h3></div><button type="button" class="mini-button" data-action="log-evidence">+ Entry</button></div><p class="panel-description">Each entry has a date and a note. An optional numeric increment updates the outcome measure.</p>
-        <div class="compass-log">${allEvidence.slice(0,12).map(e=>`<div class="compass-log-entry"><div><span class="log-area">${safe(e.category.toUpperCase())}</span><time datetime="${safe(e.date)}">${safe(prettyDay(e.date))}</time></div><strong>${safe(e.note)}</strong><small>${e.delta?`+${e.delta.toLocaleString()} toward target · `:''}${e.energy?`Energy ${safe(e.energy)}/5 · `:''}${e.friction?`Friction: ${safe(e.friction)}`:'Evidence recorded'}</small><button type="button" class="log-delete" data-action="delete-evidence" data-goal="${safe(e.goalId)}" data-id="${safe(e.id)}" aria-label="Delete evidence entry">Remove</button></div>`).join('')||'<p class="panel-description">No evidence yet. Start with one small milestone worth remembering.</p>'}</div></section>
+        <div class="compass-log">${allEvidence.slice(0,12).map(e=>`<div class="compass-log-entry"><div><span class="log-area">${safe(e.category.toUpperCase())}</span><time datetime="${safe(e.date)}">${safe(prettyDay(e.date))}</time></div><strong>${safe(e.note)}</strong><small>${e.delta?`${e.delta>0?'+':''}${e.delta.toLocaleString()} measured units · `:''}${e.energy?`Energy ${safe(e.energy)}/5 · `:''}${e.friction?`Friction: ${safe(e.friction)}`:'Evidence recorded'}</small><button type="button" class="log-delete" data-action="delete-evidence" data-goal="${safe(e.goalId)}" data-id="${safe(e.id)}" aria-label="Delete evidence entry">Remove</button></div>`).join('')||'<p class="panel-description">No evidence yet. Start with one small milestone worth remembering.</p>'}</div></section>
         <section class="panel"><div class="panel-heading"><div><div class="panel-kicker">HEALTH CHECK</div><h3>What needs attention?</h3></div></div>
         <div class="compass-health-list"><div><span>Outcomes configured</span><strong>${configured} / 3</strong></div><div><span>Directions needing attention</span><strong>${atRisk}</strong></div><div><span>Tasks finished this week</span><strong>${completedTasks.length}</strong></div><div><span>Weekly reflection</span><strong>${w.review.savedAt?'Saved':'Not saved'}</strong></div></div>
         <p class="panel-description">Task completion is execution evidence, not automatic outcome progress. Log an actual result to update your goal. A direction is flagged when its due date passes or 14 days pass since its last evidence.</p>
@@ -238,11 +257,11 @@
       ['HABIT CHECK-INS',`${habitTotal} / ${HABITS.length*7}`,'Recorded check-ins this week']
     ].map(([label,value,note])=>`<div class="review-stat"><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
     const completedRows=completed.slice(0,8).map(t=>`<li><span class="review-task-dot ${safe(t.category.toLowerCase())}"></span><div><strong>${safe(t.title)}</strong><small>${safe(t.category)} · ${durationText(t.duration)}</small></div><span class="review-done-mark">✓ Done</span></li>`).join('');
-    const evidenceRows=weekEvidence.slice(0,6).map(e=>`<li><span class="review-proof-date">${safe(prettyDay(e.date))}</span><div><strong>${safe(e.note)}</strong><small>${safe(e.category)} · ${safe(e.goalTitle)}${e.delta?` · +${Number(e.delta).toLocaleString()} measured units`:''}</small></div></li>`).join('');
+    const evidenceRows=weekEvidence.slice(0,6).map(e=>`<li><span class="review-proof-date">${safe(prettyDay(e.date))}</span><div><strong>${safe(e.note)}</strong><small>${safe(e.category)} · ${safe(e.goalTitle)}${e.delta?` · ${e.delta>0?'+':''}${Number(e.delta).toLocaleString()} measured units`:''}</small></div></li>`).join('');
     const habitRows=habitCounts.map(h=>`<div class="review-habit-row"><span>${safe(h.name)}</span><div class="review-habit-meter" role="progressbar" aria-label="${safe(h.name)} check-ins" aria-valuemin="0" aria-valuemax="7" aria-valuenow="${h.count}"><i style="width:${Math.round(100*h.count/7)}%"></i></div><strong>${h.count}/7</strong></div>`).join('');
     const directionRows=state.goals.map(g=>{
       const count=weekEvidence.filter(e=>e.category===g.category).length;
-      const target=g.target>0?`${Number(g.current).toLocaleString()}/${Number(g.target).toLocaleString()} ${safe(g.unit||'units')}`:'Target not configured';
+      const target=isTracked(g)?`${Number(g.current).toLocaleString()} → ${Number(g.target).toLocaleString()} ${safe(g.unit||'units')} (${goalPct(g)}%)`:'Target not configured';
       return `<div class="review-goal-row"><div><strong>${safe(g.category)} · ${safe(g.title)}</strong><small>${count} dated evidence entr${count===1?'y':'ies'} this week</small></div><span>${target}</span></div>`;
     }).join('');
     const reviewFields=[
@@ -287,11 +306,11 @@
   function blockOptions(selected='',taskId=''){return `<option value="">Inbox (no block)</option>${week().blocks.filter(b=>!busy(b)).sort((a,b)=>a.day-b.day||minute(a.start)-minute(b.start)).map(b=>`<option value="${safe(b.id)}" ${selected===b.id?'selected':''}>${DAYS[b.day].slice(0,3)} ${b.start} · ${safe(b.title)} (${slots(b.id,taskId)}m free)</option>`).join('')}`;}
   function installDialogs(){document.body.insertAdjacentHTML('beforeend',`<dialog id="task-dialog" class="app-dialog" aria-labelledby="task-dialog-title"><form id="task-form" novalidate><div class="modal-head"><div><div class="panel-kicker">TASK MANAGEMENT</div><h2 id="task-dialog-title">Add task</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div><input type="hidden" name="id"><label>Task name <input name="title" required maxlength="120" placeholder="e.g. Complete assignment"></label><div class="form-grid"><label>Duration (minutes) <input name="duration" type="number" min="5" max="480" step="5" value="30" required></label><label>Area <select name="category">${CATEGORIES.map(c=>`<option>${c}</option>`).join('')}</select></label></div><label>Assign to time block <select name="blockId"></select></label><label>Schedule start (optional) <input type="time" name="scheduledTime"><small>Leave blank for Planned; scheduled start must fit inside the chosen block.</small></label><label class="check-row"><input type="checkbox" name="done"> Mark completed</label><div id="task-form-error" class="form-error" role="alert"></div><div class="modal-actions"><button class="mini-button danger-button" type="button" data-action="delete-task" id="delete-task-button" hidden>Delete task</button><button class="mini-button" type="button" data-action="close-dialog">Cancel</button><button class="button button-dark" type="submit">Save task</button></div></form></dialog>
   <dialog id="block-dialog" class="app-dialog" aria-labelledby="block-dialog-title"><form id="block-form" novalidate><div class="modal-head"><div><div class="panel-kicker">YOUR WEEKLY TIMETABLE</div><h2 id="block-dialog-title">Add time block</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div><input type="hidden" name="id"><label>Block name <input name="title" required maxlength="90" placeholder="e.g. Work shift"></label><label>Block type <select name="kind"><option value="focus">Focus time — available for tasks</option><option value="busy">Busy time — work, class, appointment</option></select></label><div class="form-grid"><label>Day <select name="day">${DAYS.map((d,i)=>`<option value="${i}">${d}</option>`).join('')}</select></label><label>Area <select name="category">${BLOCK_AREAS.map(c=>`<option>${c}</option>`).join('')}</select></label><label>Start time <input type="time" name="start" required value="09:00"></label><label>End time <input type="time" name="end" required value="10:00"></label></div><div id="block-time-summary" class="block-time-summary" role="status">1h available for tasks</div><p class="form-helper">Example: a work shift from 09:00 to 20:00 is 11h busy time. Busy blocks reserve those hours and cannot hold tasks. End time must be later the same day.</p><div id="block-form-error" class="form-error" role="alert"></div><div class="modal-actions"><button class="mini-button danger-button" type="button" data-action="delete-block" id="delete-block-button" hidden>Delete block</button><button class="mini-button" type="button" data-action="close-dialog">Cancel</button><button class="button button-dark" type="submit">Save time block</button></div></form></dialog>
-  <dialog id="goals-dialog" class="app-dialog" aria-labelledby="goals-dialog-title"><form id="goals-form"><div class="modal-head"><div><div class="panel-kicker">KPI COMPASS</div><h2 id="goals-dialog-title">Your directions</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div><p class="panel-description">Set a measurable outcome for each direction. Editing the current value is a manual correction; use Record progress for dated evidence. Stored only on this device.</p><div id="goal-fields"></div><div class="modal-actions"><button type="button" class="mini-button" data-action="close-dialog">Cancel</button><button type="submit" class="button button-dark">Save directions</button></div></form></dialog>
+  <dialog id="goals-dialog" class="app-dialog" aria-labelledby="goals-dialog-title"><form id="goals-form"><div class="modal-head"><div><div class="panel-kicker">KPI COMPASS</div><h2 id="goals-dialog-title">Your directions</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div><p class="panel-description">Track outcomes that increase (courses passed) or decrease (courses left). A target of zero is valid for a decreasing goal. Stored only on this device.</p><div id="goal-fields"></div><div class="modal-actions"><button type="button" class="mini-button" data-action="close-dialog">Cancel</button><button type="submit" class="button button-dark">Save directions</button></div></form></dialog>
   <dialog id="evidence-dialog" class="app-dialog" aria-labelledby="evidence-dialog-title"><form id="evidence-form" novalidate><div class="modal-head"><div><div class="panel-kicker">KPI COMPASS · PROGRESS LOG</div><h2 id="evidence-dialog-title">Record evidence</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div>
   <label>Direction <select name="goalId">${state.goals.map(g=>`<option value="${safe(g.id)}">${safe(g.category)} · ${safe(g.title)}</option>`).join('')}</select></label>
   <label>What changed? <textarea name="note" rows="3" maxlength="600" required placeholder="e.g. Passed my C++ practice assessment"></textarea></label>
-  <div class="form-grid"><label>Date <input type="date" name="date" required></label><label>Progress increment (optional) <input type="number" min="0" max="100000" step="0.5" name="delta" value="0"><small>Updates the goal's current number, not weekly task capacity.</small></label></div>
+  <div class="form-grid"><label>Date <input type="date" name="date" required></label><label><span id="evidence-delta-label">Progress made (optional)</span> <input type="number" min="0" max="100000" step="0.5" name="delta" value="0"><small id="evidence-delta-help">For increasing goals, this adds to the current value. For decreasing goals, this removes from the remaining amount.</small></label></div>
   <div class="form-grid"><label>Energy (optional) <select name="energy"><option value="">Not recorded</option>${[1,2,3,4,5].map(n=>`<option value="${n}">${n}/5</option>`).join('')}</select></label><label>Friction (optional) <input name="friction" maxlength="300" placeholder="What slowed you down?"></label></div>
   <div id="evidence-form-error" class="form-error" role="alert"></div><div class="modal-actions"><button type="button" class="mini-button" data-action="close-dialog">Cancel</button><button type="submit" class="button button-dark">Save evidence</button></div></form></dialog>`); }
   function openTask(id='',initialBlock=''){const t=week().tasks.find(t=>t.id===id);const dialog=$('#task-dialog'),f=$('#task-form');f.reset();f.elements.id.value=t?.id||'';f.elements.title.value=t?.title||'';f.elements.duration.value=t?.duration||30;f.elements.category.value=t?.category||'Study';f.elements.blockId.innerHTML=blockOptions(t?.blockId||initialBlock,t?.id||'');f.elements.scheduledTime.value=t?.scheduledTime||'';f.elements.done.checked=!!t?.done;$('#task-dialog-title').textContent=t?'Edit task':'Add task';$('#delete-task-button').hidden=!t;$('#task-form-error').textContent='';dialog.showModal();f.elements.title.focus();}
@@ -345,45 +364,69 @@
       <label>Direction <input name="title-${i}" maxlength="90" required value="${safe(g.title)}"></label>
       <label>Current outcome <input name="outcome-${i}" maxlength="160" required value="${safe(g.outcome)}"></label>
       <label>What are you measuring? <input name="metric-${i}" maxlength="60" placeholder="e.g. Courses passed" value="${safe(g.metric)}"></label>
-      <div class="form-grid"><label>Current value <input name="current-${i}" type="number" min="0" max="100000" step="0.5" value="${g.current}" required></label><label>Target (0 = unset) <input name="target-${i}" type="number" min="0" max="100000" step="0.5" value="${g.target}" required></label></div>
+      <label>How does success work? <select name="mode-${i}" data-goal-mode="${i}">
+        <option value="none" ${g.mode==='none'?'selected':''}>Not tracking a numeric target yet</option>
+        <option value="increase" ${g.mode==='increase'?'selected':''}>Increase — e.g. courses passed, 0 to 9</option>
+        <option value="decrease" ${g.mode==='decrease'?'selected':''}>Decrease — e.g. courses left, 5 to 0</option>
+      </select></label>
+      <div class="form-grid"><label>Current value <input name="current-${i}" type="number" min="0" max="100000" step="0.5" value="${g.current}" required></label><label>Target value (0 is valid) <input name="target-${i}" type="number" min="0" max="100000" step="0.5" value="${g.target}" required></label></div>
+      <label data-baseline-row="${i}" ${g.mode==='decrease'?'':'hidden'}>Starting value for decrease goals <input name="baseline-${i}" type="number" min="0" max="100000" step="0.5" value="${g.baseline}" ${g.mode==='decrease'?'required':'disabled'}><small>For 5 courses left → 0, enter 5. If you started with 9 courses, enter 9 for overall progress.</small></label>
       <div class="form-grid"><label>Unit (optional) <input name="unit-${i}" maxlength="30" placeholder="e.g. courses" value="${safe(g.unit)}"></label><label>Target date (optional) <input name="dueDate-${i}" type="date" value="${safe(g.dueDate)}"></label></div>
       <label class="check-row"><input type="checkbox" name="paused-${i}" ${g.paused?'checked':''}> Paused (no stale warning)</label>
       </fieldset>`).join('');
     $('#goals-dialog').showModal();
   }
+  function updateGoalModeFields(select){
+    const i=select.dataset.goalMode,row=$(`[data-baseline-row="${i}"]`);
+    if(!row)return;
+    row.hidden=select.value!=='decrease';
+    row.querySelector('input').disabled=select.value!=='decrease';
+  }
+  function updateEvidenceHint(){
+    const form=$('#evidence-form'),g=state.goals.find(g=>g.id===form.elements.goalId.value);
+    $('#evidence-delta-label').textContent=g?.mode==='decrease'?'Units reduced (optional)':'Units gained (optional)';
+    $('#evidence-delta-help').textContent=g?.mode==='decrease'?'For courses left, enter 1 when you pass a course: 5 left becomes 4. The entry can be reversed.':'For increasing goals, enter the number newly achieved. This is separate from task completion.';
+  }
   function openEvidence(goalId=''){
     const dialog=$('#evidence-dialog'),form=$('#evidence-form');form.reset();
     form.elements.goalId.value=state.goals.some(g=>g.id===goalId)?goalId:state.goals[0].id;
     form.elements.date.value=todayKey;
-    $('#evidence-form-error').textContent='';dialog.showModal();form.elements.note.focus();
+    $('#evidence-form-error').textContent='';updateEvidenceHint();dialog.showModal();form.elements.note.focus();
   }
   function saveEvidence(form){
     const f=form.elements,g=state.goals.find(x=>x.id===f.goalId.value),date=f.date.value,note=f.note.value.trim(),delta=Number(f.delta.value||0);
     if(!g||!/^\d{4}-\d{2}-\d{2}$/.test(date)||Number.isNaN(localDate(date).getTime())||date>todayKey){$('#evidence-form-error').textContent='Choose a valid date not in the future.';return;}
     if(!note){$('#evidence-form-error').textContent='Describe what actually changed.';return;}
-    if(!Number.isFinite(delta)||delta<0||delta>100000||g.current+delta>100000){$('#evidence-form-error').textContent='Choose a valid increment without exceeding 100,000.';return;}
-    g.evidence.push({id:uid(),date,note:note.slice(0,600),delta,energy:f.energy.value,friction:f.friction.value.trim().slice(0,300)});
+    const signedDelta=g.mode==='decrease'?-delta:delta;
+    const nextValue=Math.round((g.current+signedDelta)*100)/100;
+    if(!Number.isFinite(delta)||delta<0||delta>100000||nextValue<0||nextValue>100000 || (isTracked(g)&&g.mode==='decrease'&&nextValue<g.target)){
+      $('#evidence-form-error').textContent=g.mode==='decrease'?'Reduction cannot exceed the remaining amount or go below your target.':'Choose a valid amount without exceeding 100,000.';return;
+    }
+    g.evidence.push({id:uid(),date,note:note.slice(0,600),delta:signedDelta,energy:f.energy.value,friction:f.friction.value.trim().slice(0,300)});
     if(g.evidence.length>200)g.evidence.shift();
-    g.current=Math.round((g.current+delta)*100)/100;
+    g.current=nextValue;
     closeDialogs();markAndRender('Progress evidence saved.');
   }
   function deleteEvidence(goalId,id){
     const g=state.goals.find(x=>x.id===goalId),e=g?.evidence.find(x=>x.id===id);
     if(!e||!confirm(`Remove this evidence entry? Its ${e.delta} progress increment will be reversed.`))return;
     g.evidence=g.evidence.filter(x=>x.id!==id);
-    g.current=Math.max(0,Math.round((g.current-e.delta)*100)/100);
+    g.current=Math.max(0,Math.min(100000,Math.round((g.current-e.delta)*100)/100));
     markAndRender('Evidence entry removed.');
   }
   function saveGoals(form){
     const data=new FormData(form),next=[];
     for(let i=0;i<state.goals.length;i++){
       const g=state.goals[i],title=String(data.get(`title-${i}`)||'').trim(),outcome=String(data.get(`outcome-${i}`)||'').trim();
-      const target=Number(data.get(`target-${i}`)),current=Number(data.get(`current-${i}`));
-      if(!title||!outcome||!Number.isFinite(target)||!Number.isFinite(current)||target<0||current<0||target>100000||current>100000){
-        notice(`Check the ${g.category} outcome and its 0–100,000 values.`,true);return;
+      const target=Number(data.get(`target-${i}`)),current=Number(data.get(`current-${i}`)),mode=String(data.get(`mode-${i}`)||'none');
+      const baseline=mode==='decrease'?Number(data.get(`baseline-${i}`)):current;
+      if(!title||!outcome||!['none','increase','decrease'].includes(mode)||!Number.isFinite(target)||!Number.isFinite(current)||!Number.isFinite(baseline)||
+        target<0||current<0||baseline<0||target>100000||current>100000||baseline>100000||
+        mode==='increase'&&target===0||mode==='decrease'&&(baseline<=target||current>baseline||current<target)){
+        notice(`Check the ${g.category} values. A decreasing goal needs starting ≥ current ≥ target, with starting > target.`,true);return;
       }
       next.push({...g,title:title.slice(0,90),outcome:outcome.slice(0,160),metric:String(data.get(`metric-${i}`)||'').trim().slice(0,60),
-        current,target,unit:String(data.get(`unit-${i}`)||'').trim().slice(0,30),dueDate:String(data.get(`dueDate-${i}`)||''),paused:data.get(`paused-${i}`)==='on'});
+        mode,baseline,current,target,unit:String(data.get(`unit-${i}`)||'').trim().slice(0,30),dueDate:String(data.get(`dueDate-${i}`)||''),paused:data.get(`paused-${i}`)==='on'});
     }
     state.goals=next;closeDialogs();markAndRender('Directions and measurable outcomes saved.');
   }
@@ -391,7 +434,7 @@
   function validateImport(data){if(!data||data.version!==2||typeof data.weeks!=='object'||Array.isArray(data.weeks)||!Array.isArray(data.goals)||typeof data.activeWeek!=='string')throw Error('This is not a Weekweave v2 backup.');for(const w of Object.values(data.weeks)){if(!w||!Array.isArray(w.tasks)||!Array.isArray(w.blocks)||typeof w.review!=='object'||typeof w.habits!=='object')throw Error('Backup contains an invalid week.');if(w.tasks.length>3000||w.blocks.length>500)throw Error('Backup has too many items.');}if(Object.keys(data.weeks).length>1000)throw Error('Backup exceeds the week limit.');return data;}
   async function importState(file){if(!file)return;if(file.size>3*1024*1024){notice('Backup exceeds 3 MB.',true);return;}try{const imported=validateImport(JSON.parse(await file.text()));if(!confirm('Replace all Weekweave data in this browser with the imported backup?'))return;state=imported;normalizeGoals();state.activeWeek=monday(state.activeWeek);overviewSelectedDay=null;week();persist();render();notice('Backup imported.');}catch(e){notice(`Import failed: ${e.message}`,true);}}
   document.addEventListener('click',event=>{const btn=event.target.closest('[data-action]');if(!btn)return;const action=btn.dataset.action,id=btn.dataset.id||'';if(action==='overview-day'){const n=Number(btn.dataset.day);if(Number.isInteger(n)&&n>=0&&n<=6){overviewSelectedDay=n;render();}}else if(action==='prev-week')setWeek(addDays(state.activeWeek,-7));else if(action==='next-week')setWeek(addDays(state.activeWeek,7));else if(action==='this-week')setWeek(currentMonday);else if(action==='add-task')openTask('',btn.dataset.block||'');else if(action==='edit-task')openTask(id);else if(action==='add-block')openBlock('',Number(btn.dataset.day||0));else if(action==='edit-block')openBlock(id);else if(action==='delete-task')deleteTask();else if(action==='delete-block')deleteBlock();else if(action==='close-dialog')closeDialogs();else if(action==='edit-goals')showGoals();else if(action==='log-evidence')openEvidence(id);else if(action==='delete-evidence')deleteEvidence(btn.dataset.goal,id);else if(action==='review-next-week'){if(page==='review'&&reviewDirty&&!confirm('Leave your unsaved review?'))return;state.activeWeek=addDays(state.activeWeek,7);persist();window.location.assign('tasks.html');}else if(action==='export')exportState();else if(action==='import')$('#import-file').click();else if(action==='reset'){if(confirm('Reset this device to the starter demo? This deletes all your weeks and reviews. Export a backup first if needed.')){state={version:2,activeWeek:currentMonday,weeks:{[currentMonday]:makeWeek(true)},goals:initialGoals()};overviewSelectedDay=null;normalizeGoals();persist();render();notice('Starter demo restored.');}}});
-  document.addEventListener('change',event=>{const target=event.target;if(target.matches('[data-toggle-task]'))toggleTask(target.dataset.toggleTask,target.checked);else if(target.matches('[data-habit]')){const name=target.dataset.habit,i=Number(target.dataset.day);if(!HABITS.includes(name)||i<0||i>6)return;week().habits[name]||=Array(7).fill(false);week().habits[name][i]=target.checked;persist();notice('Habit saved.');}else if(target.id==='import-file'){importState(target.files[0]);target.value='';}else if(target.closest('#block-form')){if(target.name==='kind'){const f=target.form;if(target.value==='busy'&&f.elements.category.value==='Study')f.elements.category.value='Work';else if(target.value==='focus'&&f.elements.category.value==='Work')f.elements.category.value='Study';}updateBlockTimeSummary();}});
+  document.addEventListener('change',event=>{const target=event.target;if(target.matches('[data-toggle-task]'))toggleTask(target.dataset.toggleTask,target.checked);else if(target.matches('[data-habit]')){const name=target.dataset.habit,i=Number(target.dataset.day);if(!HABITS.includes(name)||i<0||i>6)return;week().habits[name]||=Array(7).fill(false);week().habits[name][i]=target.checked;persist();notice('Habit saved.');}else if(target.id==='import-file'){importState(target.files[0]);target.value='';}else if(target.matches('[data-goal-mode]'))updateGoalModeFields(target);else if(target.name==='goalId'&&target.closest('#evidence-form'))updateEvidenceHint();else if(target.closest('#block-form')){if(target.name==='kind'){const f=target.form;if(target.value==='busy'&&f.elements.category.value==='Study')f.elements.category.value='Work';else if(target.value==='focus'&&f.elements.category.value==='Work')f.elements.category.value='Study';}updateBlockTimeSummary();}});
   document.addEventListener('input',event=>{if(event.target.closest('#block-form'))updateBlockTimeSummary();if(event.target.closest('#review-form')){reviewDirty=true;const status=$('#review-save-status');if(status)status.textContent='Unsaved changes — select Save weekly review to keep them.';}});
   document.addEventListener('submit',event=>{const form=event.target;const formType=form.getAttribute('id');if(!['task-form','block-form','review-form','carry-form','goals-form','evidence-form'].includes(formType))return;event.preventDefault();if(formType==='task-form')submitTask(form);else if(formType==='block-form')submitBlock(form);else if(formType==='review-form')saveReview(form);else if(formType==='carry-form')carryReviewTask(form);else if(formType==='goals-form')saveGoals(form);else if(formType==='evidence-form')saveEvidence(form);});
   window.addEventListener('beforeunload',event=>{if(page==='review'&&reviewDirty){event.preventDefault();event.returnValue='';}});
