@@ -58,4 +58,4 @@ Alternatively, on GitHub create a new empty repo and upload the files using **Ad
 
 ## License
 
-No license specified yet. All authored code is available here for the owner's review and future publishing decision.
+MIT License — see [`LICENSE`](LICENSE).
