@@ -6,7 +6,7 @@
 
 **Live VibeFlow build:** [INSERT VERIFIED VIBEFLOW LIVE URL]
 
-I built Weekweave because my to-do list doesn't know when I'm working or in class. Busy blocks protect those hours; focus blocks hold tasks with a real capacity limit. Add a task, watch it fit (or get rejected), mark it done to free the time, and close the week with a short reflection. No subscription or account required.
+I built Weekweave because my to-do list doesn't know when I'm working or in class. Busy blocks protect those hours; focus blocks hold tasks with a real capacity limit. Add a task, find where it fits (or see why it cannot), and complete it to free the time. In the reference product, KPI Compass tracks outcomes with dated evidence, while habits and a weekly reflection close the loop. Include those last features in the VibeFlow submission only after verifying they work there. No subscription or account required.
 
 **Optional final sentence, only if verified:** Data persists when you refresh, and your weekly progress stays connected across the Planner, Tasks and Review.
 

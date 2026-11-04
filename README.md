@@ -15,6 +15,13 @@
 - Works across Overview, Planner, Tasks, Calendar, Compass, and Review. Calendar also moves its visual date to the selected week.
 - Opening the picker never creates data, and a week is only created when intentionally selected. Unsaved Weekly Review edits trigger a confirmation before switching.
 
+## Hackathon comparison page (v3.4)
+
+- The subscription comparison at [`why.html`](why.html) now highlights four verified Weekweave strengths: **real-life capacity and smart placement**, **measurable outcome evidence**, **habits and weekly reflection**, and **local-first data ownership**.
+- The comparison explicitly credits Sunsama for timeboxing, daily workload warnings, weekly objectives/reviews, and calendar integrations. It does not claim full feature parity or that those features are absent from Sunsama.
+- Official Sunsama documentation underpins the published comparison: [billing](https://help.sunsama.com/docs/billing/overview/), [weekly objectives](https://help.sunsama.com/docs/usage-guides/weekly-objectives/), [workload settings](https://help.sunsama.com/docs/settings/user-settings/), and [timeboxing](https://help.sunsama.com/docs/usage-guides/timeboxing/timeboxing-how-to-timebox/).
+- This is positioning and page-design work; app functionality and `weekweave.v2` browser-local data are unchanged. The GitHub version is not an eligible replacement for the required new VibeFlow hackathon entry.
+
 ## Calendar (v3.1)
 
 - Sixth navigation page with **Day, Week and Month** views. Reads the existing weekly blocks and tasks; no separate calendar database or syncing service.
