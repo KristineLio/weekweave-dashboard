@@ -93,3 +93,18 @@ button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.58}
 @media(max-width:900px){.overview-directions{grid-template-columns:1fr}.overview-direction p{min-height:0}.overview-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.overview-day-switcher{padding:12px 10px;gap:12px}.overview-day-options{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:7px;padding:2px 2px 8px}.overview-day-button{min-width:58px;flex:0 0 58px;scroll-snap-align:start;min-height:68px}.overview-day-button strong{font-size:17px}.overview-day-button small{font-size:8px}.overview-summary{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.overview-summary .stat-card{padding:13px 12px}.overview-summary .stat-value{font-size:24px}.overview-summary .stat-desc{font-size:10px}.overview-daily-lower,.overview-last-row{grid-template-columns:1fr}.agenda-row{grid-template-columns:65px minmax(0,1fr);gap:7px}.agenda-add{grid-column:2;justify-self:start}.overview-goals-panel{padding:19px 16px}.overview-direction h4{margin-top:9px}.overview-daily-lower .panel{min-height:0}}
 @media(max-width:375px){.overview-summary .stat-top{font-size:9px}.overview-summary .stat-value{font-size:22px}.overview-day-button{min-width:55px;flex-basis:55px}}
+
+
+/* v2.4 — A day with a work shift and no focus blocks gets a work-first Overview. */
+.workday-hero{background:#2d4245}
+.workday-hero h2 em{color:#d5e9c9}
+.workday-hero .workday-shifts{position:relative;z-index:2;display:flex;flex-direction:column;gap:9px;margin:19px 0 12px;max-width:510px}
+.workday-shift{display:flex;align-items:center;gap:12px;min-width:0;border:1px solid rgba(210,238,229,.22);background:rgba(238,252,244,.08);border-radius:13px;padding:13px 15px}
+.workday-shift-icon{display:grid;place-items:center;border:1px solid rgba(255,255,255,.17);border-radius:10px;background:rgba(255,255,255,.07);font-size:21px;color:#d4eee3;width:38px;height:38px;flex:none}
+.workday-shift>div{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}.workday-shift small{font-size:11px;color:#c3d8cf;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.workday-shift strong{font-size:20px;letter-spacing:-.02em;color:white;font-weight:800}.workday-shift>b{white-space:nowrap;font-size:12px;color:#dfebcf;font-weight:800}
+.workday-hero .workday-reassurance{font-size:11px;color:#c8dccd;line-height:1.5;margin:10px 0 12px;max-width:510px}
+.workday-priority .today-top{flex-wrap:wrap}.workday-priority .neutral-label{font-size:9px}.workday-guidance{display:flex;flex-direction:column;gap:9px;margin:13px 0 17px}
+.workday-guidance>div{display:flex;gap:12px;align-items:flex-start;background:#f6f9f5;border:1px solid #e8f0e9;border-radius:12px;padding:13px 14px}.workday-guidance-icon{display:grid;place-items:center;background:#e1eee5;color:#42775d;border-radius:9px;width:29px;height:29px;flex:none;font-size:14px;font-weight:800}
+.workday-guidance>div>div{display:flex;flex-direction:column;gap:5px;min-width:0}.workday-guidance strong{font-size:12px;color:#314940}.workday-guidance small{font-size:11px;color:#81978b;line-height:1.5;overflow-wrap:anywhere}
+.workday-priority .today-separator{margin:8px 0 16px}.workday-actions{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:auto}.workday-actions .text-link{padding:0}.workday-priority .workday-actions .mini-button{font-size:11px;text-decoration:none}
+@media(max-width:650px){.workday-shift{padding:11px 12px}.workday-shift strong{font-size:17px}.workday-shift>b{font-size:11px}.workday-hero .workday-reassurance{font-size:11px}.workday-guidance>div{padding:12px}}
