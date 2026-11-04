@@ -118,3 +118,10 @@ Weekweave is positioned as **Path B / Unlock It** for Sunsama-style planning ess
 A new, responsive [`why.html`](why.html) explains the product's concrete need, includes a static illustrative timetable, provides a working demo walkthrough and openly lists missing features (cloud sync, integrations, collaboration). All five existing app pages link to this introduction; the Overview includes a lightweight context strip. The underlying Planner/Tasks/Compass/Review data model and local-storage key are unchanged.
 
 **Important contest condition:** The GitHub Pages dashboard and `why.html` are references, not the final official hackathon entry. Only submit a **new build created in VibeFlow during November 4–7, 2026**, with real working core interactions. The `#builds` post must link the VibeFlow URL, state the paid service and monthly price, and describe actual working behavior. See `docs/VIBEFLOW_BUILD_PROMPT.md`, `docs/HACKATHON_SUBMISSION_PLAN.md`, `docs/SLACK_SUBMISSION_DRAFT.md` and `tests/HACKATHON_ACCEPTANCE.md`.
+
+
+## v3.3 — Interface clarity and task placement
+- Overview now states the central value immediately and presents one context-aware next action, computed from the real saved week; work-only days do not prompt for extra tasks.
+- Tasks and Planner use clearer descriptions, stronger empty states, improved focus indicators and more readable task cards.
+- Task editor recommends existing focus blocks based on duration, remaining capacity, same-area preference and scheduled-time availability. Choose **Schedule here** to fill the existing block and start time; choose **Save task** to commit, or leave in Inbox. No new block, task, or storage schema is introduced by merely viewing suggestions. Busy blocks are never suggested.
+- Suggestions reuse the existing validation; overlapping appointments and overbooked tasks remain blocked.
