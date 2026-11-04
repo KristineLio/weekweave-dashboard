@@ -38,3 +38,7 @@ Do **not** submit the CSS-only prototype. First verify that the new VibeFlow pro
 
 Add a Time Block modal with **Block name, Type (Busy / Focus), Day, Area, Start time, End time**.
 Compute duration from the entered hours: a 09:00–20:00 work shift lasts 11h (660 minutes). Busy time appears on the planner, is excluded from free task capacity, and cannot accept tasks. Focus time is available for tasks and enforces capacity. Do not allow overlapping Busy/Focus blocks on the same day. Keep Done-task history while releasing active capacity. Overnight shifts and recurring schedules are not yet included.
+
+## KPI Compass parity requirement (v2.5)
+
+The functional build should support editing a direction's measurable target/current/unit/due date, and recording date-stamped progress evidence. Task completion is **not** automatically a goal milestone. Preserve legacy user data, distinguish task counts from genuine outcomes, and show overdue/stale-evidence warnings without inventing achievements. If VibeFlow cannot persist outcome evidence, clearly explain that limitation rather than presenting fake working controls.
