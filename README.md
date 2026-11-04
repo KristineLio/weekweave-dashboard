@@ -81,3 +81,12 @@ Evidence changes are signed internally so removing an entry reliably reverses it
 The Compass hero's **Edit directions & targets** action opens all three directions together.
 Each direction card's **Edit** button opens only that direction and saves only that record.
 Neither path alters progress evidence or unrelated direction settings.
+
+
+## v2.9 — Compass edit reliability
+
+- The global direction editor still saves all three directions; each card's Edit button saves only that card.
+- The single-direction editor now keeps its Save button visible while scrolling and gives inline errors when values cannot be accepted.
+- Baseline/starting value is only shown for **Decrease** outcomes; it is hidden when **Increase** is selected.
+- A visible confirmation appears on Compass after a successful save.
+- Existing saved data remains under `weekweave.v2` and is not reset by this release.

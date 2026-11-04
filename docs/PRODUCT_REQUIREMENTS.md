@@ -311,3 +311,12 @@ When the selected day contains a **Busy Work** shift and no Focus blocks, the Ov
 - Global **Edit directions & targets** opens all active directions and allows updating each in one save operation.
 - Each direction card's **Edit** action opens only that direction, clearly labels its context, and saves only its own fields.
 - Editing one direction must not overwrite any other direction, its measurement, or its existing evidence history.
+
+
+### KPI Compass editor acceptance criteria (v2.9)
+
+- The top-level **Edit directions & targets** dialog displays all three directions and saves all valid changes together.
+- Each direction card's **Edit** dialog displays only that direction and does not overwrite unrelated directions or evidence.
+- Increase goals do not display the decrease-only starting value field. Decrease goals display and validate it.
+- A Save action remains accessible without scrolling to the bottom of a long form. Invalid goal values display the reason inside the dialog and do not close it or change saved data.
+- After a successful save, the updated card and a visible confirmation appear. Existing local `weekweave.v2` data and the Review flow remain intact.

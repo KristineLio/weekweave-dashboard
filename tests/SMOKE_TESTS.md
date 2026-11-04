@@ -93,3 +93,13 @@ Verified locally in Chromium with isolated browser storage. Production GitHub Pa
 4. Switch from a single editor to global and back; ensure no stale fields or wrong target selection remains.
 5. Preserve `5 courses left → 0 goal`, numeric progress and evidence after editing one unrelated direction and refreshing.
 6. Check narrow mobile dialog width and unchanged Planner/Tasks/Review behavior.
+
+
+## v2.9 — Compass editor regression checks
+
+1. Open Build → Edit. Its dialog contains only Build, with Save Build changes visible without scrolling. Change title, outcome, current value and target; save. Confirm updated Build card, save confirmation and persistence after refresh. Study and Personal must not change.
+2. Select Increase. The starting-value-for-decrease row must be **hidden**. Choose Decrease: the row must appear and become required. Switch back: hidden and disabled again.
+3. Enter a target of zero with Increase and save; display a clear inline error explaining that zero needs Decrease, without closing the dialog.
+4. With Decrease selected, use starting 5, current 4, target 0; confirm 20% progress. Bad bounds display an inline explanation, without overwriting saved progress.
+5. Use Edit directions & targets: all three sections appear, and Save all directions updates each.
+6. Refresh and ensure tasks, other directions, dated evidence, and reviews are preserved; also test mobile editor layout.
