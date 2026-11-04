@@ -26,3 +26,9 @@ Use a new/private browser window for each major validation. This is a *manual* t
 - [ ] Completed tasks remain visible in the calendar, free minutes, and can be reopened only if capacity allows.
 - [ ] Editing a block that overlaps an existing block fails without data loss.
 - [ ] Calendar is usable at 320px, 390px, 768px and 1440px with horizontally scrollable week/month grids.
+
+
+## Week selector polish (v3.2)
+- Click **WEEK OF ...** and select any date. Confirm it opens the correct Monday–Sunday week, updates dashboard metrics, and does not change stored data when dismissed.
+- On Calendar, choosing a week also updates the date in the visual calendar. Other tabs show the saved active week.
+- If a Weekly Review is unsaved, the confirmation prompt protects the draft before changing weeks.

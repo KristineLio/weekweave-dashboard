@@ -333,3 +333,7 @@ When the selected day contains a **Busy Work** shift and no Focus blocks, the Ov
 
 ## Calendar extension (v3.1)
 A sixth Calendar section provides Day / Week / Month views over the existing `weeks[week_YYYY-MM-DD]` blocks and tasks. It must not store a second independent event collection. Month browsing reads saved weeks without creating blank records. Busy shifts remain unavailable, completed tasks stay visible with released capacity, and event editing uses the original shared forms with overlap and capacity guards. No recurring events or external calendar syncing are claimed.
+
+
+### Cross-page week selector (v3.2)
+The current week shown in the app header is an accessible button. Selecting it opens a date picker with quick previous/current/next navigation and recent saved weeks. Selecting any date maps it to its Monday–Sunday week. Opening/cancelling the chooser must not create saved weeks or alter tasks; only committing a selection creates an empty week when necessary. Changes to the chosen week propagate across Overview, Planner, Tasks, Calendar, Compass, and Weekly Review. Unsaved Weekly Review edits must be confirmed before a change.

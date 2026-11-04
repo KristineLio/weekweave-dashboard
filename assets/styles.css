@@ -191,3 +191,20 @@ button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.58}
 
 /* A whole calendar block is clickable; embedded task/edit buttons take precedence. */
 .cal-time-event{cursor:pointer}.cal-time-event:hover{filter:brightness(.985);box-shadow:0 3px 9px rgba(36,66,54,.08)}.cal-time-event:focus-within{outline:1px solid #91bba5;outline-offset:1px}
+
+/* v3.2: accessible shared week picker in the header */
+.date-pill.week-picker-trigger{display:inline-flex;align-items:center;justify-content:center;gap:5px;background:#fff;cursor:pointer;line-height:1.25;font-family:inherit;transition:background .15s,border-color .15s,color .15s}
+.week-picker-trigger:hover{background:#edf6f0;border-color:#92b7a7;color:#2f745a}
+.week-picker-trigger:focus-visible{outline:3px solid #73b59a;outline-offset:3px}
+.week-picker-caret{font-size:14px;line-height:10px;font-weight:900;margin-left:2px}
+.week-picker-help{font-size:13px;color:#657d73;line-height:1.6;margin:0}
+.week-picker-preview{background:#ecf5ee;border:1px solid #cfe4d5;color:#305d49;border-radius:10px;padding:12px 14px;font-weight:800;font-size:12px}
+.week-picker-presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.week-picker-presets button{white-space:normal;font-size:11px;min-width:0}
+.week-picker-recent{border-top:1px solid #e7eeea;padding-top:15px}
+.week-picker-saved{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+.week-saved-chip{border:1px solid #dce9e0;background:white;border-radius:11px;padding:9px 12px;font-family:inherit;font-weight:700;font-size:12px;line-height:1.4;color:#38594e;cursor:pointer}
+.week-saved-chip span{font-size:10px;color:#8da39a;margin-left:3px}
+.week-saved-chip.is-selected,.week-saved-chip:hover{background:#e7f2eb;border-color:#98bd9f}
+.week-saved-chip:focus-visible{outline:3px solid #73b59a;outline-offset:2px}
+@media(max-width:390px){.date-pill.week-picker-trigger{max-width:164px;min-width:0;text-overflow:ellipsis;white-space:nowrap;font-size:9px;padding:7px 8px}.week-picker-presets{gap:5px}.week-picker-presets button{padding:8px 4px;font-size:10px}}

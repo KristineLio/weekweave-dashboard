@@ -8,6 +8,13 @@
 
 **Hackathon introduction:** https://kristinelio.github.io/weekweave-dashboard/why.html
 
+## Week navigation (v3.2)
+
+- Select the **WEEK OF ...** header pill on any dashboard page to open an accessible date chooser.
+- Picking any date jumps to its **Monday–Sunday** week; quick previous/current/next controls and recent saved weeks are included.
+- Works across Overview, Planner, Tasks, Calendar, Compass, and Review. Calendar also moves its visual date to the selected week.
+- Opening the picker never creates data, and a week is only created when intentionally selected. Unsaved Weekly Review edits trigger a confirmation before switching.
+
 ## Calendar (v3.1)
 
 - Sixth navigation page with **Day, Week and Month** views. Reads the existing weekly blocks and tasks; no separate calendar database or syncing service.

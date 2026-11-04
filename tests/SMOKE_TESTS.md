@@ -106,3 +106,14 @@ Verified locally in Chromium with isolated browser storage. Production GitHub Pa
 
 ## v3.1 — Connected Calendar
 Test Day/Week/Month navigation, cross-week Month display, editing a block and task from a different week, busy/focus separation, done history, non-mutating month browsing, invalid overlapping edits, persistence, and responsive mobile navigation.
+
+
+## v3.2 — Clickable week selector
+
+1. On each of the six pages, click the **WEEK OF** header pill (Calendar header shows its viewed date). A week picker dialog must open.
+2. Pick Wednesday November 18, 2026; confirming must show the week of Monday November 16, and save `activeWeek` as `2026-11-16`.
+3. Check previous, next, and This week shortcuts; recently saved weeks should be selectable without rewriting other saved weeks.
+4. Opening the picker and previewing another date should not add a new week or alter existing tasks. Cancel closes without changes.
+5. With an unsaved Weekly Review, switching weeks requires confirmation and Cancel leaves edits intact.
+6. Calendar page must update its date view when a week is selected.
+7. Test keyboard focus, Escape, mobile at 320/390px and desktop at 768/1440px, with no horizontal scroll.
