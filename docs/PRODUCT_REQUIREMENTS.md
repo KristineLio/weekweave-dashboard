@@ -305,3 +305,9 @@ When the selected day contains a **Busy Work** shift and no Focus blocks, the Ov
 5. Existing stored goals with target 0, current >0, and a clearly named remaining-count metric (e.g. "courses left") migrate to decreasing mode without resetting tasks, evidence, or dates. Other zero targets remain unconfigured.
 6. The weekly review displays a decreasing goal as current → target, while completed-task counts remain a separate measure.
 7. Test Compass form submission, evidence entry and removal, persistence, and responsiveness on all five pages at 320, 390, 768, and 1440 px.
+
+### Compass editing scope (v2.8)
+
+- Global **Edit directions & targets** opens all active directions and allows updating each in one save operation.
+- Each direction card's **Edit** action opens only that direction, clearly labels its context, and saves only its own fields.
+- Editing one direction must not overwrite any other direction, its measurement, or its existing evidence history.

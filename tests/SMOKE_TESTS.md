@@ -84,3 +84,12 @@ Verified using an isolated browser-rendering test harness on 2026-11-04: form pe
 6. Weekly Review must display `5 → 0 courses`, not "Target not configured". Verify no errors or overflow across all five pages on 320, 390, 768, and 1440px screens.
 
 Verified locally in Chromium with isolated browser storage. Production GitHub Pages requires its own verification after the release is deployed.
+
+## v2.8 — Global and per-direction editor
+
+1. Open Compass and press **Edit directions & targets**. Confirm Study, Build and Personal fieldsets are all visible and can be updated together.
+2. Press **Edit** on Study card. The modal title must be **Edit Study direction**, with only Study fields and a **Save Study direction** action. Save a change and confirm Build/Personal goal records, metrics and evidence remain identical.
+3. Repeat for Build and Personal; each action must show only the corresponding direction.
+4. Switch from a single editor to global and back; ensure no stale fields or wrong target selection remains.
+5. Preserve `5 courses left → 0 goal`, numeric progress and evidence after editing one unrelated direction and refreshing.
+6. Check narrow mobile dialog width and unchanged Planner/Tasks/Review behavior.

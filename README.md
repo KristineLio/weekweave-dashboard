@@ -75,3 +75,9 @@ The Review now reads the current selected week's completed tasks, completed-task
 Earlier versions used `target = 0` to mean "not configured", preventing goals such as **5 courses left → 0 courses left** from showing progress. The new direction selector distinguishes **Not tracking**, **Increase**, and **Decrease**. Decreasing goals store a starting value, current value and target; progress uses `(starting - current)/(starting - target)` and reaches 100% at zero remaining. A value of five remaining from a starting point of five shows 0%; logging one course passed reduces the remaining count to four and shows 20%. To measure progress from an earlier starting number (e.g. nine courses), edit the starting value to nine.
 
 Evidence changes are signed internally so removing an entry reliably reverses it. Existing `weekweave.v2` browser data and JSON backups are preserved. Older goals with a remaining-count measure containing terms such as "courses left" are recognized automatically; otherwise a zero target stays unconfigured until explicitly set to Decrease. This fix does not change Tasks, Planner capacity rules, or previously saved evidence.
+
+## v2.8 — Scoped direction editing
+
+The Compass hero's **Edit directions & targets** action opens all three directions together.
+Each direction card's **Edit** button opens only that direction and saves only that record.
+Neither path alters progress evidence or unrelated direction settings.
