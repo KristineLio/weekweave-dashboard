@@ -9,8 +9,8 @@
 ## Working features (v2.0)
 
 - **Weekly planning:** navigate between Monday–Sunday weeks and create, edit, or delete time blocks.
-- **Capacity protection:** tasks consume minutes in their assigned blocks. If a task would exceed available capacity, it is rejected with an explanation; existing data stays intact.
-- **Scheduling guard:** optional start times must fit inside assigned blocks and cannot overlap with another scheduled task in the same block.
+- **Capacity protection:** unfinished tasks consume minutes in their assigned blocks; marking Done immediately releases their minutes and scheduled time slot without deleting their completion history. Reopening requires available capacity. If a task would exceed available capacity, it is rejected with an explanation; existing data stays intact.
+- **Scheduling guard:** optional start times must fit inside assigned blocks and cannot overlap with another unfinished scheduled task in the same block. Completed tasks do not block new scheduling.
 - **Task management:** create, edit, assign, schedule, finish, unfinish, and delete tasks. The board shows Inbox → Planned → Scheduled → Done based on each task's actual data.
 - **Shared overview:** remaining time, task counts, completion progress, next action, and habits update from the same data as the planner and task board.
 - **Daily habits:** check off three starter habits by weekday; marks persist for the selected week.
