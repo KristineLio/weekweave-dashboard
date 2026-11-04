@@ -19,3 +19,11 @@ A working build must pass these interactions in a normal browser (try both deskt
 15. **Local-only warning:** Confirm that the interface clearly says data is stored on the current device; there should be no implication that data syncs to a cloud account.
 
 Automated browser-based tests of completion releasing capacity and scheduled slots, guarded reopening, task capacity, overlap prevention, state persistence, reviews, week isolation, export, and responsive overflow passed in the local v2.0 development environment on November 4, 2026. These checks do not replace testing the actual deployed GitHub Pages site or VibeFlow entry.
+
+## v2.2 — Work hours and busy time
+
+16. **Long work shift:** Add a block named Work, type Busy, category Work, Saturday 09:00–20:00. Confirm the planner shows **09:00–20:00 · 11h occupied** without an Add Task button. Weekly *busy time* becomes 11h, while task capacity remains unchanged.
+17. **Block collision:** Attempt to add a focus block Saturday 12:00–13:00 while the work shift exists. Confirm rejection and no saved block. Creating a focus block Saturday 20:00–21:00 must succeed.
+18. **Focus with end time:** Add Focus 20:00–21:30 (90 minutes). Assign 60 minutes of unfinished tasks, confirm 30 minutes remain; mark them Done and confirm 90 minutes free.
+19. **Convert focus to busy:** A focus block with any assigned tasks, including Done history, cannot be changed to Busy until assignments are moved away.
+20. **Time validation:** End before or equal to start is rejected. A same-day busy shift can exceed eight hours; a focus block may not exceed eight hours. Changing weeks and refreshing preserves the block type and times.
