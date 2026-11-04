@@ -243,3 +243,11 @@ The prior dashboard's architectural ideas inform the new product specification; 
 ---
 
 **Decision:** Build the visual foundation in HTML/CSS first, then require a fresh working VibeFlow version before claiming competition readiness. This document deliberately separates current prototype behavior from intended features.
+
+
+### Busy time and shift duration (v2.2)
+- Users enter a start and end time for both Focus and Busy blocks (e.g., 09:00–20:00). The system computes the duration in minutes.
+- Busy blocks represent work, classes, or appointments and can last up to 23h59m on the same day; Focus blocks represent capacity for tasks and currently have an eight-hour upper limit.
+- Busy time appears in the weekly calendar and busy-time metric, but is excluded from task capacity and is not eligible for task assignments.
+- Blocks must not overlap on the same day, regardless of type. Updating a Focus block to Busy is blocked while tasks remain associated with that block, including completed tasks, to protect history.
+- The current release supports same-day blocks only. Overnight shifts and repeating weekly schedules are out of scope.
