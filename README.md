@@ -6,13 +6,13 @@
 
 **Live site:** https://kristinelio.github.io/weekweave-dashboard/
 
-## Working features (v2.2)
+## Working features (v2.3)
 
 - **Weekly planning:** navigate between Monday–Sunday weeks and create, edit, or delete time blocks. Enter both **start and end time** (e.g. 09:00–20:00 = 11h). Choose **Focus time** (available for tasks, up to 8h) or **Busy time** (work, classes, appointments; up to 23h 59m). Busy blocks cannot hold tasks and do not add task capacity. Same-day block overlap is rejected.
 - **Capacity protection:** unfinished tasks consume minutes in their assigned blocks; marking Done immediately releases their minutes and scheduled time slot without deleting their completion history. Reopening requires available capacity. If a task would exceed available capacity, it is rejected with an explanation; existing data stays intact.
 - **Scheduling guard:** optional start times must fit inside assigned blocks and cannot overlap with another unfinished scheduled task in the same block. Completed tasks do not block new scheduling.
 - **Task management:** create, edit, assign, schedule, finish, unfinish, and delete tasks. The board shows Inbox → Planned → Scheduled → Done based on each task's actual data.
-- **Shared overview:** remaining time, task counts, completion progress, next action, and habits update from the same data as the planner and task board.
+- **Actionable daily Overview (v2.3):** seven-day selector defaults to today (or Monday when viewing another week). Daily agenda merges Busy and Focus blocks chronologically; active tasks, unbooked focus capacity, and unavailable hours recalculate from Planner/Tasks data. One suggested action prioritizes the selected day, then Inbox, then an upcoming task. Mark Done or Edit directly on the Overview. Four weekly metrics, task-completion evidence by Study/Build/Personal direction, habits and saved Review all reflect the same browser data. Weekly task completion is explicitly **not** presented as goal attainment.
 - **Daily habits:** check off three starter habits by weekday; marks persist for the selected week.
 - **KPI Compass:** edit three directions and see task-completion evidence by category.
 - **Weekly review:** write wins, friction, a small adjustment, and a next-week anchor. Reviews are saved per week.
@@ -34,18 +34,18 @@ The first visit contains editable starter examples so that you can test the prod
 ## Project structure
 
 ```text
-index.html                     Weekly overview
+index.html                     Daily command center and weekly overview
 planner.html                   Time blocks and capacity
- tasks.html                    Task workflow
+tasks.html                     Task workflow
 compass.html                   KPI directions and progress
 review.html                    Saved weekly reflections
 assets/styles.css              Design system and responsive styling
-assets/app-v2.2.js             Current browser app and local storage logic
+assets/app-v2.3.js             Current browser app and local storage logic
 assets/app.js                  Mirrored development source
- docs/PRODUCT_REQUIREMENTS.md  Product requirements
- docs/HACKATHON_SUBMISSION_PLAN.md  Hackathon positioning
- docs/VIBEFLOW_BUILD_PROMPT.md  VibeFlow implementation notes
- tests/SMOKE_TESTS.md           Functional acceptance checklist
+docs/PRODUCT_REQUIREMENTS.md  Product requirements
+docs/HACKATHON_SUBMISSION_PLAN.md  Hackathon positioning
+docs/VIBEFLOW_BUILD_PROMPT.md  VibeFlow implementation notes
+tests/SMOKE_TESTS.md           Functional acceptance checklist
 ```
 
 ## Privacy and limitations
