@@ -27,3 +27,15 @@ Automated browser-based tests of completion releasing capacity and scheduled slo
 18. **Focus with end time:** Add Focus 20:00–21:30 (90 minutes). Assign 60 minutes of unfinished tasks, confirm 30 minutes remain; mark them Done and confirm 90 minutes free.
 19. **Convert focus to busy:** A focus block with any assigned tasks, including Done history, cannot be changed to Busy until assignments are moved away.
 20. **Time validation:** End before or equal to start is rejected. A same-day busy shift can exceed eight hours; a focus block may not exceed eight hours. Changing weeks and refreshing preserves the block type and times.
+
+
+## v2.3 — Data-driven Overview
+
+21. **Selected day:** Open Overview in the current week. The active tab must be today's weekday. Click another day; its busy/focus blocks and tasks should appear without mutating storage. Switching weeks resets selection to Monday for non-current weeks.
+22. **Daily capacity:** A 09:00–20:00 Busy Work shift contributes **11h busy** and **0h focus capacity**. A separate 20:00–21:30 Focus block with 45m of active tasks shows **45m unbooked focus capacity**. Busy time must never be added to focus capacity.
+23. **Completion propagation:** Mark the 45m task Done from Overview. Selected-day capacity increases to **1h 30m free**, weekly active commitments decrease, completion percentage rises and the task remains in Done. Refresh the page to verify persistence.
+24. **Prioritization:** When the selected day has active tasks, the first ordered task is suggested. When it has none but Inbox contains an unfinished task, label it **From your Inbox**. When all tasks are done, show an honest empty state and an Add Task action.
+25. **KPI direction:** Study, Build and Personal progress display completed/total tasks by category. A category with no tasks must not claim an achieved goal; it shows no weekly tasks and 0%. Goals themselves are editable in Compass.
+26. **UX and accessibility:** Seven day buttons have `aria-pressed`; checkboxes have labels, no broken controls. Verify 320, 375, 390, 650, 768, 1024 and 1440px viewports without document-level horizontal overflow. Check no JavaScript errors on all five pages.
+
+The v2.3 Overview tests were performed using a headless Chromium render with browser-local storage simulated in a restricted environment. GitHub Pages requires a separate live smoke check after deployment.
