@@ -90,7 +90,7 @@
   let calendarView = 'week';
   let storageOK = true;
   try{localStorage.setItem(KEY,JSON.stringify(state));}catch{storageOK=false;}
-  function persist() {try{localStorage.setItem(KEY,JSON.stringify(state));storageOK=true;}catch{storageOK=false;} }
+  function persist() {try{localStorage.setItem(KEY,JSON.stringify(state));storageOK=true;return true;}catch{storageOK=false;return false;} }
   const blockById = id => week().blocks.find(b => b.id===id);
   const used = (id, exceptTask='') => week().tasks.reduce((sum,t)=>sum + (t.blockId===id && !t.done && t.id!==exceptTask ? t.duration : 0),0);
   const slots = (id, exceptTask='') => busy(blockById(id)) ? 0 : (blockById(id)?.duration||0) - used(id,exceptTask);
@@ -109,7 +109,7 @@
     });
   }
   function notice(message, error=false){let n=$('#live-notice');if(!n){n=document.createElement('div');n.id='live-notice';n.setAttribute('role','status');n.setAttribute('aria-live','polite');document.body.append(n);}n.textContent=message;n.className=error?'toast show error':'toast show';clearTimeout(notice.timer);notice.timer=setTimeout(()=>n.classList.remove('show'),4500);}
-  function markAndRender(message){week().starter=false;persist();render();if(message)notice(message);}
+  function markAndRender(message){week().starter=false;const saved=persist();render();if(!saved)notice('Browser storage is unavailable. Changes may be lost on refresh; export a backup now.',true);else if(message)notice(message);}
   const heading = (eyebrow,title,description,cta='') => `<div class="page-heading heading-row"><div><div class="eyebrow"><span class="eyebrow-line"></span>${safe(eyebrow)}</div><h1>${title}</h1><p>${safe(description)}</p></div><div class="heading-right">${cta}</div></div>`;
   const savedInfo = () => `<div class="preview-notice live-banner" role="note"><span aria-hidden="true" class="preview-notice-icon">◉</span><p><strong>${storageOK?'Your workspace is saved in this browser.':'Storage is blocked.'}</strong> ${storageOK?'No sign-in or server needed. Data stays on this device; use Export to back it up.':'Changes in this tab may be lost after refresh. Enable site storage to save.'}${week().starter?' Starter tasks are provided so you can try the workflow.':''}</p><span class="preview-tag">${storageOK?'LOCAL · PRIVATE':'NOT SAVED'}</span></div>`;
   function weekNav(){const start=state.activeWeek,end=addDays(start,6);return `<div class="week-toolbar"><div class="week-title"><strong>${prettyDay(start)} – ${prettyDay(end)}, ${localDate(end).getFullYear()}</strong><small>${state.activeWeek===currentMonday?'Current week':'Selected week'} · Monday–Sunday</small></div><div class="week-controls"><button type="button" class="mini-button" data-action="prev-week" aria-label="Previous week">←</button><button type="button" class="mini-button" data-action="this-week">This week</button><button type="button" class="mini-button" data-action="next-week" aria-label="Next week">→</button></div></div>`;}
@@ -736,8 +736,101 @@
     markAndRender(compassSaveConfirmation);
   }
   function exportState(){const payload=JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2);const url=URL.createObjectURL(new Blob([payload],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`weekweave-backup-${dateKey(new Date())}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);notice('JSON backup downloaded.');}
-  function validateImport(data){if(!data||data.version!==2||typeof data.weeks!=='object'||Array.isArray(data.weeks)||!Array.isArray(data.goals)||typeof data.activeWeek!=='string')throw Error('This is not a Weekweave v2 backup.');for(const w of Object.values(data.weeks)){if(!w||!Array.isArray(w.tasks)||!Array.isArray(w.blocks)||typeof w.review!=='object'||typeof w.habits!=='object')throw Error('Backup contains an invalid week.');if(w.tasks.length>3000||w.blocks.length>500)throw Error('Backup has too many items.');}if(Object.keys(data.weeks).length>1000)throw Error('Backup exceeds the week limit.');return data;}
-  async function importState(file){if(!file)return;if(file.size>3*1024*1024){notice('Backup exceeds 3 MB.',true);return;}try{const imported=validateImport(JSON.parse(await file.text()));if(!confirm('Replace all Weekweave data in this browser with the imported backup?'))return;state=imported;normalizeGoals();state.activeWeek=monday(state.activeWeek);overviewSelectedDay=null;week();persist();render();notice('Backup imported.');}catch(e){notice(`Import failed: ${e.message}`,true);}}
+  // Reject malformed backups before replacing a working plan.
+  function validateImport(data){
+    const record=value=>value!==null && typeof value==='object' && !Array.isArray(value);
+    const validTime=value=>typeof value==='string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
+    const fail=message=>{throw Error(message);};
+    if(!record(data) || data.version!==2 || !record(data.weeks) ||
+       !Array.isArray(data.goals) || !validWeekDate(data.activeWeek))
+      fail('This is not a valid Weekweave v2 backup.');
+    const keys=Object.keys(data.weeks);
+    if(keys.length>1000 || data.goals.length>20)fail('Backup exceeds the workspace limits.');
+    if(data.goals.some(g=>!record(g)))fail('Backup contains an invalid goal.');
+    for(const key of keys){
+      if(!validWeekDate(key) || monday(key)!==key)fail('Backup contains an invalid week date.');
+      const w=data.weeks[key];
+      if(!record(w) || !Array.isArray(w.tasks) || !Array.isArray(w.blocks) ||
+         !record(w.review) || !record(w.habits))fail('Backup contains an invalid week.');
+      if(w.tasks.length>3000 || w.blocks.length>500)fail('Backup has too many items.');
+      for(const days of Object.values(w.habits))
+        if(!Array.isArray(days) || days.length>7 || days.some(day=>typeof day!=='boolean'))
+          fail('Backup contains invalid habit check-ins.');
+      const blocks=new Map(),dayBlocks=Array.from({length:7},()=>[]);
+      for(const b of w.blocks){
+        if(!record(b) || typeof b.id!=='string' || !b.id || blocks.has(b.id) ||
+           typeof b.title!=='string' || !b.title.trim() ||
+           !Number.isInteger(b.day) || b.day<0 || b.day>6 ||
+           (b.kind!==undefined && b.kind!=='busy' && b.kind!=='focus') ||
+           !Number.isInteger(b.duration) || b.duration<15 ||
+           b.duration>(busy(b)?1439:480) || !validTime(b.start) ||
+           minute(b.start)+b.duration>1440)
+          fail('Backup contains an invalid time block.');
+        const begin=minute(b.start),end=begin+b.duration;
+        if(dayBlocks[b.day].some(existing=>begin<existing.end && existing.begin<end))
+          fail('Backup contains overlapping time blocks.');
+        dayBlocks[b.day].push({begin,end});
+        blocks.set(b.id,b);
+      }
+      const taskIds=new Set(),usedByBlock=new Map(),scheduledByBlock=new Map();
+      for(const t of w.tasks){
+        if(!record(t) || typeof t.id!=='string' || !t.id || taskIds.has(t.id) ||
+           typeof t.title!=='string' || !t.title.trim() ||
+           !Number.isInteger(t.duration) || t.duration<5 || t.duration>480 ||
+           (t.done!==undefined && typeof t.done!=='boolean') ||
+           (t.blockId!=null && typeof t.blockId!=='string') ||
+           (t.scheduledTime!=null && t.scheduledTime!=='' && !validTime(t.scheduledTime)))
+          fail('Backup contains an invalid task.');
+        taskIds.add(t.id);
+        const blockId=t.blockId||'',scheduled=t.scheduledTime||'';
+        if(scheduled && !blockId)fail('Backup contains a scheduled task without a Focus block.');
+        if(!blockId)continue;
+        const b=blocks.get(blockId);
+        if(!b || busy(b))fail('Backup contains a task assigned to an unavailable block.');
+        if(scheduled){
+          const begin=minute(scheduled),end=begin+t.duration,blockStart=minute(b.start);
+          if(begin<blockStart || end>blockStart+b.duration)
+            fail('Backup contains a task outside its Focus block.');
+          if(!t.done){
+            const starts=scheduledByBlock.get(blockId)||[];
+            if(starts.some(other=>begin<other.end && other.begin<end))
+              fail('Backup contains overlapping scheduled tasks.');
+            starts.push({begin,end});scheduledByBlock.set(blockId,starts);
+          }
+        }
+        if(!t.done){
+          const total=(usedByBlock.get(blockId)||0)+t.duration;
+          if(total>b.duration)fail('Backup contains tasks exceeding Focus capacity.');
+          usedByBlock.set(blockId,total);
+        }
+      }
+    }
+    return data;
+  }
+  async function importState(file){
+    if(!file)return;
+    if(file.size>3*1024*1024){notice('Backup exceeds 3 MB.',true);return;}
+    try{
+      const imported=validateImport(JSON.parse(await file.text()));
+      if(!confirm('Replace all Weekweave data in this browser with the imported backup?'))return;
+      const previous=state,previousCalendar=calendarDate,previousDay=overviewSelectedDay;
+      try{
+        state=imported;
+        normalizeGoals();
+        state.activeWeek=monday(state.activeWeek);
+        calendarDate=state.activeWeek===currentMonday?todayKey:state.activeWeek;
+        overviewSelectedDay=null;
+        week();
+        render();
+        if(!persist())throw Error('Browser storage is unavailable; your original workspace was retained.');
+      }catch(error){
+        state=previous;calendarDate=previousCalendar;overviewSelectedDay=previousDay;
+        persist();render();
+        throw error;
+      }
+      notice('Backup imported and saved.');
+    }catch(e){notice('Import failed: '+e.message,true);}
+  }
   document.addEventListener('click',event=>{const btn=event.target.closest('[data-action]');if(!btn)return;const action=btn.dataset.action,id=btn.dataset.id||'';if(action==='use-focus-suggestion'){const f=$('#task-form'),target=blockById(id);if(!f||!target)return;f.elements.blockId.value=id;f.elements.scheduledTime.value=btn.dataset.time||'';$('#task-form-error').textContent='';updateTaskPlacements();const status=$('#task-placement-feedback');if(status)status.textContent=btn.dataset.time?`Ready: ${DAYS[target.day]} at ${btn.dataset.time} in ${target.title}. Select Save task to confirm.`:`Planned in ${target.title}. Open more scheduling options if you need a specific time, then Save.`;}else if(action==='copy-week-next')openCopyWeek('next');else if(action==='copy-week-previous')openCopyWeek('previous');else if(action==='open-week-picker')openWeekPicker();else if(action==='week-picker-current')chooseWeek(todayKey);else if(action==='week-picker-relative')chooseWeek(addDays(state.activeWeek,Number(btn.dataset.offset)||0));else if(action==='week-picker-saved')chooseWeek(btn.dataset.week);else if(action==='cal-view'){if(['day','week','month'].includes(btn.dataset.view)){calendarView=btn.dataset.view;render();}}
     else if(action==='cal-prev')moveCalendar(-1);
     else if(action==='cal-next')moveCalendar(1);
