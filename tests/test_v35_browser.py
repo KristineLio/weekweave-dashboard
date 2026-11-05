@@ -109,6 +109,16 @@ with sync_playwright() as playwright:
     q.locator('[data-action="load-sample"]').click()
     check(len(json.loads(value(q))['weeks'][json.loads(value(q))['activeWeek']]['tasks'])==4,'Example data requires explicit user action')
     check(not q.locator('.welcome-surface').count(),'Sample immediately loads real functional app')
+    check('This is an editable example week.' in q.locator('body').inner_text(),
+          'Opt-in example is clearly labelled after loading')
+    q.locator('button[data-action="add-task"]').first.click()
+    q.locator('#task-form [name="title"]').fill('Sample visitor task')
+    q.locator('#task-form [name="duration"]').fill('30')
+    q.locator('#task-form [type="submit"]').click()
+    check(json.loads(value(q))['weeks'][json.loads(value(q))['activeWeek']]['isSample'] is True,
+          'Editing the example does not remove the sample workspace flag')
+    check('This is an editable example week.' in q.locator('body').inner_text(),
+          'Example workspace note stays visible after editing')
     ctx.close()
 
     for page in ['index','planner','tasks','calendar','compass','review']:
