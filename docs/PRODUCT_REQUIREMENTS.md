@@ -346,3 +346,11 @@ The public app must be useful without a guided tour or pre-loaded fake personal 
 Task creation must recommend existing Focus blocks in a prominent panel; insufficient-capacity blocks must show why they do not fit. Manual scheduling remains available but secondary. If no Focus block exists, an unscheduled task may be saved to Inbox and the Focus creation form opened without losing the task. Actual edits use the same capacity/overlap validation as Planner and Calendar.
 
 Users receive specific feedback after saving Busy (hours protected), Focus (minutes reserved), task (slot booked and minutes remaining), and completion (time released). Returning users retain all data under `weekweave.v2`. Marketing comparison material belongs primarily on the separate `why.html` page. No new backend, online account, or hidden calendar integration is implied.
+
+
+### v3.6 — Weekly schedule reuse
+- A user can copy only the Busy and/or Focus time blocks of a selected week to the next week, or pull blocks from the immediately preceding week.
+- Repeated blocks are separate new records with unique IDs. Do not duplicate tasks, scheduling, completed history, habits, reviews or KPI evidence.
+- Preview is read-only until confirmation. Preserve existing target blocks and tasks. Skip exact duplicates and same-day overlaps; report skipped counts.
+- Keep the existing `weekweave.v2` localStorage schema and JSON import/export compatible. Existing users' saved data is never reset or replaced.
+- The opt-in sample workspace may include a generic work shift; it must not publish private user schedule data.

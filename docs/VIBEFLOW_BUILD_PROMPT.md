@@ -78,3 +78,7 @@ Add Day, Week, Month views showing the same stored Planner and Tasks records. Bu
 - Show concrete success feedback: protected hours, reserved duration, remaining minutes, and time freed upon completion.
 - New users should be able to add an 09:00–20:00 shift and assign a 90-minute task without reading instructions. The same shared data and validation must drive Planner, Tasks, Overview, Calendar and Review.
 - The GitHub implementation remains a reference; confirm the actual new VibeFlow build satisfies the competition's new-work and working-app rules before submission.
+
+
+### Weekly schedule reuse (v3.6 reference)
+Add a clear **Copy to next week / Copy last week** action for time blocks, with preview and Busy/Focus selection. Create fresh block IDs while retaining all existing target data. Skip duplicate or overlapping blocks. Never copy tasks, completed task history, habits, review text or goal evidence. The sample preview uses generic data, not the builder's private browser storage. This is the reference behavior to implement and verify in a new, eligible VibeFlow build.

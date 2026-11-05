@@ -1,12 +1,22 @@
 # Weekweave — plan the week you actually have
 
-**Weekweave** is an original, lightweight personal productivity web app built for the SkyCastle *Cancel My Subscription* hackathon (November 2026).
+**Weekweave** is a local-first personal productivity web app and GitHub Pages reference for a potential SkyCastle *Cancel My Subscription* hackathon submission (November 2026).
 
 > Plan your time. Protect your priorities. Prove your progress.
 
 **Working dashboard:** https://kristinelio.github.io/weekweave-dashboard/
 
 **Hackathon introduction:** https://kristinelio.github.io/weekweave-dashboard/why.html
+
+## Reuse last week / copy to next week (v3.6)
+
+- From Planner, **Copy to next week** when the selected week contains blocks, or **Copy last week** when the previous week contains blocks.
+- A preview shows which Busy and Focus blocks will be copied. Select either type or both before confirming.
+- Only **time blocks** are copied: new block IDs are generated; **no tasks, completed work, habits, review answers, goal evidence or KPI settings are copied**. Historical weeks and all destination records stay intact.
+- If a block already exists or overlaps with a target block, it is skipped rather than overwriting any existing schedule. Repeating the action is idempotent.
+- The `weekweave.v2` browser-local key and v2 JSON schema remain unchanged: all existing saved data is preserved.
+- The optional sample week now includes a *generic* 09:00–20:00 work shift, in addition to example focus blocks/tasks, so first-time visitors can inspect real Busy vs Focus behavior without exposing anyone's personal schedule. This sample is **opt-in**; returning users' data is never replaced.
+- See `tests/UX_ACCEPTANCE_v36.md` for regression and mobile checks.
 
 ## First-contact experience (v3.5)
 

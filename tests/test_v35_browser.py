@@ -3,7 +3,7 @@ from pathlib import Path
 import re,json,sys,shutil,os
 r=Path(__file__).resolve().parents[1]
 css=(r/'assets/styles.css').read_text()
-js=(r/'assets/app-v3.5.js').read_text()
+js=(r/'assets/app-v3.6.js').read_text()
 
 
 def mount(browser,name='index',state=None,width=1440,height=900):
@@ -11,8 +11,8 @@ def mount(browser,name='index',state=None,width=1440,height=900):
     p=ctx.new_page()
     errors=[]; p.on('pageerror',lambda e:errors.append(str(e)))
     html=(r/f'{name}.html').read_text()
-    html=re.sub(r'<script defer="True" src="assets/app-v3.5.js"></script>','',html)
-    html=re.sub(r'<link href="assets/styles.css\?v=3.5" rel="stylesheet"/>','',html)
+    html=re.sub(r'<script defer="True" src="assets/app-v3.6.js"></script>','',html)
+    html=re.sub(r'<link href="assets/styles.css\?v=3.6" rel="stylesheet"/>','',html)
     p.set_content(html,wait_until='domcontentloaded')
     p.evaluate("""value => {const m=new Map();if(value!==null)m.set('weekweave.v2',value);
       Object.defineProperty(window,'localStorage',{value:{getItem:k=>m.has(k)?m.get(k):null,setItem:(k,v)=>m.set(k,String(v)),removeItem:k=>m.delete(k)},configurable:true});
