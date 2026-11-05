@@ -68,3 +68,13 @@ The new GitHub `why.html` is a **reference**, not the entry URL. Rebuild the fol
 
 ### Calendar parity (v3.1)
 Add Day, Week, Month views showing the same stored Planner and Tasks records. Busy blocks are shown as unavailable; task cards are nested within focus time. Calendar actions must open the same edit logic and preserve capacity/overlap protection. A read-only snapshot is not sufficient for parity, and external calendar API integrations are not included.
+
+
+### First-contact UX reference (GitHub v3.5; recreate natively in eligible VibeFlow build)
+
+- **Do not make a guided demo mandatory.** A brand-new visitor sees an empty workspace with immediate **Add busy time** and **Add task** actions. An example week is optional, clearly labeled, and not confused with the visitor's own plan.
+- Busy blocks should default to unavailable/Work and must never add task capacity; Focus blocks allow only validated scheduled work.
+- In the task form, show eligible Focus blocks **before** optional manual scheduling. If none are present, save a task to Inbox first and offer to reserve Focus time. Never silently replace the user's data.
+- Show concrete success feedback: protected hours, reserved duration, remaining minutes, and time freed upon completion.
+- New users should be able to add an 09:00–20:00 shift and assign a 90-minute task without reading instructions. The same shared data and validation must drive Planner, Tasks, Overview, Calendar and Review.
+- The GitHub implementation remains a reference; confirm the actual new VibeFlow build satisfies the competition's new-work and working-app rules before submission.

@@ -337,3 +337,12 @@ A sixth Calendar section provides Day / Week / Month views over the existing `we
 
 ### Cross-page week selector (v3.2)
 The current week shown in the app header is an accessible button. Selecting it opens a date picker with quick previous/current/next navigation and recent saved weeks. Selecting any date maps it to its Monday–Sunday week. Opening/cancelling the chooser must not create saved weeks or alter tasks; only committing a selection creates an empty week when necessary. Changes to the chosen week propagate across Overview, Planner, Tasks, Calendar, Compass, and Weekly Review. Unsaved Weekly Review edits must be confirmed before a change.
+
+
+## First-contact experience — v3.5 acceptance addendum
+
+The public app must be useful without a guided tour or pre-loaded fake personal data. On the first visit to an empty browser workspace, present two prominent actions — **Add busy time** and **Add task** — plus secondary **Add focus time**. The real saved timetable, not illustrative metrics, populates the dashboard as the user creates commitments. Optional sample content must require a deliberate click.
+
+Task creation must recommend existing Focus blocks in a prominent panel; insufficient-capacity blocks must show why they do not fit. Manual scheduling remains available but secondary. If no Focus block exists, an unscheduled task may be saved to Inbox and the Focus creation form opened without losing the task. Actual edits use the same capacity/overlap validation as Planner and Calendar.
+
+Users receive specific feedback after saving Busy (hours protected), Focus (minutes reserved), task (slot booked and minutes remaining), and completion (time released). Returning users retain all data under `weekweave.v2`. Marketing comparison material belongs primarily on the separate `why.html` page. No new backend, online account, or hidden calendar integration is implied.

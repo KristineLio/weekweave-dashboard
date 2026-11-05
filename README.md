@@ -8,6 +8,15 @@
 
 **Hackathon introduction:** https://kristinelio.github.io/weekweave-dashboard/why.html
 
+## First-contact experience (v3.5)
+
+- On a **brand-new browser workspace**, the Overview starts blank and immediately offers **Add busy time** and **Add task**. A third action provides direct **Focus time** creation. The sample week is **opt-in** via **Explore an example week**; it is no longer silently loaded on first visit.
+- **Returning users keep all existing tasks, blocks, Compass evidence, habits, reviews and saved weeks** under the unchanged `weekweave.v2` localStorage key. The first-use screen appears only if the workspace genuinely has no saved work.
+- The ordinary Overview retains one-click **Busy time**, **Focus time** and **Task** actions. Comparison messaging stays on the dedicated [`why.html`](why.html) page rather than occupying the first screen.
+- The task dialog puts **eligible focus blocks and Schedule here** first. Advanced manual assignment is collapsed for new tasks, open when editing, and remains available for precision. If no block fits, the user can save an unscheduled task in Inbox and reserve a Focus block in the same workflow.
+- Saving a block or task reports **time protected, booked and still free**, while completing a task reports the time released. Capacity and overlap rules, review protection and JSON compatibility are unchanged.
+- Responsive checks cover 320, 390, 768, and 1440px. See [`tests/UX_ACCEPTANCE_v35.md`](tests/UX_ACCEPTANCE_v35.md) and the browser regression source.
+
 ## Week navigation (v3.2)
 
 - Select the **WEEK OF ...** header pill on any dashboard page to open an accessible date chooser.
@@ -53,7 +62,7 @@ python -m http.server 8000
 
 Then open `http://localhost:8000/`. No build step, package manager, API, or backend is needed.
 
-The first visit contains editable starter examples so that you can test the product immediately. Choose **Tasks → Add task** to capture work, **Planner → Time block** to create capacity, and **Review** to reflect on a selected week. The **Reset example** action clears this browser's data, so export a backup before using it.
+The first visit opens a clean workspace with direct **Add busy time** and **Add a task** actions. You can opt into **Explore an example week**, but sample data is never loaded automatically. **Reset workspace** clears saved browser data after confirmation; export a JSON backup before using it.
 
 ## Project structure
 
@@ -67,12 +76,14 @@ review.html                    Saved weekly reflections
 why.html                       Hackathon story, transparent price comparison, trial steps
 assets/launch.css              Independent responsive landing-page design
 assets/styles.css              Design system and responsive styling
-assets/app-v3.1.js             Current browser app and local storage logic
+assets/app-v3.5.js             Current browser app and local storage logic
 assets/app.js                  Mirrored development source
 docs/PRODUCT_REQUIREMENTS.md  Product requirements
 docs/HACKATHON_SUBMISSION_PLAN.md  Hackathon positioning
 docs/VIBEFLOW_BUILD_PROMPT.md  VibeFlow implementation notes
 tests/SMOKE_TESTS.md           Functional acceptance checklist
+tests/UX_ACCEPTANCE_v35.md     First-contact UX acceptance tests
+tests/test_v35_browser.py      Chromium browser regression checks
 ```
 
 ## Privacy and limitations

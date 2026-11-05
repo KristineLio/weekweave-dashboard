@@ -223,3 +223,42 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 #task-dialog .modal-actions{position:sticky;bottom:0;z-index:3;background:#fff;border-top:1px solid #e4ece6;padding:12px 0 9px;box-shadow:0 -9px 18px rgba(255,255,255,.96)}
 #task-dialog .modal-actions .button{min-height:42px}
 @media(max-width:650px){#task-dialog .modal-actions{bottom:0}}
+
+/* v3.5 — First-contact UX: act first, learn the rest naturally. */
+.nav-link-secondary{color:#8a9990}
+.nav-link-secondary[href="compass.html"]{margin-top:10px;position:relative}
+.nav-link-secondary[href="compass.html"]:before{content:"";position:absolute;left:13px;right:13px;top:-7px;height:1px;background:#e8eee9}
+.nav-link-secondary.active{color:#276e62}
+.heading-quick-busy{background:#eff5f1;border-color:#d5e6dc;color:#306c57}
+.heading-right .mini-button{min-height:42px}
+
+.welcome-surface{background:linear-gradient(135deg,#edf5ee 0%,#f8f8f3 63%,#faf7f0 100%);border:1px solid #dceadf;border-radius:24px;padding:clamp(24px,3.6vw,50px);box-shadow:0 14px 42px rgba(26,65,45,.06);margin-bottom:16px;position:relative;overflow:hidden}
+.welcome-surface:before{content:"";width:320px;height:320px;position:absolute;right:-170px;top:-190px;pointer-events:none;border:1px solid #bad5c6;border-radius:50%;box-shadow:0 0 0 55px rgba(191,221,201,.12),0 0 0 110px rgba(191,221,201,.08)}
+.welcome-intro{max-width:690px;position:relative}.welcome-intro h1{font-size:clamp(37px,4.3vw,63px);line-height:1.08;letter-spacing:-.062em;margin:17px 0 15px;color:#233a32}.welcome-intro h1 em{font-family:Georgia,serif;color:#be7358;font-weight:400;letter-spacing:-.035em}.welcome-intro p{font-size:clamp(14px,1.35vw,17px);color:#60776a;line-height:1.65;margin:0 0 27px;max-width:620px}
+.welcome-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;position:relative}.welcome-action-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:13px;padding:25px;background:#fff;border:1px solid #e1e9e2;border-radius:18px;box-shadow:0 7px 23px rgba(36,66,54,.035)}.welcome-action-card:hover{border-color:#a8cdb9;box-shadow:0 9px 28px rgba(36,66,54,.08)}.welcome-action-icon{width:40px;height:40px;display:grid;place-content:center;background:#e8f1eb;border-radius:12px;color:#3a745b;font-size:23px}.welcome-task-card .welcome-action-icon{background:#fbebe3;color:#bc7c5b}.welcome-action-overline{font-size:10px;color:#648a77;font-weight:900;letter-spacing:.105em}.welcome-action-card h2{margin:7px 0 8px;font-size:clamp(22px,2.4vw,31px);letter-spacing:-.055em;color:#263b34}.welcome-action-card p{font-size:13px;line-height:1.65;color:#71897d;margin:0;max-width:330px}.welcome-action-card .button{margin-top:auto;min-height:46px;justify-content:space-between;width:100%;max-width:245px}
+.welcome-secondary{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px;font-size:12px;color:#577469;font-weight:650}.welcome-secondary .mini-button{background:#fff;border-color:#cbded1;color:#3b795c;min-height:39px}
+.welcome-support{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border:1px solid #e4ece5;border-radius:17px;padding:18px 24px;background:white;margin-bottom:19px}.welcome-support strong{font-size:14px;color:#354d41}.welcome-support p{margin:5px 0 0;color:#7c9084;font-size:12px;line-height:1.5}.welcome-demo{display:flex;gap:9px;align-items:center;flex-wrap:wrap;color:#788c7f;font-size:12px}.welcome-demo .mini-button{white-space:normal}
+
+/* Keep smart placement in the foreground; manual controls are available when needed. */
+.task-placement-panel{margin:2px 0 0;border-color:#bcdac9;background:#f3f9f4}
+.task-placement-title h3{font-size:17px}
+.suggestion-setup{margin-top:10px;border-color:#b5d8c2;color:#2d7458;background:#fff;white-space:normal;line-height:1.35;min-height:42px}
+.suggestion-empty{background:white;padding:13px;border:1px solid #deebe2;border-radius:11px;color:#60756b;font-size:12px;line-height:1.6}
+.suggestion-empty p{margin:6px 0 2px}
+.suggestion-apply{min-height:40px;border-color:#a8cbb2;color:#236348;background:#e9f5ea;font-weight:850}
+.suggestion-apply:hover,.suggestion-setup:hover{background:#d9eddf}
+.suggestion-short{color:#876e66}
+.task-manual-options{border:1px solid #e5ebe5;background:#fff;border-radius:11px;padding:0;overflow:hidden}
+.task-manual-options summary{list-style:none;cursor:pointer;padding:14px 15px;font-size:12px;font-weight:850;color:#465d50;display:flex;align-items:center;gap:10px;justify-content:space-between}
+.task-manual-options summary::-webkit-details-marker{display:none}
+.task-manual-options summary::after{content:"⌄";font-size:18px;color:#6a8e78}
+.task-manual-options[open] summary::after{transform:rotate(180deg)}
+.task-manual-options summary span{font-size:10px;font-weight:500;color:#8da095;letter-spacing:0;margin-left:auto}
+.task-manual-options summary:focus-visible{outline:3px solid #418a6d;outline-offset:-3px;border-radius:11px}
+.task-manual-inner{padding:15px;display:flex;flex-direction:column;gap:14px;border-top:1px solid #e5ebe5}
+#task-dialog .modal-actions{border-top:1px solid #e2ebe4}
+
+@media(max-width:1190px){.heading-right{flex-wrap:wrap}.heading-quick-busy{margin-right:0}}
+@media(max-width:940px){.nav-link-secondary[href="compass.html"]{margin-top:0}.nav-link-secondary[href="compass.html"]:before{display:none}}
+@media(max-width:760px){.welcome-surface{padding:23px 18px}.welcome-actions{grid-template-columns:1fr}.welcome-action-card{padding:20px;gap:8px}.welcome-action-card p{max-width:none}.welcome-action-card .button{max-width:none;margin-top:10px}.welcome-support{padding:16px;align-items:flex-start}.welcome-intro p{margin-bottom:20px}.welcome-intro h1{font-size:40px}.welcome-secondary{justify-content:space-between}.heading-right{width:100%}.heading-right button{flex:1;min-width:0;white-space:normal}}
+@media(max-width:390px){.welcome-intro h1{font-size:35px}.welcome-secondary .mini-button{width:100%}.task-manual-options summary{align-items:flex-start;flex-direction:column;gap:3px}.task-manual-options summary span{margin-left:0}.task-manual-options summary::after{position:absolute;right:14px;top:9px}.task-manual-options summary{position:relative;padding-right:38px}}
