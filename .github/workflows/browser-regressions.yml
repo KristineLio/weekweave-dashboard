@@ -1,0 +1,41 @@
+name: Weekweave browser regressions
+
+on:
+  pull_request:
+  push:
+    branches:
+      - fix/weekweave-reliability-20261105
+
+permissions:
+  contents: read
+
+jobs:
+  browser-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Resolve Playwright Chromium path
+        run: |
+          python - <<'PY'
+          import os
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as pw:
+              path = pw.chromium.executable_path
+          with open(os.environ["GITHUB_ENV"], "a") as env:
+              env.write("CHROMIUM_BIN=" + path + "\n")
+          PY
+      - name: First-run and planning browser regression
+        run: python tests/test_v35_browser.py
+      - name: Copy week and data preservation browser regression
+        run: python tests/test_v36_browser.py
+      - name: Backup-import safety browser regression
+        run: python tests/test_import_safety_browser.py
