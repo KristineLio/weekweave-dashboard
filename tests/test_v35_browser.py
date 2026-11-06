@@ -107,7 +107,7 @@ with sync_playwright() as playwright:
     # Optional sample week is opt in; source data is not auto generated.
     ctx,q,err3=mount(browser)
     q.locator('[data-action="load-sample"]').click()
-    check(len(json.loads(value(q))['weeks'][json.loads(value(q))['activeWeek']]['tasks'])==4,'Example data requires explicit user action')
+    check(len(json.loads(value(q))['weeks'][json.loads(value(q))['activeWeek']]['tasks'])==11,'Example data requires explicit user action and retains 11 tasks')
     check(not q.locator('.welcome-surface').count(),'Sample immediately loads real functional app')
     check('This is an editable example week.' in q.locator('body').inner_text(),
           'Opt-in example is clearly labelled after loading')
