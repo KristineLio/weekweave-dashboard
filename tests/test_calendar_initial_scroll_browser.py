@@ -136,11 +136,13 @@ with sync_playwright() as pw:
           'Early-only event remains available')
     ctx.close()
 
-    # No entries: default to a useful 08:00 point in the ordinary full-day grid.
+    # No entries: the existing timeline starts directly at 08:00, so there
+    # is no need to scroll inside that grid.
     ctx, page, errors = mount(browser, json.dumps(empty))
     s = metrics(page)
-    check(s['initial']>=400 and s['top']>0,
-          'An empty week opens near daytime instead of midnight')
+    check(s['initial']==0 and s['top']==0 and
+          page.locator('.cal-time-label').first.inner_text()=='08:00',
+          'An empty week retains its existing 08:00 start without unnecessary scrolling')
     check(not errors,'No JavaScript errors for empty-week calendar')
     ctx.close()
     browser.close()
