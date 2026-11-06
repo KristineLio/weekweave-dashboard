@@ -290,3 +290,25 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   .welcome-intro p { margin-bottom:18px; }
   .welcome-action-card { padding:18px; }
 }
+
+
+/* v3.7: unobtrusive opt-in example-only challenge; no app layout redesign. */
+.capacity-challenge-panel {
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  background:#f4f8f4;border:1px solid #cfe3d5;border-radius:14px;
+  padding:14px 17px;margin:12px 0 14px;
+}
+.capacity-challenge-panel>div:first-child { flex:1 1 260px;min-width:0; }
+.capacity-challenge-panel strong { color:#29483b;font-size:13px; }
+.capacity-challenge-panel p { color:#667f70;font-size:11px;line-height:1.6;margin:4px 0 0; }
+.capacity-challenge-actions { display:flex;gap:9px;align-items:center;flex-wrap:wrap; }
+.capacity-challenge-actions .mini-button { min-height:35px;white-space:normal; }
+.capacity-challenge-guidance {
+  border:1px solid #cfe3d5;background:#f4f8f4;border-radius:10px;
+  padding:10px 12px;font-size:12px;line-height:1.5;color:#315c47;margin:10px 0;
+}
+.capacity-challenge-guidance[hidden] { display:none; }
+@media(max-width:650px) {
+  .capacity-challenge-panel { padding:13px 12px; }
+  .capacity-challenge-actions { width:100%; }
+}
