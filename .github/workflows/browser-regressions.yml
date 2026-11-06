@@ -46,3 +46,5 @@ jobs:
         run: python tests/test_import_safety_browser.py
       - name: Guided capacity-challenge browser regression
         run: python tests/test_capacity_challenge_browser.py
+      - name: Calendar initial scroll and early-event preservation
+        run: python tests/test_calendar_initial_scroll_browser.py
