@@ -105,7 +105,7 @@ with sync_playwright() as pw:
     ck(not any(read(p)['weeks'][read(p)['activeWeek']]['blocks']),'No default personal data published to first-time visitors')
     p.locator('[data-action="load-sample"]').click()
     w=read(p)['weeks'][read(p)['activeWeek']]
-    ck(len(w['blocks'])==5 and len(w['tasks'])==4,'Opt-in example offers five blocks and four tasks')
+    ck(len(w['blocks'])==12 and len(w['tasks'])==11,'Opt-in example restores 12 blocks and 11 tasks')
     ck(any(b.get('kind')=='busy' and b['duration']==660 for b in w['blocks']),'Example visibly demonstrates a generic 11h work shift')
     ctx.close()
     # Accessible mobile/desktop page render, and no overflow after new UI.
