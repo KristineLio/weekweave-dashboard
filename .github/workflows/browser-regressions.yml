@@ -44,3 +44,5 @@ jobs:
         run: python tests/test_v36_browser.py
       - name: Backup-import safety browser regression
         run: python tests/test_import_safety_browser.py
+      - name: Guided capacity-challenge browser regression
+        run: python tests/test_capacity_challenge_browser.py
