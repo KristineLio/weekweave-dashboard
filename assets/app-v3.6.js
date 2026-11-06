@@ -327,6 +327,14 @@
     const start=Math.max(0,Math.min(480,...all.map(b=>Math.floor(minute(b.start)/60)*60)));
     const end=Math.min(1440,Math.max(1200,...all.map(b=>Math.ceil((minute(b.start)+b.duration)/60)*60)));
     const scale=56/60,fullHeight=(end-start)*scale;
+    // Start near the first meaningful daytime appointment, but keep earlier events above
+    // the viewport and accessible by scrolling up. If there are no daytime events,
+    // position near the earliest block instead of hiding it.
+    const starts=all.map(b=>minute(b.start));
+    const daytime=starts.filter(t=>t>=7*60&&t<20*60);
+    const earliest=daytime.length?Math.min(...daytime):starts.length?Math.min(...starts):9*60;
+    const initialMinute=Math.max(start,earliest-60);
+    const initialScroll=Math.max(0,Math.round((initialMinute-start)*scale));
     const ticks=Array.from({length:(end-start)/60+1},(_,i)=>{const tm=start+i*60;return `<span class="cal-time-label" style="top:${i*56}px">${timeText(tm===1440?0:tm)}</span>`;}).join('');
     const dayMarkup=dates.map(d=>{
       const count=d.blocks.length;
@@ -345,7 +353,7 @@
       return `<div class="cal-time-day ${d.date===todayKey?'cal-time-today':''}" ><div class="cal-time-day-heading"><button type="button" data-action="cal-open-day" data-date="${d.date}"><span>${safe(localDate(d.date).toLocaleDateString('en-US',{weekday:'short'}))}</span><strong>${localDate(d.date).getDate()}</strong></button></div><div class="cal-time-day-body" style="height:${fullHeight}px">${cards||`<div class="cal-empty-day">No time blocks <button type="button" data-action="cal-add-block" data-date="${d.date}">+ Add</button></div>`}</div></div>`;
     }).join('');
     return `<section class="cal-panel"><div class="cal-timeline-help">${keys.length===1?'Daily timeline':'Seven-day timeline'} · select a block to edit it, or select a task inside a focus block to update it. Completed tasks remain visible and free their minutes.</div>
-      <div class="cal-timeline-scroll" role="region" aria-label="${keys.length===1?'Day':'Week'} calendar timeline, scroll horizontally on small screens" tabindex="0">
+      <div class="cal-timeline-scroll" role="region" aria-label="${keys.length===1?'Day':'Week'} calendar timeline, scroll for other hours" tabindex="0" data-calendar-context="${calendarView}:${keys.join(',')}" data-initial-scroll="${initialScroll}">
         <div class="cal-timeline-layout ${keys.length===1?'cal-one-day':''}" style="--cal-height:${fullHeight}px;--cal-days:${keys.length}">
           <div class="cal-time-rail"><span class="cal-rail-head">TIME</span><div class="cal-time-rail-body" style="height:${fullHeight}px">${ticks}</div></div>
           <div class="cal-time-columns">${dayMarkup}</div></div></div></section>`;
@@ -507,7 +515,22 @@
     r.carriedTaskId=id;r.carriedWeek=nextKey;persist();render();notice('Added to next week’s Inbox. No time reserved yet.');
   }
   let reviewDirty=false;
-  function render(){const tabLabel=$('.date-pill'),hint=$('.key-hint');if(tabLabel)tabLabel.innerHTML=`<span class="date-dot"></span> ${page==='calendar'?'CALENDAR · '+(calendarView==='month'?calMonthLabel(calendarDate):prettyDay(calendarDate)).toUpperCase():'WEEK OF '+prettyDay(state.activeWeek).toUpperCase()} <span class="week-picker-caret" aria-hidden="true">⌄</span>`;if(hint)hint.textContent=storageOK?'SAVED IN THIS BROWSER':'STORAGE UNAVAILABLE';const foot=$('.side-foot small');if(foot)foot.textContent='Your local workspace · no account';const copy=$('.footer span:last-child');if(copy)copy.textContent='Weekweave · saved locally · no cloud sync';main.innerHTML=({overview:renderOverview,planner:renderPlanner,tasks:renderTasks,calendar:renderCalendar,compass:renderCompass,review:renderReview}[page]||renderOverview)();}
+  function render(){
+    // Preserve user-controlled scroll when updating the same calendar; reset intelligently
+    // only when the day, week or view changes. These scroll values are never persisted.
+    const priorCalendar=$('.cal-timeline-scroll');
+    const priorPosition=page==='calendar'&&priorCalendar?
+      {key:priorCalendar.dataset.calendarContext,top:priorCalendar.scrollTop,left:priorCalendar.scrollLeft}:null;
+    const tabLabel=$('.date-pill'),hint=$('.key-hint');if(tabLabel)tabLabel.innerHTML=`<span class="date-dot"></span> ${page==='calendar'?'CALENDAR · '+(calendarView==='month'?calMonthLabel(calendarDate):prettyDay(calendarDate)).toUpperCase():'WEEK OF '+prettyDay(state.activeWeek).toUpperCase()} <span class="week-picker-caret" aria-hidden="true">⌄</span>`;if(hint)hint.textContent=storageOK?'SAVED IN THIS BROWSER':'STORAGE UNAVAILABLE';const foot=$('.side-foot small');if(foot)foot.textContent='Your local workspace · no account';const copy=$('.footer span:last-child');if(copy)copy.textContent='Weekweave · saved locally · no cloud sync';main.innerHTML=({overview:renderOverview,planner:renderPlanner,tasks:renderTasks,calendar:renderCalendar,compass:renderCompass,review:renderReview}[page]||renderOverview)();
+    if(page==='calendar'){
+      const viewport=$('.cal-timeline-scroll');
+      if(viewport){
+        const same=priorPosition&&priorPosition.key===viewport.dataset.calendarContext;
+        viewport.scrollTop=same?priorPosition.top:Number(viewport.dataset.initialScroll)||0;
+        viewport.scrollLeft=same?priorPosition.left:0;
+      }
+    }
+  }
   function blockOptions(selected='',taskId=''){return `<option value="">Inbox (no block)</option>${week().blocks.filter(b=>!busy(b)).sort((a,b)=>a.day-b.day||minute(a.start)-minute(b.start)).map(b=>`<option value="${safe(b.id)}" ${selected===b.id?'selected':''}>${DAYS[b.day].slice(0,3)} ${b.start} · ${safe(b.title)} (${slots(b.id,taskId)}m free)</option>`).join('')}`;}
   function firstOpenTime(block,minutes,exceptTask=''){
     if(!block||busy(block)||!Number.isInteger(minutes)||minutes<=0)return '';
