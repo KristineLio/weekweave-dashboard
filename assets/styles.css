@@ -312,3 +312,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   .capacity-challenge-panel { padding:13px 12px; }
   .capacity-challenge-actions { width:100%; }
 }
+
+/* Calendar initial focus: show useful daytime hours while retaining all earlier events.
+   Sticky weekday and TIME labels remain visible within the vertically scrollable grid. */
+.cal-timeline-scroll { max-height:min(70vh,720px); }
+.cal-time-day-heading {
+  position:sticky;top:0;z-index:4;background:#fff;
+}
+.cal-time-today .cal-time-day-heading { background:#f6faf7; }
+.cal-rail-head {
+  position:sticky;top:0;z-index:5;background:#fff;
+}
+@media(max-width:650px) {
+  .cal-timeline-scroll { max-height:min(66vh,640px); }
+}
