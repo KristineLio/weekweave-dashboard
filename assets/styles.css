@@ -269,3 +269,60 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .repeat-week-options{border:1px solid #e2ece7;border-radius:12px;padding:14px 16px;display:grid;gap:13px}.repeat-week-options legend{font-weight:800;color:#456c5a;font-size:12px;padding:0 4px}.repeat-week-options .check-row{line-height:1.55;white-space:normal}.repeat-week-preview{border:1px solid #dce9e1;border-radius:11px;background:#f4f8f5;padding:13px 16px}.repeat-result{display:flex;gap:12px;align-items:center;justify-content:space-between}.repeat-result strong{font-size:14px;color:#284c3e}.repeat-result>span{font-size:11px;color:#507866;font-weight:800}.repeat-result-meta,.repeat-skips{font-size:11px;color:#738a7e;margin:7px 0 0}.repeat-skips{color:#926d4a}.repeat-week-safety{font-size:11px;line-height:1.65;margin:0}
 @media(max-width:740px){.repeat-week-strip{align-items:flex-start;flex-direction:column;gap:12px}.repeat-week-buttons{width:100%;justify-content:flex-start}.repeat-week-buttons .mini-button{white-space:normal;text-align:center}.repeat-result{flex-wrap:wrap}}
 @media(max-width:375px){.repeat-week-buttons{flex-direction:column;align-items:stretch}.repeat-week-buttons .mini-button{width:100%}}
+
+/* v3.6 hackathon polish: keep primary actions above the desktop fold.
+   Scoped to the first-visit screen; populated plans retain existing spacing. */
+@media (min-width:761px) {
+  .main-content:has(.welcome-surface) { padding-top:22px; }
+  .welcome-surface { padding:clamp(22px,2.6vw,35px); }
+  .welcome-intro h1 { margin:11px 0 10px; }
+  .welcome-intro p { margin-bottom:18px; line-height:1.5; }
+  .welcome-actions { gap:12px; }
+  .welcome-action-card { padding:20px; gap:10px; }
+  .welcome-action-card h2 { margin:5px 0; }
+  .welcome-action-card p { line-height:1.48; }
+  .welcome-secondary { margin-top:12px; }
+}
+@media (max-width:760px) {
+  .main-content:has(.welcome-surface) { padding-top:18px; }
+  .welcome-surface { padding:22px 18px; }
+  .welcome-intro h1 { margin:12px 0 10px; }
+  .welcome-intro p { margin-bottom:18px; }
+  .welcome-action-card { padding:18px; }
+}
+
+
+/* v3.7: unobtrusive opt-in example-only challenge; no app layout redesign. */
+.capacity-challenge-panel {
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  background:#f4f8f4;border:1px solid #cfe3d5;border-radius:14px;
+  padding:14px 17px;margin:12px 0 14px;
+}
+.capacity-challenge-panel>div:first-child { flex:1 1 260px;min-width:0; }
+.capacity-challenge-panel strong { color:#29483b;font-size:13px; }
+.capacity-challenge-panel p { color:#667f70;font-size:11px;line-height:1.6;margin:4px 0 0; }
+.capacity-challenge-actions { display:flex;gap:9px;align-items:center;flex-wrap:wrap; }
+.capacity-challenge-actions .mini-button { min-height:35px;white-space:normal; }
+.capacity-challenge-guidance {
+  border:1px solid #cfe3d5;background:#f4f8f4;border-radius:10px;
+  padding:10px 12px;font-size:12px;line-height:1.5;color:#315c47;margin:10px 0;
+}
+.capacity-challenge-guidance[hidden] { display:none; }
+@media(max-width:650px) {
+  .capacity-challenge-panel { padding:13px 12px; }
+  .capacity-challenge-actions { width:100%; }
+}
+
+/* Calendar initial focus: show useful daytime hours while retaining all earlier events.
+   Sticky weekday and TIME labels remain visible within the vertically scrollable grid. */
+.cal-timeline-scroll { max-height:min(70vh,720px); }
+.cal-time-day-heading {
+  position:sticky;top:0;z-index:4;background:#fff;
+}
+.cal-time-today .cal-time-day-heading { background:#f6faf7; }
+.cal-rail-head {
+  position:sticky;top:0;z-index:5;background:#fff;
+}
+@media(max-width:650px) {
+  .cal-timeline-scroll { max-height:min(66vh,640px); }
+}

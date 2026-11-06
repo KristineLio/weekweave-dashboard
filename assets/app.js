@@ -30,22 +30,13 @@
     {id:'goal-build',category:'Build',title:'Grow my technical craft',outcome:'Ship one meaningful project improvement'},
     {id:'goal-personal',category:'Personal',title:'Protect my energy',outcome:'Make space for rest and health'}
   ];
-  function exampleBlocks() {
-    return [
-      {id:'block-mon',day:0,title:'Study sprint',category:'Study',start:'09:00',duration:120},
-      {id:'block-tue',day:1,title:'Build time',category:'Build',start:'10:00',duration:120},
-      {id:'block-thu',day:3,title:'Morning reset',category:'Personal',start:'08:30',duration:60},
-      {id:'block-fri',day:4,title:'Study sprint',category:'Study',start:'10:00',duration:120},
-      {id:'block-sat-work',day:5,title:'Work shift',category:'Work',kind:'busy',start:'09:00',duration:660},
-    ];
-  }
+  // Official opt-in example, preserved from examples/weekweave-example-2026-11-02.json.
+  // Never insert this into a visitor's workspace until they explicitly choose the example.
+  const SAMPLE_WEEK_KEY='2026-11-02';
+  const SAMPLE_BACKUP={"week":{"blocks":[{"id":"block-mon","day":0,"title":"Study sprint","category":"Study","start":"09:00","duration":120},{"id":"block-tue","day":1,"title":"Build time","category":"Build","start":"10:00","duration":120},{"id":"block-thu","day":3,"title":"Morning studying","category":"Personal","start":"08:30","duration":270,"kind":"focus"},{"id":"block-fri","day":4,"title":"Study","category":"Study","start":"09:00","duration":240,"kind":"focus"},{"id":"ebcc1628-73da-4458-88cf-7bf6b1d72be2","title":"lunch","day":0,"category":"Personal","start":"11:00","duration":60},{"id":"73adc927-8174-4d9d-811c-4b6656c82d61","title":"Studying","day":0,"category":"Study","start":"14:00","duration":60,"kind":"focus"},{"id":"d491fef1-1a61-4466-92a7-ea98033c8d03","title":"Work shift","day":5,"category":"Work","start":"09:00","duration":660,"kind":"busy"},{"id":"5204115c-fa8d-4a27-87f4-a93b64fdd6ef","title":"Work shift","day":6,"category":"Work","kind":"busy","start":"09:00","duration":660},{"id":"0fc7d169-0f9f-4ea3-825d-091ea2249082","title":"Python lecture","day":3,"category":"Study","kind":"busy","start":"13:00","duration":90},{"id":"d27e23a4-33fc-43eb-a004-5a2fd0316290","title":"Core workout","day":3,"category":"Personal","kind":"focus","start":"15:00","duration":30},{"id":"9e27435c-9096-4de4-aea3-548d529715e1","title":"Content planning","day":4,"category":"Personal","kind":"focus","start":"18:00","duration":240},{"id":"b1bb5465-2951-4825-8ac4-c7fc58549166","title":"Core workout","day":4,"category":"Personal","kind":"focus","start":"13:00","duration":30}],"tasks":[{"id":"task-review","title":"Review data structures notes","duration":60,"category":"Study","blockId":"block-mon","scheduledTime":"09:00","done":true},{"id":"task-proto","title":"Prototype one useful feature","duration":45,"category":"Build","blockId":"block-tue","scheduledTime":"","done":false},{"id":"2b5e4d42-8ad2-4fec-97f2-5d049842a9af","title":"Parallel programming","duration":90,"category":"Study","blockId":"","scheduledTime":"","done":false},{"id":"b67ed162-b60d-498d-a841-23e642e7b222","title":"Lecture 5 HW","duration":60,"category":"Study","blockId":"","scheduledTime":"","done":false},{"id":"6dda3567-f2fa-4587-80fc-074f22da95d5","title":"Lecture 5 study","duration":60,"category":"Study","blockId":"","scheduledTime":"","done":false},{"id":"c91e367c-feda-4814-8ada-4a701e34d30f","title":"Data structures lectures 3","duration":60,"category":"Study","blockId":"block-fri","scheduledTime":"","done":false},{"id":"13563022-669e-4584-b5e0-18de32508d89","title":"Data structures lectures 4","duration":60,"category":"Study","blockId":"block-fri","scheduledTime":"","done":false},{"id":"dd94e1f4-bfad-4177-b1ee-b82e6e6ad31d","title":"Data structures lecture exercises","duration":120,"category":"Study","blockId":"block-fri","scheduledTime":"","done":false},{"id":"c04ef2ed-dfc6-493c-9089-395050b50c1c","title":"Workout","duration":30,"category":"Study","blockId":"d27e23a4-33fc-43eb-a004-5a2fd0316290","scheduledTime":"","done":false},{"id":"a99fea0f-5fd7-44ff-a38d-b106a99be8e0","title":"Content planning","duration":45,"category":"Study","blockId":"9e27435c-9096-4de4-aea3-548d529715e1","scheduledTime":"","done":false},{"id":"e3f5546e-9259-409d-8c8d-4f290d5db59a","title":"Portfolio project","duration":60,"category":"Personal","blockId":"9e27435c-9096-4de4-aea3-548d529715e1","scheduledTime":"","done":false}],"habits":{"Morning reset":[false,false,false,false,false,false,false]},"review":{"wins":"","friction":"","change":"","anchor":"","savedAt":""},"starter":false,"createdAt":"2026-11-04T12:21:48.548Z","isSample":true},"goals":[{"id":"goal-study","category":"Study","title":"Complete the degree","outcome":"Pass remaining courses","metric":"courses left","unit":"courses","target":0,"current":5,"dueDate":"2027-06-01","paused":false,"evidence":[],"mode":"decrease","baseline":5},{"id":"goal-build","category":"Build","title":"Grow technical skills","outcome":"Ship products","metric":"shipped products","unit":"","target":3,"current":0,"dueDate":"2027-06-01","paused":false,"evidence":[],"mode":"increase","baseline":0},{"id":"goal-personal","category":"Personal","title":"Protect energy","outcome":"Make space for rest and health","metric":"energy","unit":"%","target":100,"current":70,"dueDate":"2027-06-01","paused":false,"evidence":[],"mode":"increase","baseline":70}]};
   function makeWeek(starter = false) {
-    return {blocks:starter ? exampleBlocks() : [],tasks:starter ? [
-      {id:'task-review',title:'Review data structures notes',duration:60,category:'Study',blockId:'block-mon',scheduledTime:'09:00',done:false},
-      {id:'task-proto',title:'Prototype one useful feature',duration:45,category:'Build',blockId:'block-tue',scheduledTime:'',done:false},
-      {id:'task-concepts',title:'List difficult concepts',duration:30,category:'Study',blockId:'',scheduledTime:'',done:false},
-      {id:'task-break',title:'Take a movement break',duration:20,category:'Personal',blockId:'',scheduledTime:'',done:true}
-    ] : [],habits:{},review:{wins:'',friction:'',change:'',anchor:'',energy:'',savedAt:''},starter,createdAt:new Date().toISOString()};
+    if(starter)return JSON.parse(JSON.stringify(SAMPLE_BACKUP.week));
+    return {blocks:[],tasks:[],habits:{},review:{wins:'',friction:'',change:'',anchor:'',energy:'',savedAt:''},starter:false,isSample:false,createdAt:new Date().toISOString()};
   }
   let state = fromStorage();
   if(!state){state={version:2,activeWeek:currentMonday,weeks:{[currentMonday]:makeWeek()},goals:initialGoals()};}
@@ -90,7 +81,7 @@
   let calendarView = 'week';
   let storageOK = true;
   try{localStorage.setItem(KEY,JSON.stringify(state));}catch{storageOK=false;}
-  function persist() {try{localStorage.setItem(KEY,JSON.stringify(state));storageOK=true;}catch{storageOK=false;} }
+  function persist() {try{localStorage.setItem(KEY,JSON.stringify(state));storageOK=true;return true;}catch{storageOK=false;return false;} }
   const blockById = id => week().blocks.find(b => b.id===id);
   const used = (id, exceptTask='') => week().tasks.reduce((sum,t)=>sum + (t.blockId===id && !t.done && t.id!==exceptTask ? t.duration : 0),0);
   const slots = (id, exceptTask='') => busy(blockById(id)) ? 0 : (blockById(id)?.duration||0) - used(id,exceptTask);
@@ -109,9 +100,9 @@
     });
   }
   function notice(message, error=false){let n=$('#live-notice');if(!n){n=document.createElement('div');n.id='live-notice';n.setAttribute('role','status');n.setAttribute('aria-live','polite');document.body.append(n);}n.textContent=message;n.className=error?'toast show error':'toast show';clearTimeout(notice.timer);notice.timer=setTimeout(()=>n.classList.remove('show'),4500);}
-  function markAndRender(message){week().starter=false;persist();render();if(message)notice(message);}
+  function markAndRender(message){week().starter=false;const saved=persist();render();if(!saved)notice('Browser storage is unavailable. Changes may be lost on refresh; export a backup now.',true);else if(message)notice(message);}
   const heading = (eyebrow,title,description,cta='') => `<div class="page-heading heading-row"><div><div class="eyebrow"><span class="eyebrow-line"></span>${safe(eyebrow)}</div><h1>${title}</h1><p>${safe(description)}</p></div><div class="heading-right">${cta}</div></div>`;
-  const savedInfo = () => `<div class="preview-notice live-banner" role="note"><span aria-hidden="true" class="preview-notice-icon">◉</span><p><strong>${storageOK?'Your workspace is saved in this browser.':'Storage is blocked.'}</strong> ${storageOK?'No sign-in or server needed. Data stays on this device; use Export to back it up.':'Changes in this tab may be lost after refresh. Enable site storage to save.'}${week().starter?' Starter tasks are provided so you can try the workflow.':''}</p><span class="preview-tag">${storageOK?'LOCAL · PRIVATE':'NOT SAVED'}</span></div>`;
+  const savedInfo = () => `<div class="preview-notice live-banner" role="note"><span aria-hidden="true" class="preview-notice-icon">◉</span><p><strong>${storageOK?'Your workspace is saved in this browser.':'Storage is blocked.'}</strong> ${storageOK?'No sign-in or server needed. Data stays on this device; use Export to back it up.':'Changes in this tab may be lost after refresh. Enable site storage to save.'}${week().isSample?' This is an editable example week. Your changes are private to this browser. Use Reset workspace to start fresh.':week().starter?' Starter tasks are provided so you can try the workflow.':''}</p><span class="preview-tag">${storageOK?'LOCAL · PRIVATE':'NOT SAVED'}</span></div>`;
   function weekNav(){const start=state.activeWeek,end=addDays(start,6);return `<div class="week-toolbar"><div class="week-title"><strong>${prettyDay(start)} – ${prettyDay(end)}, ${localDate(end).getFullYear()}</strong><small>${state.activeWeek===currentMonday?'Current week':'Selected week'} · Monday–Sunday</small></div><div class="week-controls"><button type="button" class="mini-button" data-action="prev-week" aria-label="Previous week">←</button><button type="button" class="mini-button" data-action="this-week">This week</button><button type="button" class="mini-button" data-action="next-week" aria-label="Next week">→</button></div></div>`;}
   function repeatWeekStrip(){
     const previous=state.weeks[addDays(state.activeWeek,-7)];
@@ -186,6 +177,57 @@
     <section class="welcome-support" aria-label="Your workspace status"><div><strong>Your week is empty — ready for your plans.</strong><p>Busy time stays protected. Focus time is where tasks can be scheduled without overlapping.</p></div><div class="welcome-demo"><span>Just looking around?</span><button type="button" class="mini-button" data-action="load-sample">Explore an example week</button></div></section>
     ${weekNav()}${savedInfo()}${toolRow()}`;
   }
+  // Challenge uses the real scheduler and is available only for an explicitly loaded demo week.
+  // A dismissed/visited challenge stays hidden for this tab session; no planning data is changed.
+  const seenChallenges=new Set();
+  const challengeKey=()=> 'weekweave.capacity-challenge-seen:'+state.activeWeek;
+  function challengeWasSeen(){
+    const key=challengeKey();
+    if(seenChallenges.has(key))return true;
+    try{return sessionStorage.getItem(key)==='1';}catch{return false;}
+  }
+  function markChallengeSeen(){
+    const key=challengeKey();seenChallenges.add(key);
+    try{sessionStorage.setItem(key,'1');}catch{/* Session storage is optional. */}
+  }
+  function challengeTarget(){
+    const candidates=week().blocks.filter(b=>!busy(b)&&Number.isFinite(slots(b.id))&&slots(b.id)>=0&&slots(b.id)<480);
+    candidates.sort((a,b)=>slots(a.id)-slots(b.id)||a.day-b.day||minute(a.start)-minute(b.start));
+    return candidates[0]||null;
+  }
+  function capacityChallengePanel(){
+    if(week().isSample!==true||challengeWasSeen())return '';
+    const target=challengeTarget();
+    return '<section class="capacity-challenge-panel" aria-label="Try Weekweave capacity protection"><div><strong>Can one more task fit?</strong><p>'+
+      (target?'Try assigning one extra task to a Focus block. Weekweave will check its real remaining minutes before saving.':'This example has no suitable Focus block for a capacity challenge. Open the Planner to review available time.')+
+      '</p></div><div class="capacity-challenge-actions">'+
+      (target?'<button type="button" class="mini-button" data-action="try-capacity-challenge">Try the capacity challenge ↗</button>':'<a class="mini-button" href="planner.html">Open Planner ↗</a>')+
+      '<button type="button" class="mini-button" data-action="dismiss-capacity-challenge">Dismiss</button></div></section>';
+  }
+  function openCapacityChallenge(){
+    if(week().isSample!==true)return; // A personal workspace must never enter the demo.
+    const target=challengeTarget();
+    if(!target){notice('No suitable Focus block in this example. Review the Planner instead.',true);return;}
+    const free=slots(target.id);
+    const minutes=Math.min(480,Math.floor(free/5)*5+5); // Always > free, within normal task limits.
+    openTask('',target.id); // Use the existing production task form and validation.
+    const f=$('#task-form');
+    f.elements.title.value='One more task (capacity challenge)';
+    f.elements.duration.value=String(minutes);
+    f.elements.category.value=CATEGORIES.includes(target.category)?target.category:'Study';
+    f.elements.blockId.value=target.id;
+    f.elements.scheduledTime.value='';
+    f.elements.done.checked=false;
+    $('#task-manual-options').open=true;
+    updateTaskPlacements();
+    const note=$('#capacity-challenge-guidance');
+    if(note){
+      note.hidden=false;
+      note.textContent='Try Save task: '+target.title+' has '+free+' minutes free, but this task requires '+minutes+'. The normal capacity check should reject it without saving anything.';
+    }
+    markChallengeSeen();
+    const panel=$('.capacity-challenge-panel');if(panel)panel.remove();
+  }
   function renderOverview(){
     if(isBlankWorkspace())return renderWelcomeOverview();
     const w=week(),s=stats(),index=overviewDayIndex(),date=addDays(state.activeWeek,index),day=overviewDayData(index);
@@ -227,6 +269,7 @@
       +nextActionStrip(workOnly)+weekNav()+savedInfo()+`<section class="overview-day-switcher" aria-label="Choose a day to review"><div class="overview-day-intro"><span class="panel-kicker">YOUR DAY</span><strong>${safe(dayName)} · ${prettyDay(date)}</strong><small>${onToday?'Showing today':`Viewing ${prettyDay(date)} in the selected week`}</small></div><div class="overview-day-options">${dayOptions}</div></section>
       ${workOnly ? workDayView : `<section class="command-grid" aria-label="Daily capacity and priority"><article class="command-primary"><div class="command-top"><span class="hero-overline">01 / REAL TIME AVAILABLE</span><span class="command-chip">${safe(dayName.toUpperCase())}</span></div><h2>${day.capacity?`<em>${durationText(day.free)} focus time</em> still unbooked.`:`No focus time <em>planned yet.</em>`}</h2><p>${day.capacity?`You reserved ${durationText(day.booked)} of ${durationText(day.capacity)} focus time for unfinished tasks. ${day.busy?durationText(day.busy)+' is already reserved as busy time.':'Add busy blocks for work or classes when needed.'}`:`${day.busy?`${durationText(day.busy)} is busy / unavailable. `:''}Focus blocks show how much time you can realistically assign to tasks.`}</p><div class="capacity-visual"><div class="capacity-visual-head"><strong>Selected day's focus capacity</strong><span>${durationText(day.booked)} / ${durationText(day.capacity)}</span></div><div class="capacity-track" role="progressbar" aria-label="Selected day focus capacity booked" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${dayPct}"><span style="width:${dayPct}%"></span></div><div class="capacity-visual-foot"><b>${dayPct}% booked</b><small>${durationText(day.busy)} busy · excluded</small></div></div><a class="button button-white" href="planner.html">Adjust time blocks ↗</a><div aria-hidden="true" class="hero-ornament"><span class="orbit-a"></span><span class="orbit-b"></span><span class="orbit-c"></span></div></article>
       <article class="today-primary"><div class="today-top"><div><div class="panel-kicker">02 / PRIORITY TO PROTECT</div><h2>${day.active.length?'Next action':recommended?'A useful next move':"You're all caught up"}</h2></div><span class="neutral-label">${s.completed}/${s.total} DONE THIS WEEK</span></div><p>${day.active.length?`The first unfinished task on ${safe(dayName.toLowerCase())}'s plan.`:recommended?.reason==='FROM YOUR INBOX'?'Nothing assigned to this day, but there is a task waiting in your Inbox.':recommended?"No unfinished tasks on this day; here's an upcoming task.":'Your priorities can start with a fresh task or some well-earned space.'}</p>${taskAction}<div class="today-separator"></div><div class="today-micro"><span aria-hidden="true" class="today-micro-icon">✳</span><div><strong>Finished tasks free their minutes.</strong><small>They remain in Done as evidence of progress.</small></div></div></article></section>`}
+      ${capacityChallengePanel()}
       <div class="stats-grid overview-summary"><div class="stat-card"><span class="stat-top">WEEKLY FOCUS CAPACITY</span><div class="stat-value">${durationText(s.capacity)}</div><p class="stat-desc">${durationText(s.available)} unbooked across the week</p></div><div class="stat-card"><span class="stat-top">BUSY / UNAVAILABLE</span><div class="stat-value">${durationText(s.busyMinutes)}</div><p class="stat-desc">Work, university and appointments</p></div><div class="stat-card"><span class="stat-top">TASK COMPLETION</span><div class="stat-value">${completionRate}%</div><p class="stat-desc">${s.completed} of ${s.total} tasks completed</p></div><div class="stat-card"><span class="stat-top">ACTIVE COMMITMENTS</span><div class="stat-value">${durationText(s.booked)}</div><p class="stat-desc">${weeklyPct}% of weekly focus time booked</p></div></div>
       <div class="two-column overview-daily-lower"><section class="panel"><div class="panel-heading"><div><div class="panel-kicker">03 / YOUR DAY</div><h3>${safe(dayName)}'s timetable</h3></div><a class="text-link" href="planner.html">Open Planner ↗</a></div><p class="panel-description">Busy time and focus time share one timeline. Finished tasks don't consume capacity.</p><div class="overview-agenda">${dayRows}</div></section><section class="panel"><div class="panel-heading"><div><div class="panel-kicker">04 / EXECUTE</div><h3>Tasks in this day</h3></div><a class="text-link" href="tasks.html">Task board ↗</a></div><p class="panel-description">${day.active.length} active · ${day.completed.length} finished and released · ${w.tasks.filter(t=>!t.done&&!t.blockId).length} in Inbox</p><div class="overview-task-list">${taskRows}</div>${day.active.length>5?`<p class="panel-description">+ ${day.active.length-5} more active task(s) on the Task board.</p>`:''}${day.completed.length?`<div class="overview-completed-summary">✓ ${day.completed.length} completed task(s) · ${durationText(day.completed.reduce((sum,t)=>sum+t.duration,0))} released</div>`:''}</section></div>
       <section class="panel overview-goals-panel"><div class="panel-heading"><div><div class="panel-kicker">05 / LONG-TERM DIRECTION</div><h3>Progress toward your directions</h3></div><a class="text-link" href="compass.html">KPI Compass ↗</a></div><p class="panel-description">Weekly task completion in each life area — a measure of execution, <strong>not</strong> proof that an entire goal is achieved.</p><div class="overview-directions">${directions}</div></section>
@@ -275,6 +318,14 @@
     const start=Math.max(0,Math.min(480,...all.map(b=>Math.floor(minute(b.start)/60)*60)));
     const end=Math.min(1440,Math.max(1200,...all.map(b=>Math.ceil((minute(b.start)+b.duration)/60)*60)));
     const scale=56/60,fullHeight=(end-start)*scale;
+    // Start near the first meaningful daytime appointment, but keep earlier events above
+    // the viewport and accessible by scrolling up. If there are no daytime events,
+    // position near the earliest block instead of hiding it.
+    const starts=all.map(b=>minute(b.start));
+    const daytime=starts.filter(t=>t>=7*60&&t<20*60);
+    const earliest=daytime.length?Math.min(...daytime):starts.length?Math.min(...starts):9*60;
+    const initialMinute=Math.max(start,earliest-60);
+    const initialScroll=Math.max(0,Math.round((initialMinute-start)*scale));
     const ticks=Array.from({length:(end-start)/60+1},(_,i)=>{const tm=start+i*60;return `<span class="cal-time-label" style="top:${i*56}px">${timeText(tm===1440?0:tm)}</span>`;}).join('');
     const dayMarkup=dates.map(d=>{
       const count=d.blocks.length;
@@ -293,7 +344,7 @@
       return `<div class="cal-time-day ${d.date===todayKey?'cal-time-today':''}" ><div class="cal-time-day-heading"><button type="button" data-action="cal-open-day" data-date="${d.date}"><span>${safe(localDate(d.date).toLocaleDateString('en-US',{weekday:'short'}))}</span><strong>${localDate(d.date).getDate()}</strong></button></div><div class="cal-time-day-body" style="height:${fullHeight}px">${cards||`<div class="cal-empty-day">No time blocks <button type="button" data-action="cal-add-block" data-date="${d.date}">+ Add</button></div>`}</div></div>`;
     }).join('');
     return `<section class="cal-panel"><div class="cal-timeline-help">${keys.length===1?'Daily timeline':'Seven-day timeline'} · select a block to edit it, or select a task inside a focus block to update it. Completed tasks remain visible and free their minutes.</div>
-      <div class="cal-timeline-scroll" role="region" aria-label="${keys.length===1?'Day':'Week'} calendar timeline, scroll horizontally on small screens" tabindex="0">
+      <div class="cal-timeline-scroll" role="region" aria-label="${keys.length===1?'Day':'Week'} calendar timeline, scroll for other hours" tabindex="0" data-calendar-context="${calendarView}:${keys.join(',')}" data-initial-scroll="${initialScroll}">
         <div class="cal-timeline-layout ${keys.length===1?'cal-one-day':''}" style="--cal-height:${fullHeight}px;--cal-days:${keys.length}">
           <div class="cal-time-rail"><span class="cal-rail-head">TIME</span><div class="cal-time-rail-body" style="height:${fullHeight}px">${ticks}</div></div>
           <div class="cal-time-columns">${dayMarkup}</div></div></div></section>`;
@@ -455,7 +506,22 @@
     r.carriedTaskId=id;r.carriedWeek=nextKey;persist();render();notice('Added to next week’s Inbox. No time reserved yet.');
   }
   let reviewDirty=false;
-  function render(){const tabLabel=$('.date-pill'),hint=$('.key-hint');if(tabLabel)tabLabel.innerHTML=`<span class="date-dot"></span> ${page==='calendar'?'CALENDAR · '+(calendarView==='month'?calMonthLabel(calendarDate):prettyDay(calendarDate)).toUpperCase():'WEEK OF '+prettyDay(state.activeWeek).toUpperCase()} <span class="week-picker-caret" aria-hidden="true">⌄</span>`;if(hint)hint.textContent=storageOK?'SAVED IN THIS BROWSER':'STORAGE UNAVAILABLE';const foot=$('.side-foot small');if(foot)foot.textContent='Your local workspace · no account';const copy=$('.footer span:last-child');if(copy)copy.textContent='Weekweave · saved locally · no cloud sync';main.innerHTML=({overview:renderOverview,planner:renderPlanner,tasks:renderTasks,calendar:renderCalendar,compass:renderCompass,review:renderReview}[page]||renderOverview)();}
+  function render(){
+    // Preserve user-controlled scroll when updating the same calendar; reset intelligently
+    // only when the day, week or view changes. These scroll values are never persisted.
+    const priorCalendar=$('.cal-timeline-scroll');
+    const priorPosition=page==='calendar'&&priorCalendar?
+      {key:priorCalendar.dataset.calendarContext,top:priorCalendar.scrollTop,left:priorCalendar.scrollLeft}:null;
+    const tabLabel=$('.date-pill'),hint=$('.key-hint');if(tabLabel)tabLabel.innerHTML=`<span class="date-dot"></span> ${page==='calendar'?'CALENDAR · '+(calendarView==='month'?calMonthLabel(calendarDate):prettyDay(calendarDate)).toUpperCase():'WEEK OF '+prettyDay(state.activeWeek).toUpperCase()} <span class="week-picker-caret" aria-hidden="true">⌄</span>`;if(hint)hint.textContent=storageOK?'SAVED IN THIS BROWSER':'STORAGE UNAVAILABLE';const foot=$('.side-foot small');if(foot)foot.textContent='Your local workspace · no account';const copy=$('.footer span:last-child');if(copy)copy.textContent='Weekweave · saved locally · no cloud sync';main.innerHTML=({overview:renderOverview,planner:renderPlanner,tasks:renderTasks,calendar:renderCalendar,compass:renderCompass,review:renderReview}[page]||renderOverview)();
+    if(page==='calendar'){
+      const viewport=$('.cal-timeline-scroll');
+      if(viewport){
+        const same=priorPosition&&priorPosition.key===viewport.dataset.calendarContext;
+        viewport.scrollTop=same?priorPosition.top:Number(viewport.dataset.initialScroll)||0;
+        viewport.scrollLeft=same?priorPosition.left:0;
+      }
+    }
+  }
   function blockOptions(selected='',taskId=''){return `<option value="">Inbox (no block)</option>${week().blocks.filter(b=>!busy(b)).sort((a,b)=>a.day-b.day||minute(a.start)-minute(b.start)).map(b=>`<option value="${safe(b.id)}" ${selected===b.id?'selected':''}>${DAYS[b.day].slice(0,3)} ${b.start} · ${safe(b.title)} (${slots(b.id,taskId)}m free)</option>`).join('')}`;}
   function firstOpenTime(block,minutes,exceptTask=''){
     if(!block||busy(block)||!Number.isInteger(minutes)||minutes<=0)return '';
@@ -480,7 +546,7 @@
   }
   function installDialogs(){document.body.insertAdjacentHTML('beforeend',`<dialog id="week-picker-dialog" class="app-dialog week-picker-dialog" aria-labelledby="week-picker-title"><form id="week-picker-form" novalidate><div class="modal-head"><div><div class="panel-kicker">WEEK NAVIGATION</div><h2 id="week-picker-title">Choose a week</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close week picker">×</button></div><p class="week-picker-help">Pick any day. Weekweave will show its Monday–Sunday week using your saved plans.</p><label>Jump to a date <input id="week-picker-date" type="date" name="weekDate" min="2000-01-01" max="2099-12-31" required></label><div id="week-picker-preview" class="week-picker-preview" role="status" aria-live="polite"></div><div class="week-picker-presets"><button type="button" class="mini-button" data-action="week-picker-relative" data-offset="-7">← Previous</button><button type="button" class="mini-button" data-action="week-picker-current">This week</button><button type="button" class="mini-button" data-action="week-picker-relative" data-offset="7">Next →</button></div><div class="week-picker-recent"><div class="panel-kicker">RECENT SAVED WEEKS</div><div id="week-picker-saved" class="week-picker-saved"></div></div><p id="week-picker-error" class="form-error" role="alert"></p><div class="modal-actions"><button type="button" class="mini-button" data-action="close-dialog">Cancel</button><button type="submit" class="button button-dark">Go to week</button></div></form></dialog>
   <dialog id="repeat-week-dialog" class="app-dialog" aria-labelledby="repeat-week-title"><form id="repeat-week-form" novalidate><div class="modal-head"><div><div class="panel-kicker">REUSE YOUR TIME</div><h2 id="repeat-week-title">Copy weekly time blocks</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close copy week">×</button></div><p class="panel-description" id="repeat-week-explainer"></p><fieldset class="repeat-week-options"><legend>What should carry forward?</legend><label class="check-row"><input type="checkbox" name="includeBusy" checked> Busy time — work, classes, appointments</label><label class="check-row"><input type="checkbox" name="includeFocus" checked> Focus time — space for your tasks</label></fieldset><div id="repeat-week-preview" class="repeat-week-preview" role="status" aria-live="polite"></div><p class="repeat-week-safety">Your existing blocks, tasks, habit check-ins, goal evidence and reviews will never be replaced. Exact duplicates and overlapping blocks are skipped. <strong>Tasks are never copied.</strong></p><div id="repeat-week-error" class="form-error" role="alert"></div><div class="modal-actions"><button type="button" class="mini-button" data-action="close-dialog">Cancel</button><button type="submit" class="button button-dark" id="repeat-week-confirm">Copy time blocks</button></div></form></dialog>
-  <dialog id="task-dialog" class="app-dialog" aria-labelledby="task-dialog-title"><form id="task-form" novalidate><div class="modal-head"><div><div class="panel-kicker">TASK MANAGEMENT</div><h2 id="task-dialog-title">Add task</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div><input type="hidden" name="id"><label>Task name <input name="title" required maxlength="120" placeholder="e.g. Complete assignment"></label><div class="form-grid"><label>Duration (minutes) <input name="duration" type="number" min="5" max="480" step="5" value="30" required></label><label>Area <select name="category">${CATEGORIES.map(c=>`<option>${c}</option>`).join('')}</select></label></div><section class="task-placement-panel" aria-labelledby="task-placement-heading"><div class="task-placement-title"><span class="panel-kicker">SMART PLACEMENT</span><h3 id="task-placement-heading">Where does this task fit?</h3></div><div id="task-placement-suggestions" aria-live="polite"></div><div id="task-placement-feedback" class="task-placement-feedback" role="status"></div></section><details id="task-manual-options" class="task-manual-options"><summary>More scheduling options <span>Choose a block or time manually</span></summary><div class="task-manual-inner"><label>Assign to time block <select name="blockId"></select></label><label>Schedule start (optional) <input type="time" name="scheduledTime"><small>Leave blank for Planned; scheduled start must fit inside the chosen block.</small></label></div></details><label class="check-row"><input type="checkbox" name="done"> Mark completed</label><div id="task-form-error" class="form-error" role="alert"></div><div class="modal-actions"><button class="mini-button danger-button" type="button" data-action="delete-task" id="delete-task-button" hidden>Delete task</button><button class="mini-button" type="button" data-action="close-dialog">Cancel</button><button class="button button-dark" type="submit">Save task</button></div></form></dialog>
+  <dialog id="task-dialog" class="app-dialog" aria-labelledby="task-dialog-title"><form id="task-form" novalidate><div class="modal-head"><div><div class="panel-kicker">TASK MANAGEMENT</div><h2 id="task-dialog-title">Add task</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div><input type="hidden" name="id"><label>Task name <input name="title" required maxlength="120" placeholder="e.g. Complete assignment"></label><div class="form-grid"><label>Duration (minutes) <input name="duration" type="number" min="5" max="480" step="5" value="30" required></label><label>Area <select name="category">${CATEGORIES.map(c=>`<option>${c}</option>`).join('')}</select></label></div><section class="task-placement-panel" aria-labelledby="task-placement-heading"><div class="task-placement-title"><span class="panel-kicker">SMART PLACEMENT</span><h3 id="task-placement-heading">Where does this task fit?</h3></div><div id="task-placement-suggestions" aria-live="polite"></div><div id="task-placement-feedback" class="task-placement-feedback" role="status"></div></section><p id="capacity-challenge-guidance" class="capacity-challenge-guidance" role="note" hidden></p><details id="task-manual-options" class="task-manual-options"><summary>More scheduling options <span>Choose a block or time manually</span></summary><div class="task-manual-inner"><label>Assign to time block <select name="blockId"></select></label><label>Schedule start (optional) <input type="time" name="scheduledTime"><small>Leave blank for Planned; scheduled start must fit inside the chosen block.</small></label></div></details><label class="check-row"><input type="checkbox" name="done"> Mark completed</label><div id="task-form-error" class="form-error" role="alert"></div><div class="modal-actions"><button class="mini-button danger-button" type="button" data-action="delete-task" id="delete-task-button" hidden>Delete task</button><button class="mini-button" type="button" data-action="close-dialog">Cancel</button><button class="button button-dark" type="submit">Save task</button></div></form></dialog>
   <dialog id="block-dialog" class="app-dialog" aria-labelledby="block-dialog-title"><form id="block-form" novalidate><div class="modal-head"><div><div class="panel-kicker">YOUR WEEKLY TIMETABLE</div><h2 id="block-dialog-title">Add time block</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div><input type="hidden" name="id"><label>Block name <input name="title" required maxlength="90" placeholder="e.g. Work shift"></label><label>Block type <select name="kind"><option value="focus">Focus time — available for tasks</option><option value="busy">Busy time — work, class, appointment</option></select></label><div class="form-grid"><label>Day <select name="day">${DAYS.map((d,i)=>`<option value="${i}">${d}</option>`).join('')}</select></label><label>Area <select name="category">${BLOCK_AREAS.map(c=>`<option>${c}</option>`).join('')}</select></label><label>Start time <input type="time" name="start" required value="09:00"></label><label>End time <input type="time" name="end" required value="10:00"></label></div><div id="block-time-summary" class="block-time-summary" role="status">1h available for tasks</div><p class="form-helper">Example: a work shift from 09:00 to 20:00 is 11h busy time. Busy blocks reserve those hours and cannot hold tasks. End time must be later the same day.</p><div id="block-form-error" class="form-error" role="alert"></div><div class="modal-actions"><button class="mini-button danger-button" type="button" data-action="delete-block" id="delete-block-button" hidden>Delete block</button><button class="mini-button" type="button" data-action="close-dialog">Cancel</button><button class="button button-dark" type="submit">Save time block</button></div></form></dialog>
   <dialog id="goals-dialog" class="app-dialog" aria-labelledby="goals-dialog-title"><form id="goals-form" novalidate><div class="modal-head"><div><div class="panel-kicker">KPI COMPASS</div><h2 id="goals-dialog-title">Your directions</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div><p class="panel-description" id="goals-dialog-description">Track outcomes that increase (courses passed) or decrease (courses left). A target of zero is valid for a decreasing goal. Stored only on this device.</p><div id="goal-fields"></div><p id="goals-form-error" class="form-error goal-form-error" role="alert" aria-live="assertive"></p><div class="modal-actions goals-sticky-actions"><button type="button" class="mini-button" data-action="close-dialog">Cancel</button><button type="submit" class="button button-dark" id="goals-submit">Save all directions</button></div></form></dialog>
   <dialog id="evidence-dialog" class="app-dialog" aria-labelledby="evidence-dialog-title"><form id="evidence-form" novalidate><div class="modal-head"><div><div class="panel-kicker">KPI COMPASS · PROGRESS LOG</div><h2 id="evidence-dialog-title">Record evidence</h2></div><button type="button" class="modal-close" data-action="close-dialog" aria-label="Close">×</button></div>
@@ -489,7 +555,7 @@
   <div class="form-grid"><label>Date <input type="date" name="date" required></label><label><span id="evidence-delta-label">Progress made (optional)</span> <input type="number" min="0" max="100000" step="0.5" name="delta" value="0"><small id="evidence-delta-help">For increasing goals, this adds to the current value. For decreasing goals, this removes from the remaining amount.</small></label></div>
   <div class="form-grid"><label>Energy (optional) <select name="energy"><option value="">Not recorded</option>${[1,2,3,4,5].map(n=>`<option value="${n}">${n}/5</option>`).join('')}</select></label><label>Friction (optional) <input name="friction" maxlength="300" placeholder="What slowed you down?"></label></div>
   <div id="evidence-form-error" class="form-error" role="alert"></div><div class="modal-actions"><button type="button" class="mini-button" data-action="close-dialog">Cancel</button><button type="submit" class="button button-dark">Save evidence</button></div></form></dialog>`); }
-  function openTask(id='',initialBlock=''){const t=week().tasks.find(t=>t.id===id);const dialog=$('#task-dialog'),f=$('#task-form');f.reset();f.elements.id.value=t?.id||'';f.elements.title.value=t?.title||'';f.elements.duration.value=t?.duration||30;f.elements.category.value=t?.category||'Study';f.elements.blockId.innerHTML=blockOptions(t?.blockId||initialBlock,t?.id||'');f.elements.scheduledTime.value=t?.scheduledTime||'';f.elements.done.checked=!!t?.done;$('#task-dialog-title').textContent=t?'Edit task':'Add task';$('#delete-task-button').hidden=!t;$('#task-form-error').textContent='';$('#task-manual-options').open=!!t||!!initialBlock;dialog.showModal();updateTaskPlacements();f.elements.title.focus();}
+  function openTask(id='',initialBlock=''){const t=week().tasks.find(t=>t.id===id);const dialog=$('#task-dialog'),f=$('#task-form');f.reset();f.elements.id.value=t?.id||'';f.elements.title.value=t?.title||'';f.elements.duration.value=t?.duration||30;f.elements.category.value=t?.category||'Study';f.elements.blockId.innerHTML=blockOptions(t?.blockId||initialBlock,t?.id||'');f.elements.scheduledTime.value=t?.scheduledTime||'';f.elements.done.checked=!!t?.done;$('#task-dialog-title').textContent=t?'Edit task':'Add task';$('#delete-task-button').hidden=!t;$('#task-form-error').textContent='';const challengeNote=$('#capacity-challenge-guidance');if(challengeNote){challengeNote.hidden=true;challengeNote.textContent='';}$('#task-manual-options').open=!!t||!!initialBlock;dialog.showModal();updateTaskPlacements();f.elements.title.focus();}
   function updateBlockTimeSummary(){
     const f=$('#block-form');if(!f)return;
     const diff=minute(f.elements.end.value||'00:00')-minute(f.elements.start.value||'00:00');
@@ -736,8 +802,101 @@
     markAndRender(compassSaveConfirmation);
   }
   function exportState(){const payload=JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2);const url=URL.createObjectURL(new Blob([payload],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`weekweave-backup-${dateKey(new Date())}.json`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);notice('JSON backup downloaded.');}
-  function validateImport(data){if(!data||data.version!==2||typeof data.weeks!=='object'||Array.isArray(data.weeks)||!Array.isArray(data.goals)||typeof data.activeWeek!=='string')throw Error('This is not a Weekweave v2 backup.');for(const w of Object.values(data.weeks)){if(!w||!Array.isArray(w.tasks)||!Array.isArray(w.blocks)||typeof w.review!=='object'||typeof w.habits!=='object')throw Error('Backup contains an invalid week.');if(w.tasks.length>3000||w.blocks.length>500)throw Error('Backup has too many items.');}if(Object.keys(data.weeks).length>1000)throw Error('Backup exceeds the week limit.');return data;}
-  async function importState(file){if(!file)return;if(file.size>3*1024*1024){notice('Backup exceeds 3 MB.',true);return;}try{const imported=validateImport(JSON.parse(await file.text()));if(!confirm('Replace all Weekweave data in this browser with the imported backup?'))return;state=imported;normalizeGoals();state.activeWeek=monday(state.activeWeek);overviewSelectedDay=null;week();persist();render();notice('Backup imported.');}catch(e){notice(`Import failed: ${e.message}`,true);}}
+  // Reject malformed backups before replacing a working plan.
+  function validateImport(data){
+    const record=value=>value!==null && typeof value==='object' && !Array.isArray(value);
+    const validTime=value=>typeof value==='string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
+    const fail=message=>{throw Error(message);};
+    if(!record(data) || data.version!==2 || !record(data.weeks) ||
+       !Array.isArray(data.goals) || !validWeekDate(data.activeWeek))
+      fail('This is not a valid Weekweave v2 backup.');
+    const keys=Object.keys(data.weeks);
+    if(keys.length>1000 || data.goals.length>20)fail('Backup exceeds the workspace limits.');
+    if(data.goals.some(g=>!record(g)))fail('Backup contains an invalid goal.');
+    for(const key of keys){
+      if(!validWeekDate(key) || monday(key)!==key)fail('Backup contains an invalid week date.');
+      const w=data.weeks[key];
+      if(!record(w) || !Array.isArray(w.tasks) || !Array.isArray(w.blocks) ||
+         !record(w.review) || !record(w.habits))fail('Backup contains an invalid week.');
+      if(w.tasks.length>3000 || w.blocks.length>500)fail('Backup has too many items.');
+      for(const days of Object.values(w.habits))
+        if(!Array.isArray(days) || days.length>7 || days.some(day=>typeof day!=='boolean'))
+          fail('Backup contains invalid habit check-ins.');
+      const blocks=new Map(),dayBlocks=Array.from({length:7},()=>[]);
+      for(const b of w.blocks){
+        if(!record(b) || typeof b.id!=='string' || !b.id || blocks.has(b.id) ||
+           typeof b.title!=='string' || !b.title.trim() ||
+           !Number.isInteger(b.day) || b.day<0 || b.day>6 ||
+           (b.kind!==undefined && b.kind!=='busy' && b.kind!=='focus') ||
+           !Number.isInteger(b.duration) || b.duration<15 ||
+           b.duration>(busy(b)?1439:480) || !validTime(b.start) ||
+           minute(b.start)+b.duration>1440)
+          fail('Backup contains an invalid time block.');
+        const begin=minute(b.start),end=begin+b.duration;
+        if(dayBlocks[b.day].some(existing=>begin<existing.end && existing.begin<end))
+          fail('Backup contains overlapping time blocks.');
+        dayBlocks[b.day].push({begin,end});
+        blocks.set(b.id,b);
+      }
+      const taskIds=new Set(),usedByBlock=new Map(),scheduledByBlock=new Map();
+      for(const t of w.tasks){
+        if(!record(t) || typeof t.id!=='string' || !t.id || taskIds.has(t.id) ||
+           typeof t.title!=='string' || !t.title.trim() ||
+           !Number.isInteger(t.duration) || t.duration<5 || t.duration>480 ||
+           (t.done!==undefined && typeof t.done!=='boolean') ||
+           (t.blockId!=null && typeof t.blockId!=='string') ||
+           (t.scheduledTime!=null && t.scheduledTime!=='' && !validTime(t.scheduledTime)))
+          fail('Backup contains an invalid task.');
+        taskIds.add(t.id);
+        const blockId=t.blockId||'',scheduled=t.scheduledTime||'';
+        if(scheduled && !blockId)fail('Backup contains a scheduled task without a Focus block.');
+        if(!blockId)continue;
+        const b=blocks.get(blockId);
+        if(!b || busy(b))fail('Backup contains a task assigned to an unavailable block.');
+        if(scheduled){
+          const begin=minute(scheduled),end=begin+t.duration,blockStart=minute(b.start);
+          if(begin<blockStart || end>blockStart+b.duration)
+            fail('Backup contains a task outside its Focus block.');
+          if(!t.done){
+            const starts=scheduledByBlock.get(blockId)||[];
+            if(starts.some(other=>begin<other.end && other.begin<end))
+              fail('Backup contains overlapping scheduled tasks.');
+            starts.push({begin,end});scheduledByBlock.set(blockId,starts);
+          }
+        }
+        if(!t.done){
+          const total=(usedByBlock.get(blockId)||0)+t.duration;
+          if(total>b.duration)fail('Backup contains tasks exceeding Focus capacity.');
+          usedByBlock.set(blockId,total);
+        }
+      }
+    }
+    return data;
+  }
+  async function importState(file){
+    if(!file)return;
+    if(file.size>3*1024*1024){notice('Backup exceeds 3 MB.',true);return;}
+    try{
+      const imported=validateImport(JSON.parse(await file.text()));
+      if(!confirm('Replace all Weekweave data in this browser with the imported backup?'))return;
+      const previous=state,previousCalendar=calendarDate,previousDay=overviewSelectedDay;
+      try{
+        state=imported;
+        normalizeGoals();
+        state.activeWeek=monday(state.activeWeek);
+        calendarDate=state.activeWeek===currentMonday?todayKey:state.activeWeek;
+        overviewSelectedDay=null;
+        week();
+        render();
+        if(!persist())throw Error('Browser storage is unavailable; your original workspace was retained.');
+      }catch(error){
+        state=previous;calendarDate=previousCalendar;overviewSelectedDay=previousDay;
+        persist();render();
+        throw error;
+      }
+      notice('Backup imported and saved.');
+    }catch(e){notice('Import failed: '+e.message,true);}
+  }
   document.addEventListener('click',event=>{const btn=event.target.closest('[data-action]');if(!btn)return;const action=btn.dataset.action,id=btn.dataset.id||'';if(action==='use-focus-suggestion'){const f=$('#task-form'),target=blockById(id);if(!f||!target)return;f.elements.blockId.value=id;f.elements.scheduledTime.value=btn.dataset.time||'';$('#task-form-error').textContent='';updateTaskPlacements();const status=$('#task-placement-feedback');if(status)status.textContent=btn.dataset.time?`Ready: ${DAYS[target.day]} at ${btn.dataset.time} in ${target.title}. Select Save task to confirm.`:`Planned in ${target.title}. Open more scheduling options if you need a specific time, then Save.`;}else if(action==='copy-week-next')openCopyWeek('next');else if(action==='copy-week-previous')openCopyWeek('previous');else if(action==='open-week-picker')openWeekPicker();else if(action==='week-picker-current')chooseWeek(todayKey);else if(action==='week-picker-relative')chooseWeek(addDays(state.activeWeek,Number(btn.dataset.offset)||0));else if(action==='week-picker-saved')chooseWeek(btn.dataset.week);else if(action==='cal-view'){if(['day','week','month'].includes(btn.dataset.view)){calendarView=btn.dataset.view;render();}}
     else if(action==='cal-prev')moveCalendar(-1);
     else if(action==='cal-next')moveCalendar(1);
@@ -750,9 +909,20 @@
     else if(action==='quick-busy')openBlock('',Number(btn.dataset.day??overviewDayIndex()),'busy');
     else if(action==='quick-focus')openBlock('',Number(btn.dataset.day??overviewDayIndex()),'focus');
     else if(action==='save-task-and-focus')saveTaskAndOpenFocus();
+    else if(action==='try-capacity-challenge')openCapacityChallenge();
+    else if(action==='dismiss-capacity-challenge'){markChallengeSeen();btn.closest('.capacity-challenge-panel')?.remove();}
     else if(action==='load-sample'){
       if(!isBlankWorkspace()){notice('Your workspace already has data. It was not replaced.',true);}
-      else{state.weeks[state.activeWeek]=makeWeek(true);markAndRender('Example week loaded. Edit it freely or reset to start over.');}
+      else{
+        // Only an empty workspace can opt in. Preserve any other saved weeks,
+        // and show the example on its actual November 2-8, 2026 dates.
+        state.weeks[SAMPLE_WEEK_KEY]=makeWeek(true);
+        state.activeWeek=SAMPLE_WEEK_KEY;
+        state.goals=JSON.parse(JSON.stringify(SAMPLE_BACKUP.goals));
+        normalizeGoals();
+        overviewSelectedDay=null;
+        markAndRender('Example week loaded. Edit your own copy or reset to start fresh.');
+      }
     }
     else if(action==='overview-day'){const n=Number(btn.dataset.day);if(Number.isInteger(n)&&n>=0&&n<=6){overviewSelectedDay=n;render();}}else if(action==='prev-week')setWeek(addDays(state.activeWeek,-7));else if(action==='next-week')setWeek(addDays(state.activeWeek,7));else if(action==='this-week')setWeek(currentMonday);else if(action==='add-task')openTask('',btn.dataset.block||'');else if(action==='edit-task')openTask(id);else if(action==='add-block')openBlock('',Number(btn.dataset.day||0));else if(action==='edit-block')openBlock(id);else if(action==='delete-task')deleteTask();else if(action==='delete-block')deleteBlock();else if(action==='close-dialog')closeDialogs();else if(action==='edit-goals')showGoals(id);else if(action==='log-evidence')openEvidence(id);else if(action==='delete-evidence')deleteEvidence(btn.dataset.goal,id);else if(action==='review-next-week'){if(page==='review'&&reviewDirty&&!confirm('Leave your unsaved review?'))return;state.activeWeek=addDays(state.activeWeek,7);persist();window.location.assign('tasks.html');}else if(action==='export')exportState();else if(action==='import')$('#import-file').click();else if(action==='reset'){if(confirm('Clear this device’s Weekweave workspace? This deletes your saved weeks, tasks, goals and reviews. Export a backup first.')){state={version:2,activeWeek:currentMonday,weeks:{[currentMonday]:makeWeek()},goals:initialGoals()};overviewSelectedDay=null;normalizeGoals();persist();render();notice('Blank workspace ready.');}}});
   document.addEventListener('change',event=>{const target=event.target;if(target.closest('#repeat-week-form'))updateCopyWeekPreview();else if(target.id==='week-picker-date')weekPickerPreview();else if(target.closest('#task-form')){if(['category','blockId'].includes(target.name))updateTaskPlacements();}else if(target.matches('[data-toggle-task]'))toggleTask(target.dataset.toggleTask,target.checked);else if(target.matches('[data-habit]')){const name=target.dataset.habit,i=Number(target.dataset.day);if(!HABITS.includes(name)||i<0||i>6)return;week().habits[name]||=Array(7).fill(false);week().habits[name][i]=target.checked;persist();notice('Habit saved.');}else if(target.id==='import-file'){importState(target.files[0]);target.value='';}else if(target.matches('[data-goal-mode]')){updateGoalModeFields(target);const error=$('#goals-form-error');if(error)error.textContent='';}else if(target.name==='goalId'&&target.closest('#evidence-form'))updateEvidenceHint();else if(target.closest('#block-form')){if(target.name==='kind'){const f=target.form;if(target.value==='busy'&&f.elements.category.value==='Study')f.elements.category.value='Work';else if(target.value==='focus'&&f.elements.category.value==='Work')f.elements.category.value='Study';}updateBlockTimeSummary();}});

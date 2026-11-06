@@ -1,0 +1,301 @@
+{
+  "version": 2,
+  "activeWeek": "2026-11-02",
+  "weeks": {
+    "2026-11-02": {
+      "blocks": [
+        {
+          "id": "block-mon",
+          "day": 0,
+          "title": "Study sprint",
+          "category": "Study",
+          "start": "09:00",
+          "duration": 120
+        },
+        {
+          "id": "block-tue",
+          "day": 1,
+          "title": "Build time",
+          "category": "Build",
+          "start": "10:00",
+          "duration": 120
+        },
+        {
+          "id": "block-thu",
+          "day": 3,
+          "title": "Morning studying",
+          "category": "Personal",
+          "start": "08:30",
+          "duration": 270,
+          "kind": "focus"
+        },
+        {
+          "id": "block-fri",
+          "day": 4,
+          "title": "Study",
+          "category": "Study",
+          "start": "09:00",
+          "duration": 240,
+          "kind": "focus"
+        },
+        {
+          "id": "ebcc1628-73da-4458-88cf-7bf6b1d72be2",
+          "title": "lunch",
+          "day": 0,
+          "category": "Personal",
+          "start": "11:00",
+          "duration": 60
+        },
+        {
+          "id": "73adc927-8174-4d9d-811c-4b6656c82d61",
+          "title": "Studying",
+          "day": 0,
+          "category": "Study",
+          "start": "14:00",
+          "duration": 60,
+          "kind": "focus"
+        },
+        {
+          "id": "d491fef1-1a61-4466-92a7-ea98033c8d03",
+          "title": "Work shift",
+          "day": 5,
+          "category": "Work",
+          "start": "09:00",
+          "duration": 660,
+          "kind": "busy"
+        },
+        {
+          "id": "5204115c-fa8d-4a27-87f4-a93b64fdd6ef",
+          "title": "Work shift",
+          "day": 6,
+          "category": "Work",
+          "kind": "busy",
+          "start": "09:00",
+          "duration": 660
+        },
+        {
+          "id": "0fc7d169-0f9f-4ea3-825d-091ea2249082",
+          "title": "Python lecture",
+          "day": 3,
+          "category": "Study",
+          "kind": "busy",
+          "start": "13:00",
+          "duration": 90
+        },
+        {
+          "id": "d27e23a4-33fc-43eb-a004-5a2fd0316290",
+          "title": "Core workout",
+          "day": 3,
+          "category": "Personal",
+          "kind": "focus",
+          "start": "15:00",
+          "duration": 30
+        },
+        {
+          "id": "9e27435c-9096-4de4-aea3-548d529715e1",
+          "title": "Content planning",
+          "day": 4,
+          "category": "Personal",
+          "kind": "focus",
+          "start": "18:00",
+          "duration": 240
+        },
+        {
+          "id": "b1bb5465-2951-4825-8ac4-c7fc58549166",
+          "title": "Core workout",
+          "day": 4,
+          "category": "Personal",
+          "kind": "focus",
+          "start": "13:00",
+          "duration": 30
+        }
+      ],
+      "tasks": [
+        {
+          "id": "task-review",
+          "title": "Review data structures notes",
+          "duration": 60,
+          "category": "Study",
+          "blockId": "block-mon",
+          "scheduledTime": "09:00",
+          "done": true
+        },
+        {
+          "id": "task-proto",
+          "title": "Prototype one useful feature",
+          "duration": 45,
+          "category": "Build",
+          "blockId": "block-tue",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "2b5e4d42-8ad2-4fec-97f2-5d049842a9af",
+          "title": "Parallel programming",
+          "duration": 90,
+          "category": "Study",
+          "blockId": "",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "b67ed162-b60d-498d-a841-23e642e7b222",
+          "title": "Lecture 5 HW",
+          "duration": 60,
+          "category": "Study",
+          "blockId": "",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "6dda3567-f2fa-4587-80fc-074f22da95d5",
+          "title": "Lecture 5 study",
+          "duration": 60,
+          "category": "Study",
+          "blockId": "",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "c91e367c-feda-4814-8ada-4a701e34d30f",
+          "title": "Data structures lectures 3",
+          "duration": 60,
+          "category": "Study",
+          "blockId": "block-fri",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "13563022-669e-4584-b5e0-18de32508d89",
+          "title": "Data structures lectures 4",
+          "duration": 60,
+          "category": "Study",
+          "blockId": "block-fri",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "dd94e1f4-bfad-4177-b1ee-b82e6e6ad31d",
+          "title": "Data structures lecture exercises",
+          "duration": 120,
+          "category": "Study",
+          "blockId": "block-fri",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "c04ef2ed-dfc6-493c-9089-395050b50c1c",
+          "title": "Workout",
+          "duration": 30,
+          "category": "Study",
+          "blockId": "d27e23a4-33fc-43eb-a004-5a2fd0316290",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "a99fea0f-5fd7-44ff-a38d-b106a99be8e0",
+          "title": "Content planning",
+          "duration": 45,
+          "category": "Study",
+          "blockId": "9e27435c-9096-4de4-aea3-548d529715e1",
+          "scheduledTime": "",
+          "done": false
+        },
+        {
+          "id": "e3f5546e-9259-409d-8c8d-4f290d5db59a",
+          "title": "Portfolio project",
+          "duration": 60,
+          "category": "Personal",
+          "blockId": "9e27435c-9096-4de4-aea3-548d529715e1",
+          "scheduledTime": "",
+          "done": false
+        }
+      ],
+      "habits": {
+        "Morning reset": [
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "review": {
+        "wins": "",
+        "friction": "",
+        "change": "",
+        "anchor": "",
+        "savedAt": ""
+      },
+      "starter": false,
+      "createdAt": "2026-11-04T12:21:48.548Z",
+      "isSample": true
+    },
+    "2026-11-09": {
+      "blocks": [],
+      "tasks": [],
+      "habits": {},
+      "review": {
+        "wins": "",
+        "friction": "",
+        "change": "",
+        "anchor": "",
+        "energy": "",
+        "savedAt": ""
+      },
+      "starter": false,
+      "createdAt": "2026-11-04T19:43:31.773Z"
+    }
+  },
+  "goals": [
+    {
+      "id": "goal-study",
+      "category": "Study",
+      "title": "Complete the degree",
+      "outcome": "Pass remaining courses",
+      "metric": "courses left",
+      "unit": "courses",
+      "target": 0,
+      "current": 5,
+      "dueDate": "2027-06-01",
+      "paused": false,
+      "evidence": [],
+      "mode": "decrease",
+      "baseline": 5
+    },
+    {
+      "id": "goal-build",
+      "category": "Build",
+      "title": "Grow technical skills",
+      "outcome": "Ship products",
+      "metric": "shipped products",
+      "unit": "",
+      "target": 3,
+      "current": 0,
+      "dueDate": "2027-06-01",
+      "paused": false,
+      "evidence": [],
+      "mode": "increase",
+      "baseline": 0
+    },
+    {
+      "id": "goal-personal",
+      "category": "Personal",
+      "title": "Protect energy",
+      "outcome": "Make space for rest and health",
+      "metric": "energy",
+      "unit": "%",
+      "target": 100,
+      "current": 70,
+      "dueDate": "2027-06-01",
+      "paused": false,
+      "evidence": [],
+      "mode": "increase",
+      "baseline": 70
+    }
+  ],
+  "exampleCopy": true,
+  "exportedAt": "2026-11-06T10:02:07.521Z"
+}
