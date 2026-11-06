@@ -48,3 +48,5 @@ jobs:
         run: python tests/test_capacity_challenge_browser.py
       - name: Calendar initial scroll and early-event preservation
         run: python tests/test_calendar_initial_scroll_browser.py
+      - name: Archived November example and personal-data isolation
+        run: python tests/test_archived_example_browser.py
