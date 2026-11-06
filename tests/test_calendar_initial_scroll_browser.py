@@ -89,6 +89,8 @@ with sync_playwright() as pw:
     for width in (320,390,768,1365):
         ctx, page, errors = mount(browser, original, width=width)
         s = metrics(page)
+        baseline_data=data(page)
+        baseline_writes=page.evaluate('window.__writes')
         check(s['full']>s['height'] and s['top']>0,
               f'Calendar automatically scrolls to useful daytime hours at {width}px')
         check(abs(s['top']-s['initial'])<2,
@@ -99,8 +101,9 @@ with sync_playwright() as pw:
               f'Original 02:00 event is retained in timeline at {width}px')
         check(not errors and not page.evaluate('document.documentElement.scrollWidth>innerWidth+1'),
               f'No JS errors or horizontal page overflow at {width}px')
-        check(data(page)==fixture and page.evaluate('window.__writes')==0,
-              f'Automatic scrolling does not save or alter user data at {width}px')
+        check(data(page)==baseline_data and data(page)['weeks'][key]==fixture['weeks'][key] and
+              page.evaluate('window.__writes')==baseline_writes,
+              f'Automatic scrolling does not change or save planning data at {width}px')
         viewport(page).evaluate('(el)=>el.scrollTop=0')
         check(metrics(page)['top']==0,f'Scroll up exposes early event at {width}px')
         if width==1365:
