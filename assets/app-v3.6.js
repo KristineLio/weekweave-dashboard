@@ -201,7 +201,7 @@
   }
   function challengeTarget(){
     const candidates=week().blocks.filter(b=>!busy(b)&&Number.isFinite(slots(b.id))&&slots(b.id)>=0&&slots(b.id)<480);
-    candidates.sort((a,b)=>slots(a.id)-slots(b.id)||a.day-b.day||minute(a.start)-minute(b.start);
+    candidates.sort((a,b)=>slots(a.id)-slots(b.id)||a.day-b.day||minute(a.start)-minute(b.start));
     return candidates[0]||null;
   }
   function capacityChallengePanel(){
