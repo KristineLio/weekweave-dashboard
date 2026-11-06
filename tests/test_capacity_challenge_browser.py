@@ -1,7 +1,7 @@
 """Opt-in Weekweave capacity challenge — real scheduler, no automatic data changes.
 
 Run: python tests/test_capacity_challenge_browser.py
-This uses the repository sample and a synthetic 11-task fixture. It does NOT certify
+This uses the archived real 11-task example and an isolated personal 11-task fixture. It does NOT certify
 that a separately deployed VibeFlow 11-task sample has been imported correctly.
 """
 from pathlib import Path
@@ -119,8 +119,9 @@ with sync_playwright() as playwright:
     check(page.evaluate("window.__planningWrites()") == writes_before,
           "Rejected assignment does not write to localStorage")
 
-    # A real, deliberate valid save still works; the demo's four original tasks stay intact.
+    # A real, deliberate valid Inbox save still works; the demo's 11 original tasks remain intact.
     page.locator('#task-form [name="duration"]').fill("5")
+    page.locator('#task-form [name="blockId"]').select_option("")
     page.locator('#task-form [type="submit"]').click()
     valid = workspace(page)
     check(len(valid["weeks"][active]["tasks"]) == len(original_tasks) + 1,
@@ -159,7 +160,7 @@ with sync_playwright() as playwright:
     # A personal schedule, even with the same dates and 11 tasks, remains unaffected.
     personal = deepcopy(before_dismiss)
     personal_week = personal["weeks"][personal["activeWeek"]]
-    for i in range(7):
+    for i in range(max(0, 11-len(personal_week['tasks']))):
         personal_week["tasks"].append({
             "id": f"extra-personal-{i}", "title": f"Personal task {i}",
             "duration": 30, "category": "Study", "blockId": "",
